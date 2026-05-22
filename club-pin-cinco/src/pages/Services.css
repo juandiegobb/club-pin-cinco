@@ -1,0 +1,151 @@
+/* Color de fondo general de la página */
+.servicios-contenedor {
+  background-color: #0b0e14;
+  color: #ffffff;
+  font-family: sans-serif;
+  min-height: 100vh;
+}
+
+/* --- 1. HERO --- */
+/* --- 1. HERO --- */
+.servicios-hero {
+  /* Llama a la imagen completa que exportaste de Figma */
+  background-image: url('/images/banner-servicios.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  /* Altura del banner, ajusta este número si en Figma es más alto o bajo */
+  height: 300px; 
+  
+  /* Flexbox para centrar el título perfectamente en el medio */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.titulo-principal {
+  /* El color amarillo exacto de tu diseño */
+  color: #eef161; 
+  font-size: 3.5rem; /* Tamaño de la fuente */
+  font-weight: 800; /* Grosor de la letra para que se vea gruesa */
+  letter-spacing: 3px; /* Separación entre las letras */
+  margin: 0;
+  
+  /* Aquí creamos la línea amarilla de abajo */
+  border-bottom: 4px solid #eef161; 
+  padding-bottom: 8px; /* Controla la distancia entre el texto y la línea */
+}
+
+/* --- 2. TARJETAS (Grid) --- */
+.servicios-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  padding: 40px 24px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.tarjeta {
+  background-color: #10131d;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  padding: 28px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 24px;
+  align-items: center;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.tarjeta:hover {
+  transform: translateY(-3px);
+  border-color: rgba(125, 91, 255, 0.45);
+  box-shadow: 0 14px 40px rgba(0,0,0,0.25);
+}
+
+.tarjeta--destacada {
+  border-color: rgba(125, 91, 255, 0.75);
+  box-shadow: 0 0 0 1px rgba(125, 91, 255, 0.18), 0 14px 40px rgba(0,0,0,0.22);
+}
+
+.tarjeta-contenido {
+  display: flex;
+  flex-direction: column;
+}
+
+.tarjeta-contenido h2 {
+  color: #9eb2ff;
+  font-size: 1.5rem;
+  margin: 0 0 10px 0;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.titulo-tarifa {
+  color: #ff6b6b;
+}
+
+.tarjeta .icono {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.tarjeta-contenido p {
+  margin: 0;
+  color: #d7d7d7;
+  line-height: 1.8;
+}
+
+.tarjeta ul {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+  list-style: none;
+}
+  
+.tarjeta ul li {
+  margin: 0;
+  color: #d7d7d7;
+  line-height: 1.8;
+  list-style: none;
+}
+
+/* --- 3. EVENTO --- */
+.evento-seccion {
+  padding: 0 40px 60px 40px;
+  max-width: 1000px;
+  margin: 0 auto; 
+}
+
+.titulo-evento {
+  color: #f2d84c;
+  font-size: 2.2rem;
+  margin-bottom: 15px;
+}
+
+.texto-evento {
+  color: #cccccc;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.galeria-evento {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.imagen-placeholder {
+  background-color: #333;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  color: #777;
+}
