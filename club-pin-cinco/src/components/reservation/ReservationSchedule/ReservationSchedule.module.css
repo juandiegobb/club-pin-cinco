@@ -1,0 +1,44 @@
+/* Selector de horario */
+.wrapper {
+  display: grid;
+  gap: 12px;
+}
+
+.label {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.list {
+  display: grid;
+  gap: 10px;
+}
+
+/* Botón de horario sin seleccionar */
+.slot {
+  background: #0d0e22;
+  border: 1px solid #2a2b50;
+  border-radius: 8px;
+  color: #e0e0ff;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 14px 20px;
+  text-align: left;
+  transition: background 0.15s, border-color 0.15s;
+  width: 100%;
+}
+
+.slot:hover {
+  background: #1a1b35;
+  border-color: #3e43df;
+}
+
+/* Horario seleccionado */
+.slotActive {
+  background: #1a1b35;
+  border-color: #3e43df;
+  color: #fff;
+  font-weight: 700;
+}

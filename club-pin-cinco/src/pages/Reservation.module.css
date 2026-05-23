@@ -1,0 +1,49 @@
+/* Página Aparta tu Turno */
+.page {
+  display: grid;
+  gap: 36px;
+  margin: 0 auto;
+  max-width: 900px;
+  padding: 48px 48px 80px;
+}
+
+/* Título amarillo grande */
+.title {
+  color: #f4ff58;
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 900;
+  letter-spacing: 2px;
+  margin: 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Fila: calendario izquierda + horarios derecha */
+.row {
+  align-items: start;
+  display: grid;
+  gap: 32px;
+  grid-template-columns: 360px 1fr;
+}
+
+.calendarCol {
+  display: grid;
+  gap: 12px;
+}
+
+/* Etiqueta de paso */
+.stepLabel {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0;
+}
+
+@media (max-width: 860px) {
+  .page { padding: 36px 24px 60px; }
+  .row { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .page { padding: 28px 16px 48px; gap: 28px; }
+}

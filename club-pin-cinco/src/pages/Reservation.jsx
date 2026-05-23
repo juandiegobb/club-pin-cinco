@@ -1,85 +1,68 @@
+// Página de reserva — une todos los componentes
+// El estado se maneja aquí y se pasa a cada componente
 import { useState } from 'react'
-
-const initialForm = {
-  service: '',
-  date: '',
-  time: '',
-  name: '',
-  phone: '',
-  people: '',
-}
+import ReservationService from '../components/reservation/ReservationService/ReservationService'
+import ReservationCalendar from '../components/reservation/ReservationCalendar/ReservationCalendar'
+import ReservationSchedule from '../components/reservation/ReservationSchedule/ReservationSchedule'
+import ReservationForm from '../components/reservation/ReservationForm/ReservationForm'
+import styles from './Reservation.module.css'
 
 function Reservation() {
-  const [form, setForm] = useState(initialForm)
+  // Estado global de la reserva — todo en un solo objeto
+  const [form, setForm] = useState({
+    service: 'Bolos',   // servicio seleccionado por defecto
+    date: null,          // fecha elegida en el calendario
+    schedule: '',        // horario elegido
+    name: '',            // nombre del cliente
+    phone: '',           // celular
+    people: '',          // cantidad de personas
+  })
 
-  const handleChange = (event) => {
-    const { name, value } = event.target
-    setForm((current) => ({ ...current, [name]: value }))
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault()
-
-    const text = [
-      'Hola, quiero apartar un turno en Club Deportivo Pin Cinco.',
-      `Servicio: ${form.service}`,
-      `Fecha: ${form.date}`,
-      `Horario: ${form.time}`,
-      `Nombre: ${form.name}`,
-      `Celular: ${form.phone}`,
-      `Personas: ${form.people}`,
-    ].join('\n')
-
-    window.open(`https://wa.me/573202967582?text=${encodeURIComponent(text)}`, '_blank')
+  // Función genérica para actualizar cualquier campo del estado
+  function handleChange(field, value) {
+    setForm((prev) => ({ ...prev, [field]: value }))
   }
 
   return (
-    <section className="page page--reservation">
-      <h1>Aparta tu turno</h1>
-      <form className="reservation-form" onSubmit={handleSubmit}>
-        <label>
-          Servicio
-          <select name="service" value={form.service} onChange={handleChange}>
-            <option value="">Selecciona tu servicio</option>
-            <option value="Billar">Billar</option>
-            <option value="Bolos">Bolos</option>
-          </select>
-        </label>
+    <div className={styles.page}>
 
-        <label>
-          Fecha
-          <input type="date" name="date" value={form.date} onChange={handleChange} />
-        </label>
+      {/* Título principal */}
+      <h1 className={styles.title}>Aparta tu Turno</h1>
 
-        <label>
-          Horario
-          <select name="time" value={form.time} onChange={handleChange}>
-            <option value="">Selecciona un horario</option>
-            <option value="1:00 p.m - 2:00 p.m">1:00 p.m - 2:00 p.m</option>
-            <option value="2:00 p.m - 3:00 p.m">2:00 p.m - 3:00 p.m</option>
-            <option value="3:00 p.m - 4:00 p.m">3:00 p.m - 4:00 p.m</option>
-            <option value="4:00 p.m - 5:00 p.m">4:00 p.m - 5:00 p.m</option>
-          </select>
-        </label>
+      {/* Paso 1 — elegir servicio */}
+      <ReservationService
+        selected={form.service}
+        onChange={(val) => handleChange('service', val)}
+      />
 
-        <label>
-          Nombre completo
-          <input name="name" value={form.name} onChange={handleChange} placeholder="Escribe tu nombre" />
-        </label>
+      {/* Pasos 2 y 3 — calendario y horarios lado a lado */}
+      <div className={styles.row}>
+        <div className={styles.calendarCol}>
+          <p className={styles.stepLabel}>2. Elige la fecha</p>
+          <ReservationCalendar
+            selected={form.date}
+            onChange={(val) => handleChange('date', val)}
+          />
+        </div>
 
-        <label>
-          Numero de celular
-          <input name="phone" value={form.phone} onChange={handleChange} placeholder="Ej. 123 240 7517" />
-        </label>
+        <ReservationSchedule
+          selected={form.schedule}
+          onChange={(val) => handleChange('schedule', val)}
+        />
+      </div>
 
-        <label>
-          Cantidad de personas
-          <input name="people" value={form.people} onChange={handleChange} placeholder="Ej. 4" />
-        </label>
+      {/* Pasos 4, 5, 6 — formulario y envío */}
+      <ReservationForm
+        service={form.service}
+        date={form.date}
+        schedule={form.schedule}
+        name={form.name}
+        phone={form.phone}
+        people={form.people}
+        onChange={handleChange}
+      />
 
-        <button className="button" type="submit">Solicita tu turno</button>
-      </form>
-    </section>
+    </div>
   )
 }
 

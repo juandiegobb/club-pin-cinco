@@ -1,0 +1,86 @@
+/* Calendario de selección de fecha */
+.calendar {
+  background: #0d0e22;
+  border: 1px solid #2a2b50;
+  border-radius: 14px;
+  padding: 20px;
+  width: 360px;
+  min-width: 360px;
+}
+
+/* Fila superior: flecha — mes año — flecha */
+.header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.monthLabel {
+  color: #c084fc;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.arrow {
+  background: none;
+  border: none;
+  color: #c084fc;
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 1;
+  padding: 0 6px;
+}
+
+/* Grid de 7 columnas para los días */
+.grid {
+  display: grid;
+  gap: 6px;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.day {
+  aspect-ratio: 1;
+  background: none;
+  border: none;
+  border-radius: 999px;
+  color: #e0e0ff;
+  cursor: pointer;
+  font-size: 12px;
+  text-align: center;
+  transition: background 0.15s;
+  min-width: 36px;
+  min-height: 36px;
+}
+
+.dayName {
+  color: #8888aa;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 0;
+  text-align: center;
+  text-transform: uppercase;
+  min-width: 36px;
+}
+
+.day:hover:not(:disabled) {
+  background: #2a2b50;
+}
+
+/* Día seleccionado — círculo azul */
+.daySelected {
+  background: #3e43df !important;
+  color: #fff;
+  font-weight: 700;
+}
+
+/* Día pasado — gris, no clickeable */
+.dayPast {
+  color: #444466;
+  cursor: default;
+}
+
+/* Celda vacía al inicio del mes */
+.dayEmpty {
+  pointer-events: none;
+}

@@ -1,0 +1,101 @@
+/* Formulario de reserva */
+.wrapper {
+  display: grid;
+  gap: 24px;
+}
+
+/* Fila de 3 campos */
+.fields {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+.fieldLabel {
+  color: #e0e0ff;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* Input oscuro con borde sutil */
+.input {
+  background: #0d0e22;
+  border: 1px solid #2a2b50;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 14px;
+  min-height: 44px;
+  padding: 0 14px;
+  width: 100%;
+}
+
+.input::placeholder {
+  color: #555577;
+}
+
+.input:focus {
+  border-color: #3e43df;
+  outline: none;
+}
+
+/* Aviso naranja */
+.notice {
+  align-items: flex-start;
+  background: rgba(220, 73, 63, 0.12);
+  border: 1px solid #dc493f;
+  border-radius: 10px;
+  display: flex;
+  gap: 14px;
+  padding: 16px 20px;
+}
+
+.noticeIcon {
+  color: #dc493f;
+  font-size: 20px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.noticeText {
+  color: #e0e0ff;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Botón azul centrado */
+.button {
+  background: #3e43df;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 800;
+  margin: 0 auto;
+  min-height: 48px;
+  padding: 0 48px;
+  text-transform: uppercase;
+  display: block;
+}
+
+.button:hover {
+  background: #5258f0;
+}
+
+.hint {
+  color: #aaaacc;
+  font-size: 13px;
+  margin: 0;
+  text-align: center;
+}
+
+/* En móvil los campos van en columna */
+@media (max-width: 860px) {
+  .fields { grid-template-columns: 1fr; }
+}

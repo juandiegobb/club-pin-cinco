@@ -1,0 +1,39 @@
+/* Sección 1 — selector de servicio */
+.wrapper {
+  display: grid;
+  gap: 12px;
+}
+
+.label {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.options {
+  display: flex;
+  gap: 0;
+}
+
+/* Botón de servicio sin seleccionar */
+.option {
+  background: #1a1b35;
+  border: 1px solid #3a3b6a;
+  color: #aaa;
+  cursor: pointer;
+  flex: 1;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 10px 24px;
+  text-align: left;
+  text-transform: uppercase;
+  transition: background 0.2s;
+}
+
+/* Botón seleccionado — fondo azul */
+.optionActive {
+  background: #3e43df;
+  border-color: #3e43df;
+  color: #fff;
+}
