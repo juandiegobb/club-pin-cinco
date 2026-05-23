@@ -1,0 +1,84 @@
+.location {
+  border-right: 1px solid rgba(244, 255, 88, 0.5);
+  padding-right: 64px;
+}
+
+.title {
+  color: #f4ff58;
+  font-size: clamp(36px, 4vw, 52px);
+  line-height: 1;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.map {
+  background: #f8f8fb;
+  border-radius: 18px;
+  height: 210px;
+  margin: 24px 0 18px;
+  overflow: hidden;
+  position: relative;
+}
+
+.road {
+  background: #ccd2dc;
+  position: absolute;
+}
+
+.roadMain {
+  height: 270px;
+  left: 34px;
+  top: -42px;
+  transform: rotate(44deg);
+  width: 62px;
+}
+
+.roadSide {
+  height: 62px;
+  right: -18px;
+  top: 88px;
+  transform: rotate(-30deg);
+  width: 260px;
+}
+
+.pin {
+  background: #2fc27a;
+  border: 4px solid #fff;
+  border-radius: 999px;
+  box-shadow: 0 0 0 3px rgba(47, 194, 122, 0.28);
+  height: 18px;
+  left: 48%;
+  position: absolute;
+  top: 48%;
+  width: 18px;
+}
+
+.label {
+  color: #23a66b;
+  font-size: 12px;
+  left: 53%;
+  line-height: 1.1;
+  position: absolute;
+  text-transform: uppercase;
+  top: 48%;
+  width: 120px;
+}
+
+.address {
+  color: #fff;
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+@media (max-width: 860px) {
+  .location { border-right: 0; padding-right: 0; }
+  .map { height: 190px; }
+}
+
+@media (max-width: 560px) {
+  .map { border-radius: 12px; height: 170px; }
+  .title { font-size: 32px; }
+}

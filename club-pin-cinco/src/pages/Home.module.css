@@ -1,0 +1,21 @@
+.page {
+  background: #02020d;
+  overflow: hidden;
+}
+
+.info {
+  align-items: start;
+  display: grid;
+  gap: 64px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  margin: 72px auto 76px;
+  max-width: 1050px;
+}
+
+@media (max-width: 860px) {
+  .info { gap: 42px; grid-template-columns: 1fr; margin: 46px auto 54px; padding: 0 28px; }
+}
+
+@media (max-width: 560px) {
+  .info { padding: 0 18px; }
+}

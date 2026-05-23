@@ -1,0 +1,128 @@
+.heroContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.heroNav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 50px; /* Espaciado interno */
+  background-color: #333; /* Un fondo para que se note el nav */
+}
+
+.heroLogo {
+  width: 80px;      /* ¡Esto hará que el logo deje de ser gigante! */
+  height: auto;
+}
+
+.heroContent {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  margin-top: 50px;
+}
+
+/* Evita absolute para las imágenes del neón */
+.heroNeonLeft, .heroNeonRight {
+  max-width: 300px;
+  height: auto;
+}
+
+.heroText {
+  text-align: center;
+  max-width: 400px; /* Evita que el texto ocupe toda la pantalla */
+}
+
+.leftSide, .rightSide {
+  flex: 1;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+/* Este filtro oscuro ayuda a que el texto del centro resalte más */
+.leftSide::after, .rightSide::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.centerSide {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #050517;
+  padding: 20px;
+  z-index: 20;
+}
+
+
+.subtitle {
+  color: #ffff66;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+  letter-spacing: 1px;
+}
+
+.title {
+  color: #ffff66;
+  font-size: 4rem;
+  margin: 0 0 20px 0;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.description {
+  color: white;
+  margin-bottom: 30px;
+  line-height: 1.5;
+  font-size: 1.1rem;
+}
+
+.reserveButton {
+  background-color: #5a65ff;
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.reserveButton:hover {
+  background-color: #3b429f;
+}
+.heroSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.navBar {
+  display: flex;
+  justify-content: center; /* Centra el logo */
+  background-color: #5856d6; /* El color azul que se ve en tu captura */
+  padding: 10px;
+}
+
+.logo {
+  width: 100px; /* Tamaño controlado para que no ocupe toda la pantalla */
+  height: auto;
+}
+
+.bannerContainer {
+  display: flex;
+  width: 100%;
+  height: 300px; /* Altura fija para que las fotos no se deformen */
+}

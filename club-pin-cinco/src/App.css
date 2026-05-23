@@ -8,7 +8,7 @@
 
 .site-main {
   flex: 1;
-  padding-top: 86px;
+  padding-top: 100 px;
 }
 
 .navbar {
@@ -798,10 +798,34 @@
     right: 18px;
     width: 54px;
   }
+  .home-page {
+  position: relative;
+  background-color: #050517;
+  overflow-x: hidden; 
+}
 
   .chat-window {
     bottom: 86px;
     right: 18px;
     width: calc(100vw - 36px);
   }
+}
+.neon-flotante-izq {
+  position: absolute;
+  top: 60px; /* Lo empujamos debajo del navbar */
+  left: 10px;
+  width: 15vw;
+  max-width: 150px; /* Evita que crezca de forma desproporcionada */
+  z-index: 5;
+  pointer-events: none;
+}
+
+.neon-flotante-der {
+  position: absolute;
+  top: 60px;
+  right: 10px;
+  width: 20vw;
+  max-width: 200px; /* Límite de tamaño para el letrero de billar */
+  z-index: 5;
+  pointer-events: none;
 }

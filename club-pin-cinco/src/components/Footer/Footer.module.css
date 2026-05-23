@@ -1,0 +1,21 @@
+.footer {
+  background: #76231e;
+  color: #fff;
+  display: grid;
+  gap: 32px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: 28px max(48px, calc((100vw - 1180px) / 2));
+}
+
+.block { text-align: left; }
+
+.blockTitle {
+  color: #fff;
+  font-size: 14px;
+  margin: 0 0 14px;
+  text-transform: uppercase;
+}
+
+@media (max-width: 860px) {
+  .footer { grid-template-columns: 1fr; }
+}

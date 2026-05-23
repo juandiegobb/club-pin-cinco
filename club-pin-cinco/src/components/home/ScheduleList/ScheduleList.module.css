@@ -1,0 +1,49 @@
+.title {
+  color: #f4ff58;
+  font-size: clamp(36px, 4vw, 52px);
+  line-height: 1;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.list {
+  display: grid;
+  gap: 16px;
+  margin: 32px 0 24px;
+}
+
+.item {
+  background: #4b4b4b;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  margin: 0;
+  padding: 10px 22px;
+  text-align: center;
+}
+
+.note {
+  color: #fff;
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.35;
+  padding-left: 24px;
+  position: relative;
+}
+
+.note::before {
+  background: #8064e9;
+  border-radius: 999px;
+  content: "";
+  height: 12px;
+  left: 0;
+  position: absolute;
+  top: 4px;
+  width: 12px;
+}
+
+@media (max-width: 560px) {
+  .title { font-size: 32px; }
+}
