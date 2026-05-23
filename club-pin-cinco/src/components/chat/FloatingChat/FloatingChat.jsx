@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import ChatWindow from './ChatWindow'
+import ChatWindow from '../ChatWindow/ChatWindow'
+import styles from './FloatingChat.module.css'
 
 function FloatingChat() {
   const [isOpen, setIsOpen] = useState(false)
@@ -8,10 +9,10 @@ function FloatingChat() {
     <>
       {isOpen && <ChatWindow onClose={() => setIsOpen(false)} />}
       <button
-        className="floating-chat"
+        className={styles.btn}
         type="button"
         aria-label={isOpen ? 'Cerrar chat' : 'Abrir chat'}
-        onClick={() => setIsOpen((current) => !current)}
+        onClick={() => setIsOpen((prev) => !prev)}
       >
         ✉
       </button>

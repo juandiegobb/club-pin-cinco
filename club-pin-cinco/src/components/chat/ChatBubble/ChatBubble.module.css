@@ -1,0 +1,47 @@
+.row {
+  align-items: flex-start;
+  display: flex;
+  gap: 12px;
+  max-width: 680px;
+}
+
+.rowGuest {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.avatar {
+  flex-shrink: 0;
+  font-size: 32px;
+  line-height: 1;
+  margin-top: 4px;
+}
+
+/* Burbuja base — fondo hueso */
+.bubble {
+  border-radius: 16px;
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 100%;
+  overflow: hidden;
+  background: #e8e8f0;
+}
+
+/* Franja azul pequeña arriba — club */
+.bubbleClub {
+  border-top: 5px solid #3e43df;
+}
+
+/* Franja roja pequeña arriba — usuario */
+.bubbleGuest {
+  border-top: 5px solid #c0392b;
+}
+
+/* Texto dentro */
+.bubbleText {
+  color: #111;
+  display: block;
+  padding: 12px 18px 14px;
+  white-space: pre-line;
+}
