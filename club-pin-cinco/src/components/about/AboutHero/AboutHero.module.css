@@ -1,0 +1,32 @@
+/* Hero principal de la página Sobre Nosotros */
+.hero {
+  align-items: center;
+  background-image: url('../../../assets/about/about-hero.jpg');
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  min-height: 220px;
+  position: relative;
+}
+
+/* Capa oscura encima de la imagen para que se lea el título */
+.overlay {
+  background: rgba(2, 2, 13, 0.55);
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.title {
+  color: #f4ff58;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 800;
+  letter-spacing: 2px;
+  position: relative;
+  text-align: center;
+  text-transform: uppercase;
+  z-index: 1;
+}

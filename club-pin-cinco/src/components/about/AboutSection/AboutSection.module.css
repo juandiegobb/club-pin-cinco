@@ -1,0 +1,69 @@
+/* Sección con imagen a la izquierda y texto a la derecha */
+.section {
+  align-items: center;
+  background: #0a0b1a;
+  border-radius: 16px;
+  display: grid;
+  gap: 32px;
+  grid-template-columns: 280px 1fr;
+  margin-bottom: 32px;
+  overflow: hidden;
+  padding: 32px;
+}
+
+/* Variante: imagen a la derecha y texto a la izquierda */
+.sectionReverse {
+  grid-template-columns: 1fr 280px;
+}
+
+.sectionReverse .image {
+  order: 2;
+}
+
+.sectionReverse .content {
+  order: 1;
+}
+
+.image {
+  border-radius: 12px;
+  height: 200px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.content {
+  display: grid;
+  gap: 14px;
+}
+
+/* Título amarillo igual que en el resto del sitio */
+.title {
+  color: #f4ff58;
+  font-size: clamp(20px, 2.5vw, 28px);
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.text {
+  color: #e0e0f0;
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* En móvil todo queda en columna */
+@media (max-width: 860px) {
+  .section,
+  .sectionReverse {
+    grid-template-columns: 1fr;
+  }
+
+  .sectionReverse .image,
+  .sectionReverse .content {
+    order: unset;
+  }
+
+  .image { height: 180px; }
+}

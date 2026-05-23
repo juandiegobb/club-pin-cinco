@@ -1,0 +1,20 @@
+/* Galería de 3 fotos en fila para la sección Historia */
+.gallery {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 28px 0 8px;
+}
+
+.photo {
+  border-radius: 12px;
+  height: 200px;
+  object-fit: cover;
+  width: 100%;
+}
+
+/* En móvil quedan en columna */
+@media (max-width: 860px) {
+  .gallery { grid-template-columns: 1fr; }
+  .photo { height: 220px; }
+}
