@@ -1,0 +1,100 @@
+/* 5 imágenes visibles: tiny | medium | CENTER | medium | tiny */
+.carousel {
+  align-items: center;
+  display: grid;
+  grid-template-columns: 100px 200px 1fr 200px 100px;
+  gap: 12px;
+  min-height: 380px;
+  width: 100%;
+}
+
+/* Extremos — muy pequeños, con la flecha encima */
+.farSide {
+  border-radius: 12px;
+  height: 180px;
+  overflow: hidden;
+  opacity: 0.45;
+  position: relative;
+}
+
+.farImage {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+/* Flecha encima de la imagen pequeña del extremo */
+.arrow {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 80px;
+  font-weight: 100;
+  height: auto;
+  left: 50%;
+  line-height: 1;
+  position: absolute;
+  text-shadow: 0 2px 18px rgba(0,0,0,0.9);
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.2s;
+  width: auto;
+  z-index: 10;
+  padding: 0;
+  border: none;
+  box-shadow: none;
+}
+
+.arrow:hover {
+  transform: translate(-50%, -50%) scale(1.15);
+}
+  
+/* Medianas — al lado de la central */
+.side {
+  border-radius: 14px;
+  height: 280px;
+  overflow: hidden;
+  opacity: 0.65;
+}
+
+.sideImage {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+/* Central — la más grande y destacada */
+.center {
+  border-radius: 16px;
+  height: 380px;
+  overflow: hidden;
+}
+
+.centerImage {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .carousel { grid-template-columns: 70px 150px 1fr 150px 70px; gap: 8px; }
+  .farSide { height: 140px; }
+  .side { height: 220px; }
+  .center { height: 300px; }
+  .arrow { height: 44px; width: 44px; font-size: 26px; }
+}
+
+@media (max-width: 860px) {
+  /* En móvil solo 3 visibles */
+  .carousel { grid-template-columns: 0 80px 1fr 80px 0; gap: 6px; }
+  .farSide { display: none; }
+  .side { height: 180px; }
+  .center { height: 240px; }
+}
+
+@media (max-width: 560px) {
+  .carousel { grid-template-columns: 0 50px 1fr 50px 0; }
+  .side { height: 130px; }
+  .center { height: 190px; }
+}

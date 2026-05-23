@@ -1,0 +1,26 @@
+/* Página Galería */
+.page {
+  display: grid;
+  gap: 40px;
+  margin: 0 auto;
+  max-width: 1100px;
+  padding: 48px 48px 80px;
+}
+
+/* Título amarillo */
+.title {
+  color: #f4ff58;
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 900;
+  letter-spacing: 3px;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+@media (max-width: 860px) {
+  .page { padding: 36px 24px 60px; gap: 32px; }
+}
+
+@media (max-width: 560px) {
+  .page { padding: 28px 16px 48px; gap: 24px; }
+}
