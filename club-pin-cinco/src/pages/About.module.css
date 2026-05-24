@@ -17,6 +17,14 @@
   border-radius: 16px;
   margin-bottom: 32px;
   padding: 36px;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.historiaBlock:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(244, 255, 88, 0.05);
 }
 
 .historiaTitle {
@@ -37,10 +45,16 @@
 }
 
 @media (max-width: 860px) {
-  .content { padding: 36px 24px 60px; }
-  .historiaBlock { padding: 28px 20px; }
+  .content {
+    padding: 36px 24px 60px;
+  }
+  .historiaBlock {
+    padding: 28px 20px;
+  }
 }
 
 @media (max-width: 560px) {
-  .content { padding: 28px 16px 48px; }
+  .content {
+    padding: 28px 16px 48px;
+  }
 }

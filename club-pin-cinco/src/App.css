@@ -60,13 +60,33 @@ body {
   right: 32px;
   width: 68px;
   z-index: 30;
+  transition:
+    transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.floating-chat:hover {
+  transform: scale(1.1);
+  background: #3e43df;
+  box-shadow: 0 10px 25px rgba(69, 75, 230, 0.5);
 }
 
 @media (max-width: 860px) {
-  .site-main { padding-top: 74px; }
+  .site-main {
+    padding-top: 74px;
+  }
 }
 
 @media (max-width: 560px) {
-  .site-main { padding-top: 70px; }
-  .floating-chat { bottom: 18px; font-size: 24px; height: 54px; right: 18px; width: 54px; }
+  .site-main {
+    padding-top: 70px;
+  }
+  .floating-chat {
+    bottom: 18px;
+    font-size: 24px;
+    height: 54px;
+    right: 18px;
+    width: 54px;
+  }
 }

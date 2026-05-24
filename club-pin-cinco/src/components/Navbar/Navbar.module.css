@@ -26,8 +26,12 @@
   gap: 46px;
 }
 
-.linksLeft { justify-content: flex-end; }
-.linksRight { justify-content: flex-start; }
+.linksLeft {
+  justify-content: flex-end;
+}
+.linksRight {
+  justify-content: flex-start;
+}
 
 .link {
   color: #f4ff58;
@@ -38,7 +42,9 @@
   text-transform: uppercase;
 }
 
-.linkActive { color: #ff6d4f; }
+.linkActive {
+  color: #ff6d4f;
+}
 
 .logo {
   align-items: center;
@@ -56,19 +62,190 @@
   width: 100px;
   object-fit: cover;
   margin-top: 0;
-  filter: drop-shadow(0 4px 16px rgba(36,54,242,0.5));
+  filter: drop-shadow(0 4px 16px rgba(36, 54, 242, 0.5));
+}
+
+.menuButton {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  right: 24px;
+  transform: translateY(-50%);
+  height: 46px;
+  width: 46px;
+  border-radius: 14px;
+  border: 1px solid rgba(244, 255, 88, 0.24);
+  background: rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  z-index: 40;
+}
+
+.menuButton:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.menuIcon,
+.menuIcon::before,
+.menuIcon::after {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #f4ff58;
+  border-radius: 999px;
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.menuIcon {
+  position: relative;
+}
+.menuIcon::before,
+.menuIcon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+
+.menuIcon::before {
+  top: -8px;
+}
+.menuIcon::after {
+  top: 8px;
+}
+
+.menuIconOpen {
+  background: transparent;
+}
+.menuIconOpen::before {
+  transform: rotate(45deg) translate(4px, 4px);
+  top: 0;
+}
+.menuIconOpen::after {
+  transform: rotate(-45deg) translate(4px, -4px);
+  top: 0;
+}
+
+.mobileMenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: rgba(6, 8, 24, 0.96);
+  backdrop-filter: blur(14px);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    visibility 0.25s ease;
+  z-index: 35;
+}
+
+.mobileMenuOpen {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.mobileMenuInner {
+  display: grid;
+  gap: 12px;
+  padding: 20px 24px 24px;
+}
+
+.mobileLink {
+  color: #f4ff58;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 14px;
+  display: block;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 14px 18px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.mobileLink:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.mobileLinkActive {
+  background: rgba(244, 255, 88, 0.12);
+  color: #fff;
 }
 
 @media (max-width: 860px) {
-  .inner { gap: 12px; grid-template-columns: 1fr 100px 1fr; height: 74px; padding: 0 16px; }
-  .links { gap: 10px; }
-  .link { font-size: 12px; }
-  .logoImg { height: 90px; width: 90px; margin-top: 28px; }
+  .inner {
+    gap: 12px;
+    grid-template-columns: 1fr 100px auto;
+    height: 74px;
+    padding: 0 16px;
+  }
+  .links {
+    display: none;
+  }
+  .menuButton {
+    display: flex;
+  }
+  .link {
+    font-size: 12px;
+  }
+  .logoImg {
+    height: 90px;
+    width: 90px;
+    margin-top: 28px;
+  }
 }
 
 @media (max-width: 560px) {
-  .inner { grid-template-columns: minmax(0,1fr) 70px minmax(0,1fr); height: 70px; padding: 0 8px; }
-  .links { gap: 5px; }
-  .link { font-size: 9px; }
-  .logoImg { height: 70px; width: 70px; margin-top: 22px; }
+  .inner {
+    grid-template-columns: 1fr 90px auto;
+    height: 70px;
+    padding: 0 12px;
+  }
+  .links {
+    display: none;
+  }
+  .menuButton {
+    display: flex;
+    right: 12px;
+    width: 42px;
+    height: 42px;
+  }
+  .link {
+    font-size: 10px;
+  }
+  .logoImg {
+    height: 72px;
+    width: 72px;
+    margin-top: 22px;
+  }
+}
+
+@media (max-width: 560px) {
+  .inner {
+    grid-template-columns: minmax(0, 1fr) 70px minmax(0, 1fr);
+    height: 70px;
+    padding: 0 8px;
+  }
+  .links {
+    gap: 5px;
+  }
+  .link {
+    font-size: 9px;
+  }
+  .logoImg {
+    height: 70px;
+    width: 70px;
+    margin-top: 22px;
+  }
 }

@@ -13,7 +13,7 @@
 }
 
 .heroLogo {
-  width: 80px;      /* ¡Esto hará que el logo deje de ser gigante! */
+  width: 80px; /* ¡Esto hará que el logo deje de ser gigante! */
   height: auto;
 }
 
@@ -26,7 +26,8 @@
 }
 
 /* Evita absolute para las imágenes del neón */
-.heroNeonLeft, .heroNeonRight {
+.heroNeonLeft,
+.heroNeonRight {
   max-width: 300px;
   height: auto;
 }
@@ -36,7 +37,8 @@
   max-width: 400px; /* Evita que el texto ocupe toda la pantalla */
 }
 
-.leftSide, .rightSide {
+.leftSide,
+.rightSide {
   flex: 1;
   background-size: cover;
   background-position: center;
@@ -44,7 +46,8 @@
 }
 
 /* Este filtro oscuro ayuda a que el texto del centro resalte más */
-.leftSide::after, .rightSide::after {
+.leftSide::after,
+.rightSide::after {
   content: "";
   position: absolute;
   top: 0;
@@ -65,7 +68,6 @@
   padding: 20px;
   z-index: 20;
 }
-
 
 .subtitle {
   color: #ffff66;
@@ -97,11 +99,16 @@
   font-size: 1.1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition:
+    background-color 0.3s,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .reserveButton:hover {
   background-color: #3b429f;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(90, 101, 255, 0.4);
 }
 .heroSection {
   width: 100%;
