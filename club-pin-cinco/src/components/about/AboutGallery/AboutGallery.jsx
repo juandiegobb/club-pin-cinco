@@ -1,4 +1,4 @@
-// Galería de fotos de historia — muestra las 3 imágenes en fila
+import { motion } from 'framer-motion'
 import styles from './AboutGallery.module.css'
 
 // Lista de fotos con su texto alternativo
@@ -18,18 +18,43 @@ const historyPhotos = [
 ]
 
 function AboutGallery() {
+  const springTransition = { type: 'spring', stiffness: 60, damping: 15 }
+
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.12
+      }
+    }
+  }
+
+  const photoVariants = {
+    hidden: { opacity: 0, scale: 0.92, y: 20 },
+    visible: { opacity: 1, scale: 1, y: 0 }
+  }
+
   return (
     // Fila de imágenes de historia
-    <div className={styles.gallery} aria-label="Fotos de historia">
+    <motion.div 
+      className={styles.gallery} 
+      aria-label="Fotos de historia"
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-60px" }}
+    >
       {historyPhotos.map((photo) => (
-        <img
+        <motion.img
           key={photo.alt}
           className={styles.photo}
           src={photo.src}
           alt={photo.alt}
+          variants={photoVariants}
+          transition={springTransition}
         />
       ))}
-    </div>
+    </motion.div>
   )
 }
 

@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 // Página principal "Sobre Nosotros"
 // Importamos cada componente desde su propia carpeta
 import AboutHero from '../components/about/AboutHero/AboutHero'
@@ -20,6 +21,8 @@ const identidadTexto = `El Club Deportivo Pin Cinco es un espacio enfocado en la
 El establecimiento se caracteriza por combinar deporte, recreación y tradición en un mismo lugar, brindando una experiencia cercana, dinámica y acogedora para quienes lo visitan.`
 
 function About() {
+  const springTransition = { type: 'spring', stiffness: 60, damping: 15 }
+
   return (
     <div className={styles.page}>
 
@@ -37,12 +40,26 @@ function About() {
         />
 
         {/* Sección Historia — texto largo con galería de fotos abajo */}
-        <section className={styles.historiaBlock}>
-          <h2 className={styles.historiaTitle}>Historia</h2>
+        <motion.section 
+          className={styles.historiaBlock}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={springTransition}
+        >
+          <motion.h2 
+            className={styles.historiaTitle}
+            initial={{ opacity: 0, x: -25 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={springTransition}
+          >
+            Historia
+          </motion.h2>
           <p className={styles.historiaText}>{historiaTexto}</p>
           {/* Galería de 3 fotos */}
           <AboutGallery />
-        </section>
+        </motion.section>
 
         {/* Sección Identidad — imagen a la derecha */}
         <AboutSection
