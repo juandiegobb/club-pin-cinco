@@ -11,6 +11,34 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* UI/UX Modernized Design Tokens */
+  /* Border Radii */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+  --radius-xl: 36px;
+  --radius-full: 999px;
+
+  /* Depth Shadows */
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.15), 0 0 1px rgba(255, 255, 255, 0.08);
+  --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.25), 0 0 1px rgba(255, 255, 255, 0.12);
+  --shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.4), 0 0 1px rgba(255, 255, 255, 0.18);
+  --shadow-neon: 0 0 24px rgba(127, 63, 252, 0.35);
+  --shadow-glow: 0 0 32px rgba(244, 255, 88, 0.18);
+
+  /* Spacing Scale */
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 40px;
+  --space-xl: 64px;
+  --space-xxl: 96px;
+
+  /* Glassmorphism & Modern Textures */
+  --bg-card: rgba(16, 17, 32, 0.75);
+  --bg-glass: rgba(10, 11, 26, 0.65);
+  --backdrop-blur: blur(14px);
 }
 
 * {

@@ -28,14 +28,14 @@ body {
 .page {
   margin: 0 auto;
   max-width: 1180px;
-  padding: 48px 48px 80px;
+  padding: var(--space-lg) var(--space-lg) var(--space-xxl);
 }
 
 .page h1 {
   color: #f4ff58;
   font-size: clamp(40px, 6vw, 70px);
   line-height: 1;
-  margin: 0 0 24px;
+  margin: 0 0 var(--space-md);
   text-transform: uppercase;
 }
 

@@ -25,13 +25,14 @@
 /* Input oscuro con borde sutil */
 .input {
   background: #0d0e22;
-  border: 1px solid #2a2b50;
-  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
   color: #fff;
   font-size: 14px;
   min-height: 44px;
-  padding: 0 14px;
+  padding: 0 var(--space-sm);
   width: 100%;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .input::placeholder {
@@ -40,18 +41,20 @@
 
 .input:focus {
   border-color: #3e43df;
+  box-shadow: 0 0 12px rgba(62, 67, 223, 0.25);
   outline: none;
 }
 
 /* Aviso naranja */
 .notice {
   align-items: flex-start;
-  background: rgba(220, 73, 63, 0.12);
-  border: 1px solid #dc493f;
-  border-radius: 10px;
+  background: rgba(220, 73, 63, 0.08);
+  border: 1px solid rgba(220, 73, 63, 0.25);
+  border-radius: var(--radius-md);
   display: flex;
-  gap: 14px;
-  padding: 16px 20px;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  box-shadow: 0 4px 20px rgba(220, 73, 63, 0.08);
 }
 
 .noticeIcon {
@@ -72,20 +75,24 @@
 .button {
   background: #3e43df;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-full);
   color: #fff;
   cursor: pointer;
   font-size: 15px;
   font-weight: 800;
   margin: 0 auto;
   min-height: 48px;
-  padding: 0 48px;
+  padding: 0 var(--space-xl);
   text-transform: uppercase;
   display: block;
+  box-shadow: 0 12px 24px rgba(62, 67, 223, 0.25);
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .button:hover {
   background: #5258f0;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(62, 67, 223, 0.4);
 }
 
 .hint {

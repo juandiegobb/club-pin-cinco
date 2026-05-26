@@ -11,20 +11,23 @@
 /* Grid de 4 columnas */
 .grid {
   display: grid;
-  gap: 16px;
+  gap: var(--space-sm);
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .photo {
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   height: 160px;
   object-fit: cover;
-  transition: opacity 0.2s;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.3s ease, filter 0.3s ease;
   width: 100%;
 }
 
 .photo:hover {
-  opacity: 0.85;
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: var(--shadow-md);
+  filter: brightness(1.05);
 }
 
 @media (max-width: 860px) {

@@ -1,6 +1,5 @@
 .location {
-  border-right: 1px solid rgba(244, 255, 88, 0.5);
-  padding-right: 64px;
+  padding-right: var(--space-xl);
 }
 
 .title {
@@ -13,11 +12,12 @@
 
 .map {
   background: #f8f8fb;
-  border-radius: 18px;
+  border-radius: var(--radius-lg);
   height: 210px;
-  margin: 24px 0 18px;
+  margin: var(--space-md) 0 var(--space-sm);
   overflow: hidden;
   position: relative;
+  box-shadow: var(--shadow-sm);
 }
 
 .road {

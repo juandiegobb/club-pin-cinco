@@ -1,8 +1,8 @@
 .row {
   align-items: flex-start;
   display: flex;
-  gap: 12px;
-  max-width: 680px;
+  gap: var(--space-xs);
+  max-width: 85%;
 }
 
 .rowGuest {
@@ -12,36 +12,52 @@
 
 .avatar {
   flex-shrink: 0;
-  font-size: 32px;
+  font-size: 24px;
   line-height: 1;
   margin-top: 4px;
 }
 
-/* Burbuja base — fondo hueso */
+/* Burbuja base */
 .bubble {
-  border-radius: 16px;
-  font-size: 15px;
-  line-height: 1.6;
+  font-size: 14px;
+  line-height: 1.5;
   margin: 0;
   max-width: 100%;
   overflow: hidden;
-  background: #e8e8f0;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Franja azul pequeña arriba — club */
+.bubble:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Club (Recibido) — Fondo oscuro translúcico */
 .bubbleClub {
-  border-top: 5px solid #3e43df;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px 18px 18px 4px;
 }
 
-/* Franja roja pequeña arriba — usuario */
+.bubbleClub .bubbleText {
+  color: #f3f3f9;
+}
+
+/* Usuario (Enviado) — Degradado violeta vibrante */
 .bubbleGuest {
-  border-top: 5px solid #c0392b;
+  background: linear-gradient(135deg, #7f3ffc, #5157ff);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px 18px 4px 18px;
+}
+
+.bubbleGuest .bubbleText {
+  color: #ffffff;
 }
 
 /* Texto dentro */
 .bubbleText {
-  color: #111;
   display: block;
-  padding: 12px 18px 14px;
+  padding: 12px 18px;
   white-space: pre-line;
 }

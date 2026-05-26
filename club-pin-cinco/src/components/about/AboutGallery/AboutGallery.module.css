@@ -1,20 +1,27 @@
 /* Galería de 3 fotos en fila para la sección Historia */
 .gallery {
   display: grid;
-  gap: 16px;
+  gap: var(--space-sm);
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin: 28px 0 8px;
+  margin: var(--space-md) 0 var(--space-xs);
 }
 
 .photo {
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   height: 200px;
   object-fit: cover;
   width: 100%;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.3s ease;
+}
+
+.photo:hover {
+  transform: scale(1.03);
+  box-shadow: var(--shadow-md);
 }
 
 /* En móvil quedan en columna */
 @media (max-width: 860px) {
-  .gallery { grid-template-columns: 1fr; }
+  .gallery { grid-template-columns: 1fr; gap: var(--space-sm); }
   .photo { height: 220px; }
 }

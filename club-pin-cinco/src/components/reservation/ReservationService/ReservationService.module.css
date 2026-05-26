@@ -13,22 +13,32 @@
 
 .options {
   display: flex;
-  gap: 0;
+  gap: var(--space-xs);
 }
 
 /* Botón de servicio sin seleccionar */
 .option {
   background: #1a1b35;
-  border: 1px solid #3a3b6a;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-md);
   color: #aaa;
   cursor: pointer;
   flex: 1;
   font-size: 14px;
   font-weight: 700;
-  padding: 10px 24px;
-  text-align: left;
+  padding: 12px 24px;
+  text-align: center;
   text-transform: uppercase;
-  transition: background 0.2s;
+  box-shadow: var(--shadow-sm);
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.option:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border-color: rgba(62, 67, 223, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Botón seleccionado — fondo azul */
@@ -36,4 +46,5 @@
   background: #3e43df;
   border-color: #3e43df;
   color: #fff;
+  box-shadow: 0 6px 18px rgba(62, 67, 223, 0.3);
 }

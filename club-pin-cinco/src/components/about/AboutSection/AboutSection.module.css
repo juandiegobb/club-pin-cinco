@@ -2,13 +2,15 @@
 .section {
   align-items: center;
   background: #0a0b1a;
-  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-lg);
   display: grid;
-  gap: 32px;
+  gap: var(--space-lg);
   grid-template-columns: 280px 1fr;
-  margin-bottom: 32px;
+  margin-bottom: var(--space-lg);
   overflow: hidden;
-  padding: 32px;
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-sm);
 }
 
 /* Variante: imagen a la derecha y texto a la izquierda */
@@ -25,7 +27,7 @@
 }
 
 .image {
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   height: 200px;
   object-fit: cover;
   width: 100%;

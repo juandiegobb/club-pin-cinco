@@ -7,7 +7,7 @@
   width: 100%;
   padding: 28px;
   overflow: hidden;
-  border-radius: 28px;
+  border-radius: var(--radius-xl);
   background-image: url("../../../assets/home/home-pincinco-borroso.jpg");
   background-size: cover;
   background-position: center;
@@ -60,10 +60,12 @@
   text-align: center;
   gap: 18px;
   padding: 36px 32px;
-  border-radius: 28px;
+  border-radius: var(--radius-lg);
   background: rgba(8, 10, 24, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: var(--shadow-lg);
 }
 
 .subtitle {
@@ -100,7 +102,7 @@
   justify-content: center;
   padding: 14px 36px;
   min-height: 48px;
-  border-radius: 999px;
+  border-radius: var(--radius-full);
   background: linear-gradient(135deg, #7f3ffc, #5157ff);
   color: #ffffff;
   font-size: 13px;
@@ -112,7 +114,7 @@
     transform 0.2s ease,
     box-shadow 0.2s ease,
     opacity 0.2s ease;
-  box-shadow: 0 18px 40px rgba(83, 80, 255, 0.28);
+  box-shadow: 0 12px 32px rgba(83, 80, 255, 0.25);
 }
 
 .button:hover {

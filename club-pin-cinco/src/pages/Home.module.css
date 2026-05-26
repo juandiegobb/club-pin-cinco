@@ -6,9 +6,9 @@
 .info {
   align-items: start;
   display: grid;
-  gap: 64px;
+  gap: var(--space-xl);
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  margin: 72px auto 76px;
+  margin: var(--space-xl) auto;
   max-width: 1050px;
 }
 

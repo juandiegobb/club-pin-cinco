@@ -28,55 +28,65 @@
 }
 
 .titulo-principal {
-  /* El color amarillo exacto de tu diseño */
   color: #eef161;
-  font-size: 3.5rem; /* Tamaño de la fuente */
-  font-weight: 800; /* Grosor de la letra para que se vea gruesa */
-  letter-spacing: 3px; /* Separación entre las letras */
+  font-size: 3.5rem;
+  font-weight: 800;
+  letter-spacing: 3px;
   margin: 0;
+  position: relative;
+  padding-bottom: 12px;
+}
 
-  /* Aquí creamos la línea amarilla de abajo */
-  border-bottom: 4px solid #eef161;
-  padding-bottom: 8px; /* Controla la distancia entre el texto y la línea */
+.titulo-principal::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 5px;
+  background-color: #eef161;
+  border-radius: var(--radius-full);
 }
 
 /* --- 2. TARJETAS (Grid) --- */
 .servicios-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
-  padding: 40px 24px;
+  gap: var(--space-lg);
+  padding: var(--space-lg) var(--space-md);
   width: 100%;
-  max-width: none;
-  margin: 0;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .tarjeta {
   background-color: #10131d;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 18px;
-  padding: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md) var(--space-lg);
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: 24px;
+  gap: var(--space-md);
   align-items: center;
+  box-shadow: var(--shadow-sm);
   transition:
-    transform 0.25s ease,
-    border-color 0.25s ease,
-    box-shadow 0.25s ease;
+    transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .tarjeta:hover {
-  transform: translateY(-3px);
-  border-color: rgba(125, 91, 255, 0.45);
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
+  transform: translateY(-5px);
+  border-color: rgba(125, 91, 255, 0.35);
+  box-shadow: var(--shadow-md);
 }
 
 .tarjeta--destacada {
-  border-color: rgba(125, 91, 255, 0.75);
+  border-color: rgba(125, 91, 255, 0.65);
   box-shadow:
-    0 0 0 1px rgba(125, 91, 255, 0.18),
-    0 14px 40px rgba(0, 0, 0, 0.22);
+    var(--shadow-neon),
+    0 14px 40px rgba(0, 0, 0, 0.3);
 }
 
 .tarjeta-contenido {
@@ -152,9 +162,9 @@
 }
 
 .imagen-evento {
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   transition:
-    transform 0.4s ease,
+    transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
     filter 0.4s ease,
     box-shadow 0.4s ease;
 }
@@ -162,7 +172,7 @@
 .imagen-evento:hover {
   transform: scale(1.05);
   filter: brightness(1.15);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--shadow-md);
 }
 
 .imagen-placeholder {

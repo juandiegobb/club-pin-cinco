@@ -1,11 +1,12 @@
 /* Footer azul con dos columnas y divisor */
 .footer {
-  background: #3d42a0;
+  background: #060714;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
   color: #fff;
   display: grid;
   align-items: center;
   grid-template-columns: 1fr auto 1fr;
-  padding: 32px max(48px, calc((100vw - 1180px) / 2));
+  padding: var(--space-lg) max(var(--space-lg), calc((100vw - 1180px) / 2));
   gap: 0;
 }
 
@@ -51,7 +52,7 @@
 
 /* Icono de red social */
 .socialIcon {
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   height: 36px;
   object-fit: cover;
   width: 36px;

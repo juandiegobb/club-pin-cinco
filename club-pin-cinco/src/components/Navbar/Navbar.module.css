@@ -1,6 +1,9 @@
 .navbar {
-  background: #4648aa;
-  border-bottom: 3px solid #2436f2;
+  background: rgba(10, 11, 26, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: var(--shadow-sm);
   left: 0;
   position: fixed;
   right: 0;
@@ -56,13 +59,13 @@
 }
 
 .logoImg {
-  border: 3px solid #2638f2;
-  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-full);
   height: 100px;
   width: 100px;
   object-fit: cover;
   margin-top: 0;
-  filter: drop-shadow(0 4px 16px rgba(36, 54, 242, 0.5));
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.35));
 }
 
 .menuButton {
@@ -75,7 +78,7 @@
   transform: translateY(-50%);
   height: 46px;
   width: 46px;
-  border-radius: 14px;
+  border-radius: var(--radius-md);
   border: 1px solid rgba(244, 255, 88, 0.24);
   background: rgba(255, 255, 255, 0.08);
   cursor: pointer;
@@ -164,7 +167,7 @@
 .mobileLink {
   color: #f4ff58;
   background: rgba(255, 255, 255, 0.04);
-  border-radius: 14px;
+  border-radius: var(--radius-md);
   display: block;
   font-size: 15px;
   font-weight: 800;

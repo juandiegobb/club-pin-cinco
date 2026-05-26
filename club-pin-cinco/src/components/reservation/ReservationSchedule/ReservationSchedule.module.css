@@ -19,20 +19,23 @@
 /* Botón de horario sin seleccionar */
 .slot {
   background: #0d0e22;
-  border: 1px solid #2a2b50;
-  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
   color: #e0e0ff;
   cursor: pointer;
   font-size: 14px;
-  padding: 14px 20px;
+  padding: var(--space-sm) var(--space-md);
   text-align: left;
-  transition: background 0.15s, border-color 0.15s;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.2s;
   width: 100%;
+  box-shadow: var(--shadow-sm);
 }
 
 .slot:hover {
   background: #1a1b35;
   border-color: #3e43df;
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(62, 67, 223, 0.15);
 }
 
 /* Horario seleccionado */
@@ -41,4 +44,5 @@
   border-color: #3e43df;
   color: #fff;
   font-weight: 700;
+  box-shadow: 0 0 16px rgba(62, 67, 223, 0.25);
 }
