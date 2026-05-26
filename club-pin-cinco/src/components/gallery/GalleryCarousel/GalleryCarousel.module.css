@@ -11,7 +11,7 @@
 
 .farSide {
   position: relative;
-  border-radius: 18px;
+  border-radius: var(--radius-lg);
   height: 180px;
   overflow: hidden;
   opacity: 0.42;
@@ -33,46 +33,66 @@
   height: 100%;
   object-fit: cover;
   transition:
-    transform 0.5s ease,
+    transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1),
     filter 0.35s ease;
 }
 
 .farImage:hover,
 .sideImage:hover,
 .centerImage:hover {
-  transform: scale(1.04);
+  transform: scale(1.03);
 }
 
 .farImage {
   filter: saturate(0.85) brightness(0.88);
+  border-radius: var(--radius-lg);
+}
+
+.sideImage {
+  border-radius: var(--radius-lg);
+}
+
+.centerImage {
+  border-radius: var(--radius-xl);
 }
 
 .arrow {
   position: absolute;
-  inset: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.16);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 999px;
+  background: rgba(10, 11, 26, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-full);
   color: #f4ff58;
-  font-size: 28px;
+  font-size: 20px;
   cursor: pointer;
-  transition:
-    transform 0.25s ease,
-    background 0.25s ease;
   z-index: 10;
+  width: 50px;
+  height: 50px;
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    background 0.25s ease,
+    box-shadow 0.25s ease,
+    color 0.25s ease;
 }
 
 .arrow:hover {
-  transform: scale(1.08);
-  background: rgba(0, 0, 0, 0.24);
+  transform: translate(-50%, -50%) scale(1.1);
+  background: rgba(10, 11, 26, 0.65);
+  box-shadow: var(--shadow-md);
+  color: #fff;
 }
 
 .side {
   position: relative;
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   height: 280px;
   overflow: hidden;
   opacity: 0.7;
@@ -85,10 +105,10 @@
 
 .center {
   position: relative;
-  border-radius: 28px;
+  border-radius: var(--radius-xl);
   height: 380px;
-  overflow: hidden;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+  overflow: visible; /* Permitir desbordamiento visual de arrastre de Framer Motion */
+  box-shadow: var(--shadow-lg);
 }
 
 .center::before {
@@ -148,9 +168,13 @@
     height: 300px;
   }
   .arrow {
-    height: 44px;
-    width: 44px;
-    font-size: 26px;
+    height: 42px;
+    width: 42px;
+    font-size: 16px;
+    transform: translate(-50%, -50%);
+  }
+  .arrow:hover {
+    transform: translate(-50%, -50%) scale(1.08);
   }
 }
 
