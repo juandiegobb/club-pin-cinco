@@ -8,7 +8,7 @@
   padding: 28px;
   overflow: hidden;
   border-radius: var(--radius-xl);
-  background-image: url("../../../assets/home/home-pincinco-borroso.jpg");
+  background-image: url('../../../assets/home/home-hero-bg.jpg');  
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
