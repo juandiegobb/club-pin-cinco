@@ -25,37 +25,37 @@ function HomeHero() {
   return (
     <section className={styles.hero} aria-labelledby="home-title">
 
-      <motion.img 
-        className={styles.image} 
-        src={imgIzquierda} 
+      <motion.img
+        className={styles.image}
+        src={imgIzquierda}
         alt="Pistas de bolos"
         initial={{ opacity: 0, x: -80 }}
         animate={{ opacity: 1, x: 0 }}
         transition={springTransition}
       />
 
-      <motion.div 
+      <motion.div
         className={styles.content}
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
-        <motion.span 
+        <motion.span
           className={styles.subtitle}
           variants={textVariants}
           transition={springTransition}
         >
           Club Deportivo
         </motion.span>
-        <motion.h1 
-          id="home-title" 
+        <motion.h1
+          id="home-title"
           className={styles.title}
           variants={textVariants}
           transition={springTransition}
         >
           Pin Cinco
         </motion.h1>
-        <motion.p 
+        <motion.p
           className={styles.description}
           variants={textVariants}
           transition={springTransition}
@@ -72,9 +72,9 @@ function HomeHero() {
         </motion.div>
       </motion.div>
 
-      <motion.img 
-        className={styles.imageRight} 
-        src={imgDerecha} 
+      <motion.img
+        className={styles.imageRight}
+        src={imgDerecha}
         alt="Mesa de billar"
         initial={{ opacity: 0, x: 80 }}
         animate={{ opacity: 1, x: 0 }}
