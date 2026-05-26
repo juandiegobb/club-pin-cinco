@@ -32,6 +32,7 @@
 .linksLeft {
   justify-content: flex-end;
 }
+
 .linksRight {
   justify-content: flex-start;
 }
@@ -105,6 +106,7 @@
 .menuIcon {
   position: relative;
 }
+
 .menuIcon::before,
 .menuIcon::after {
   content: "";
@@ -115,6 +117,7 @@
 .menuIcon::before {
   top: -8px;
 }
+
 .menuIcon::after {
   top: 8px;
 }
@@ -122,10 +125,12 @@
 .menuIconOpen {
   background: transparent;
 }
+
 .menuIconOpen::before {
   transform: rotate(45deg) translate(4px, 4px);
   top: 0;
 }
+
 .menuIconOpen::after {
   transform: rotate(-45deg) translate(4px, -4px);
   top: 0;
@@ -193,15 +198,19 @@
     height: 74px;
     padding: 0 16px;
   }
+
   .links {
     display: none;
   }
+
   .menuButton {
     display: flex;
   }
+
   .link {
     font-size: 12px;
   }
+
   .logoImg {
     height: 90px;
     width: 90px;
@@ -215,18 +224,22 @@
     height: 70px;
     padding: 0 12px;
   }
+
   .links {
     display: none;
   }
+
   .menuButton {
     display: flex;
     right: 12px;
     width: 42px;
     height: 42px;
   }
+
   .link {
     font-size: 10px;
   }
+
   .logoImg {
     height: 72px;
     width: 72px;
@@ -240,12 +253,15 @@
     height: 70px;
     padding: 0 8px;
   }
+
   .links {
     gap: 5px;
   }
+
   .link {
     font-size: 9px;
   }
+
   .logoImg {
     height: 70px;
     width: 70px;

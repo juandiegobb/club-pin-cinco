@@ -57,6 +57,7 @@
 
 /* En móvil todo queda en columna */
 @media (max-width: 860px) {
+
   .section,
   .sectionReverse {
     grid-template-columns: 1fr;
@@ -67,5 +68,7 @@
     order: unset;
   }
 
-  .image { height: 180px; }
+  .image {
+    height: 180px;
+  }
 }

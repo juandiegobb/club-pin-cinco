@@ -74,11 +74,23 @@
 }
 
 @media (max-width: 860px) {
-  .location { border-right: 0; padding-right: 0; }
-  .map { height: 190px; }
+  .location {
+    border-right: 0;
+    padding-right: 0;
+  }
+
+  .map {
+    height: 190px;
+  }
 }
 
 @media (max-width: 560px) {
-  .map { border-radius: 12px; height: 170px; }
-  .title { font-size: 32px; }
+  .map {
+    border-radius: 12px;
+    height: 170px;
+  }
+
+  .title {
+    font-size: 32px;
+  }
 }

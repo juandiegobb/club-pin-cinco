@@ -52,7 +52,7 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  cursor: url("/images/bolo.png"), auto;
+  cursor: url("/images/bolo_cursor.png") 0 0, auto;
 }
 
 button,
@@ -62,8 +62,12 @@ select {
 }
 
 a,
-button {
-  cursor: url("/images/bolo.png"), pointer;
+button,
+[role="button"],
+input[type="submit"],
+input[type="button"],
+select {
+  cursor: url("/images/bolo_cursor.png") 0 0, pointer;
 }
 
 img {

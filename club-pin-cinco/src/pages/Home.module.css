@@ -13,9 +13,16 @@
 }
 
 @media (max-width: 860px) {
-  .info { gap: 42px; grid-template-columns: 1fr; margin: 46px auto 54px; padding: 0 28px; }
+  .info {
+    gap: 42px;
+    grid-template-columns: 1fr;
+    margin: 46px auto 54px;
+    padding: 0 28px;
+  }
 }
 
 @media (max-width: 560px) {
-  .info { padding: 0 18px; }
+  .info {
+    padding: 0 18px;
+  }
 }

@@ -18,9 +18,15 @@
 }
 
 @media (max-width: 860px) {
-  .page { padding: 36px 24px 60px; gap: 32px; }
+  .page {
+    padding: 36px 24px 60px;
+    gap: 32px;
+  }
 }
 
 @media (max-width: 560px) {
-  .page { padding: 28px 16px 48px; gap: 24px; }
+  .page {
+    padding: 28px 16px 48px;
+    gap: 24px;
+  }
 }

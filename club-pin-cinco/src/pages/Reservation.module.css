@@ -40,10 +40,18 @@
 }
 
 @media (max-width: 860px) {
-  .page { padding: 36px 24px 60px; }
-  .row { grid-template-columns: 1fr; }
+  .page {
+    padding: 36px 24px 60px;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 560px) {
-  .page { padding: 28px 16px 48px; gap: 28px; }
+  .page {
+    padding: 28px 16px 48px;
+    gap: 28px;
+  }
 }

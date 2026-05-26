@@ -95,7 +95,9 @@
   grid-template-columns: minmax(320px, 1.45fr) minmax(260px, 1fr);
 }
 
-.cardReverse .image { grid-column: 1; }
+.cardReverse .image {
+  grid-column: 1;
+}
 
 .cardReverse .content {
   grid-column: 2;
@@ -115,14 +117,48 @@
 }
 
 @media (max-width: 860px) {
-  .card, .cardReverse { grid-template-columns: 1fr; }
-  .image, .cardReverse .image { grid-column: 1; grid-row: 1; min-height: 210px; }
-  .content, .cardReverse .content { grid-column: 1; grid-row: 2; justify-items: start; padding: 28px; text-align: left; }
-  .content::after, .cardReverse .content::after { display: none; }
-  .cardTitle, .cardReverse .cardTitle { min-width: min(230px, 100%); padding: 11px 24px; }
-  .cardText { font-size: 15px; }
+
+  .card,
+  .cardReverse {
+    grid-template-columns: 1fr;
+  }
+
+  .image,
+  .cardReverse .image {
+    grid-column: 1;
+    grid-row: 1;
+    min-height: 210px;
+  }
+
+  .content,
+  .cardReverse .content {
+    grid-column: 1;
+    grid-row: 2;
+    justify-items: start;
+    padding: 28px;
+    text-align: left;
+  }
+
+  .content::after,
+  .cardReverse .content::after {
+    display: none;
+  }
+
+  .cardTitle,
+  .cardReverse .cardTitle {
+    min-width: min(230px, 100%);
+    padding: 11px 24px;
+  }
+
+  .cardText {
+    font-size: 15px;
+  }
 }
 
 @media (max-width: 560px) {
-  .content, .cardReverse .content { padding: 24px 20px; }
+
+  .content,
+  .cardReverse .content {
+    padding: 24px 20px;
+  }
 }

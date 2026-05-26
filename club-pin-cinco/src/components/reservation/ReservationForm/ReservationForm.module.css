@@ -104,5 +104,7 @@
 
 /* En móvil los campos van en columna */
 @media (max-width: 860px) {
-  .fields { grid-template-columns: 1fr; }
+  .fields {
+    grid-template-columns: 1fr;
+  }
 }

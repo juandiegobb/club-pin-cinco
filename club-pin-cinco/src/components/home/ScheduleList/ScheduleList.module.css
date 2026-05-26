@@ -54,5 +54,7 @@
 }
 
 @media (max-width: 560px) {
-  .title { font-size: 32px; }
+  .title {
+    font-size: 32px;
+  }
 }
