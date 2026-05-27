@@ -2,6 +2,7 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { navItems } from "../../data/navigation";
 import logo from "../../assets/home/logo-pincinco.jpeg";
+import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import styles from "./Navbar.module.css";
 
 function Navbar() {
@@ -45,6 +46,13 @@ function Navbar() {
               {item.label}
             </NavLink>
           ))}
+          <div className={styles.desktopToggle}>
+            <ThemeToggle />
+          </div>
+        </div>
+
+        <div className={styles.mobileToggle}>
+          <ThemeToggle />
         </div>
 
         <button
@@ -85,3 +93,4 @@ function Navbar() {
 }
 
 export default Navbar;
+

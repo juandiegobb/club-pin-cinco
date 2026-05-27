@@ -1,6 +1,7 @@
 .page {
-  background: #02020d;
+  background: var(--bg-primary);
   overflow: hidden;
+  transition: background-color 0.3s ease;
 }
 
 .info {

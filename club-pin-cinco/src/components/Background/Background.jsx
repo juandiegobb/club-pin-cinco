@@ -13,12 +13,12 @@ function Particles({ scrollProgress }) {
     const colors = new Float32Array(count * 3)
 
     for (let i = 0; i < count; i++) {
-      positions[i * 3]     = (Math.random() - 0.5) * 20
+      positions[i * 3] = (Math.random() - 0.5) * 20
       positions[i * 3 + 1] = (Math.random() - 0.5) * 20
       positions[i * 3 + 2] = (Math.random() - 0.5) * 10
 
       const shade = 0.3 + Math.random() * 0.4
-      colors[i * 3]     = shade
+      colors[i * 3] = shade
       colors[i * 3 + 1] = shade
       colors[i * 3 + 2] = shade + Math.random() * 0.2
     }
@@ -55,7 +55,7 @@ function Particles({ scrollProgress }) {
   )
 }
 
- function Background() {
+function Background() {
   const scrollProgress = useScrollProgress()
 
   return (

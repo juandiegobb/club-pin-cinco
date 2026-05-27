@@ -1,0 +1,81 @@
+.toggleBtn {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  padding: 6px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: 
+    background-color 0.3s ease, 
+    border-color 0.3s ease, 
+    transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+    box-shadow 0.3s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.toggleBtn:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-md), var(--shadow-neon);
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.sunIcon {
+  color: #fbbf24;
+  animation: spin 8s linear infinite;
+  display: inline-block;
+}
+
+.moonIcon {
+  color: #3b82f6;
+  animation: float 3s ease-in-out infinite;
+  display: inline-block;
+}
+
+.themeText {
+  font-size: 11px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(-10deg);
+  }
+  50% {
+    transform: translateY(-2px) rotate(10deg);
+  }
+}
+
+@media (max-width: 860px) {
+  .toggleBtn {
+    padding: 6px 12px;
+  }
+  
+  .themeText {
+    display: none; /* en móvil solo mostramos el icono */
+  }
+}

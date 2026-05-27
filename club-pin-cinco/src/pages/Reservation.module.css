@@ -9,13 +9,14 @@
 
 /* Título amarillo grande */
 .title {
-  color: #f4ff58;
+  color: var(--text-accent);
   font-size: clamp(32px, 5vw, 56px);
   font-weight: 900;
   letter-spacing: 2px;
   margin: 0;
   text-align: center;
   text-transform: uppercase;
+  transition: color 0.3s ease;
 }
 
 /* Fila: calendario izquierda + horarios derecha */
@@ -33,10 +34,11 @@
 
 /* Etiqueta de paso */
 .stepLabel {
-  color: #fff;
+  color: var(--text-primary);
   font-size: 15px;
   font-weight: 700;
   margin: 0;
+  transition: color 0.3s ease;
 }
 
 @media (max-width: 860px) {

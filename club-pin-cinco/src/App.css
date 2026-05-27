@@ -13,10 +13,11 @@ body {
 
 .site-shell {
   min-height: 100svh;
-  background: #02020d;
-  color: #f8f8ff;
+  background: var(--bg-primary);
+  color: var(--text-primary);
   display: flex;
   flex-direction: column;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .site-main {
@@ -29,19 +30,23 @@ body {
   margin: 0 auto;
   max-width: 1180px;
   padding: var(--space-lg) var(--space-lg) var(--space-xxl);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .page h1 {
-  color: #f4ff58;
+  color: var(--text-accent);
   font-size: clamp(40px, 6vw, 70px);
   line-height: 1;
   margin: 0 0 var(--space-md);
   text-transform: uppercase;
+  transition: color 0.3s ease;
 }
 
 .page p {
-  color: #f7f4ff;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
 }
+
 
 /* Chat flotante */
 .floating-chat {

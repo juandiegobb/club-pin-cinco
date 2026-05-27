@@ -7,14 +7,14 @@
   padding: 48px 48px 80px;
 }
 
-/* Título amarillo */
 .title {
-  color: #f4ff58;
+  color: var(--text-accent);
   font-size: clamp(32px, 5vw, 56px);
   font-weight: 900;
   letter-spacing: 3px;
   margin: 0;
   text-transform: uppercase;
+  transition: color 0.3s ease;
 }
 
 @media (max-width: 860px) {
