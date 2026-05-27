@@ -55,12 +55,15 @@ function Particles({ scrollProgress }) {
   )
 }
 
-function Background() {
+ function Background() {
   const scrollProgress = useScrollProgress()
 
   return (
     <div className={styles.background}>
-      <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
+      <Canvas
+        camera={{ position: [0, 0, 5], fov: 75 }}
+        style={{ pointerEvents: 'none' }}
+      >
         <Particles scrollProgress={scrollProgress} />
       </Canvas>
     </div>

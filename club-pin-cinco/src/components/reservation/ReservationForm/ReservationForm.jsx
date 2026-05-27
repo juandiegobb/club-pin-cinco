@@ -1,13 +1,22 @@
-// Formulario con nombre, celular y cantidad de personas
-// Al enviar redirige a WhatsApp con los datos
 import styles from './ReservationForm.module.css'
 
-// Número de WhatsApp del establecimiento (sin +)
 const WHATSAPP_NUMBER = '573148877381'
+const STORAGE_KEY = 'pincinco_blocked_slots'
+const BLOCK_MINUTES = 10
+
+function blockSlot(slot) {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    const data = raw ? JSON.parse(raw) : {}
+    data[slot] = Date.now() + BLOCK_MINUTES * 60 * 1000
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
+  } catch {
+    console.error('Error guardando bloqueo')
+  }
+}
 
 function ReservationForm({ service, date, schedule, name, phone, people, onChange }) {
 
-  // Construye el mensaje de WhatsApp con todos los datos del turno
   function buildWhatsAppMessage() {
     const dateStr = date
       ? date.toLocaleDateString('es-CO', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
@@ -24,22 +33,27 @@ function ReservationForm({ service, date, schedule, name, phone, people, onChang
   }
 
   function handleSubmit() {
-    // Validación básica antes de abrir WhatsApp
     if (!name || !phone || !people) {
       alert('Por favor completa todos los campos.')
       return
     }
+    if (!schedule) {
+      alert('Por favor selecciona un horario.')
+      return
+    }
+    if (!date) {
+      alert('Por favor selecciona una fecha.')
+      return
+    }
+    // Bloquear horario al enviar
+    blockSlot(schedule)
     const msg = buildWhatsAppMessage()
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank')
   }
 
   return (
     <div className={styles.wrapper}>
-
-      {/* Campos del formulario */}
       <div className={styles.fields}>
-
-        {/* Campo nombre */}
         <label className={styles.field}>
           <span className={styles.fieldLabel}>4. Nombre completo</span>
           <input
@@ -50,8 +64,6 @@ function ReservationForm({ service, date, schedule, name, phone, people, onChang
             onChange={(e) => onChange('name', e.target.value)}
           />
         </label>
-
-        {/* Campo celular */}
         <label className={styles.field}>
           <span className={styles.fieldLabel}>5. Número de celular</span>
           <input
@@ -62,8 +74,6 @@ function ReservationForm({ service, date, schedule, name, phone, people, onChang
             onChange={(e) => onChange('phone', e.target.value)}
           />
         </label>
-
-        {/* Campo cantidad de personas */}
         <label className={styles.field}>
           <span className={styles.fieldLabel}>6. Cantidad de personas</span>
           <input
@@ -76,10 +86,8 @@ function ReservationForm({ service, date, schedule, name, phone, people, onChang
             onChange={(e) => onChange('people', e.target.value)}
           />
         </label>
-
       </div>
 
-      {/* Aviso de disponibilidad */}
       <div className={styles.notice}>
         <span className={styles.noticeIcon}>⚠</span>
         <p className={styles.noticeText}>
@@ -88,16 +96,13 @@ function ReservationForm({ service, date, schedule, name, phone, people, onChang
         </p>
       </div>
 
-      {/* Botón principal */}
       <button className={styles.button} onClick={handleSubmit} type="button">
         Solicita tu turno
       </button>
 
-      {/* Texto informativo debajo del botón */}
       <p className={styles.hint}>
         Te redirigimos a WhatsApp para confirmar tu solicitud
       </p>
-
     </div>
   )
 }

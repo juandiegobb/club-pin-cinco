@@ -52,8 +52,9 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  cursor: url("/images/bolo_cursor.png") 0 0, auto;
+  cursor: url("/images/bolo_cursor.png") 16 16, auto;
 }
+
 
 button,
 input,
@@ -67,8 +68,9 @@ button,
 input[type="submit"],
 input[type="button"],
 select {
-  cursor: url("/images/bolo_cursor.png") 0 0, pointer;
+  cursor: url("/images/bolo_cursor.png") 16 16, pointer;
 }
+
 
 img {
   display: block;
