@@ -4,11 +4,13 @@ const WHATSAPP_NUMBER = '573148877381'
 const STORAGE_KEY = 'pincinco_blocked_slots'
 const BLOCK_MINUTES = 10
 
-function blockSlot(slot) {
+// Bloquea el horario por servicio — Bolos y Billar son independientes
+function blockSlot(service, slot) {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
     const data = raw ? JSON.parse(raw) : {}
-    data[slot] = Date.now() + BLOCK_MINUTES * 60 * 1000
+    const key = `${service}_${slot}`
+    data[key] = Date.now() + BLOCK_MINUTES * 60 * 1000
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
   } catch {
     console.error('Error guardando bloqueo')
@@ -45,8 +47,8 @@ function ReservationForm({ service, date, schedule, name, phone, people, onChang
       alert('Por favor selecciona una fecha.')
       return
     }
-    // Bloquear horario al enviar
-    blockSlot(schedule)
+    // Bloquear horario por servicio al enviar
+    blockSlot(service, schedule)
     const msg = buildWhatsAppMessage()
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank')
   }

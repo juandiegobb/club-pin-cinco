@@ -404,3 +404,20 @@
   content: "🗑";
   font-size: 13px;
 }
+.backBtn {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  color: rgba(255,255,255,0.6);
+  cursor: pointer;
+  font-size: 13px;
+  margin-top: 12px;
+  padding: 10px;
+  transition: all 0.2s;
+  width: 100%;
+}
+
+.backBtn:hover {
+  border-color: rgba(255,255,255,0.5);
+  color: #fff;
+}

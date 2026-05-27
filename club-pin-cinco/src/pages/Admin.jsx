@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { getMessages, saveMessage, markAllRead, clearMessages, unreadCount } from '../utils/chatStorage'
 import styles from './Admin.module.css'
 
@@ -14,6 +15,7 @@ const faqStats = [
 ]
 
 function Admin() {
+  const navigate = useNavigate()
   const [isAdmin, setIsAdmin] = useState(false)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -46,7 +48,6 @@ function Admin() {
     }
   }, [isAdmin])
 
-  // Scroll solo dentro del chatBox
   useEffect(() => {
     if (chatBoxRef.current) {
       chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight
@@ -66,6 +67,7 @@ function Admin() {
     setIsAdmin(false)
     setUsername('')
     setPassword('')
+    navigate('/')
   }
 
   function handleReply() {
@@ -93,6 +95,7 @@ function Admin() {
         <div className={styles.loginCard}>
           <h1 className={styles.loginTitle}>🔐 Administrador</h1>
           <p className={styles.loginSubtitle}>Club Deportivo Pin Cinco</p>
+
           <div className={styles.field}>
             <label className={styles.fieldLabel}>Usuario</label>
             <input
@@ -109,6 +112,7 @@ function Admin() {
               }}
             />
           </div>
+
           <div className={styles.field}>
             <label className={styles.fieldLabel}>Contraseña</label>
             <input
@@ -125,9 +129,20 @@ function Admin() {
               }}
             />
           </div>
+
           {error && <p className={styles.error}>{error}</p>}
+
           <button className={styles.loginBtn} onClick={handleLogin} type="button">
             Iniciar sesión
+          </button>
+
+          {/* Botón volver al inicio */}
+          <button
+            className={styles.backBtn}
+            onClick={() => navigate('/')}
+            type="button"
+          >
+            ← Volver al inicio
           </button>
         </div>
       </div>
@@ -142,9 +157,19 @@ function Admin() {
           <h1 className={styles.title}>Panel de Administración</h1>
           <p className={styles.headerSub}>Club Deportivo Pin Cinco</p>
         </div>
-        <button className={styles.logoutBtn} onClick={handleLogout} type="button">
-          Cerrar sesión
-        </button>
+        <div style={{ display: 'flex', gap: '12px' }}>
+          <button
+            className={styles.backBtn}
+            onClick={() => navigate('/')}
+            type="button"
+            style={{ marginTop: 0 }}
+          >
+            ← Inicio
+          </button>
+          <button className={styles.logoutBtn} onClick={handleLogout} type="button">
+            Cerrar sesión
+          </button>
+        </div>
       </header>
 
       <main className={styles.content}>
@@ -171,7 +196,6 @@ function Admin() {
           </div>
           <p className={styles.cardText}>{messages.length} mensaje(s) en total.</p>
 
-          {/* chatBoxRef aquí — scroll interno */}
           <div className={styles.chatBox} ref={chatBoxRef}>
             {messages.length === 0 ? (
               <p className={styles.empty}>No hay mensajes aún.</p>

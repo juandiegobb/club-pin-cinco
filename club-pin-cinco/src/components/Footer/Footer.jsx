@@ -1,17 +1,14 @@
+import { Link } from 'react-router-dom'
 import styles from './Footer.module.css'
 
 function Footer() {
-  function handleAdminLogin() {
-  window.location.href = '/admin'
-}
   return (
     <footer className={styles.footer}>
 
-      {/* Columna izquierda — Redes sociales */}
+      {/* Redes sociales */}
       <section className={styles.block}>
         <h2 className={styles.blockTitle}>Redes sociales</h2>
-
-        {/* Facebook */}
+        
         <a
           className={styles.socialLink}
           href="https://www.facebook.com/ClubDeportivoPINCINCO"
@@ -26,8 +23,7 @@ function Footer() {
           />
           <span>CLUB Deportivo PIN CINCO</span>
         </a>
-
-        {/* Instagram */}
+        
         <a
           className={styles.socialLink}
           href="https://www.instagram.com/clubdeportivopin5"
@@ -44,23 +40,19 @@ function Footer() {
         </a>
       </section>
 
-      {/* Divisor vertical */}
       <div className={styles.divider} aria-hidden="true" />
 
-      {/* Columna derecha — Contáctanos */}
+      {/* Contáctanos */}
       <section className={styles.block}>
         <h2 className={styles.blockTitle}>Contáctanos</h2>
         <p className={styles.contactRow}>
           <span className={styles.phoneIcon}>📞</span>
           320 2967582 — 311 2956363
         </p>
-
-         {/* Botón admin visible */}
-           <button className={styles.adminBtn} onClick={handleAdminLogin} type="button">
+        <Link className={styles.adminBtn} to="/admin">
           🔐 Administración
-           </button>
+        </Link>
       </section>
-       
 
     </footer>
   )

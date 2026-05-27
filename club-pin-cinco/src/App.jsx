@@ -11,13 +11,13 @@ import Admin from './pages/Admin'
 function App() {
   return (
     <Routes>
+      <Route path="/admin" element={<Admin />} />
       <Route element={<MainLayout />}>
         <Route index element={<Home />} />
         <Route path="/nosotros" element={<About />} />
         <Route path="/servicios" element={<Services />} />
         <Route path="/galeria" element={<Gallery />} />
         <Route path="/reserva" element={<Reservation />} />
-        <Route path="/admin" element={<Admin />} />
       </Route>
     </Routes>
   )

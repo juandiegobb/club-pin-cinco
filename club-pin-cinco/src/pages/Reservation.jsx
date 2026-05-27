@@ -7,17 +7,15 @@ import ReservationForm from '../components/reservation/ReservationForm/Reservati
 import styles from './Reservation.module.css'
 
 function Reservation() {
-  // Estado global de la reserva — todo en un solo objeto
   const [form, setForm] = useState({
-    service: 'Bolos',   // servicio seleccionado por defecto
-    date: null,          // fecha elegida en el calendario
-    schedule: '',        // horario elegido
-    name: '',            // nombre del cliente
-    phone: '',           // celular
-    people: '',          // cantidad de personas
+    service: 'Bolos',
+    date: null,
+    schedule: '',
+    name: '',
+    phone: '',
+    people: '',
   })
 
-  // Función genérica para actualizar cualquier campo del estado
   function handleChange(field, value) {
     setForm((prev) => ({ ...prev, [field]: value }))
   }
@@ -27,8 +25,7 @@ function Reservation() {
   return (
     <div className={styles.page}>
 
-      {/* Título principal */}
-      <motion.h1 
+      <motion.h1
         className={styles.title}
         initial={{ opacity: 0, scale: 0.9, y: -25 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -37,7 +34,6 @@ function Reservation() {
         Aparta tu Turno
       </motion.h1>
 
-      {/* Paso 1 — elegir servicio */}
       <motion.div
         initial={{ opacity: 0, y: 25 }}
         animate={{ opacity: 1, y: 0 }}
@@ -49,9 +45,8 @@ function Reservation() {
         />
       </motion.div>
 
-      {/* Pasos 2 y 3 — calendario y horarios lado a lado */}
       <div className={styles.row}>
-        <motion.div 
+        <motion.div
           className={styles.calendarCol}
           initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
@@ -70,14 +65,15 @@ function Reservation() {
           transition={{ ...springTransition, delay: 0.3 }}
           style={{ width: '100%' }}
         >
+          {/* ← service agregado aquí */}
           <ReservationSchedule
             selected={form.schedule}
             onChange={(val) => handleChange('schedule', val)}
+            service={form.service}
           />
         </motion.div>
       </div>
 
-      {/* Pasos 4, 5, 6 — formulario y envío */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}

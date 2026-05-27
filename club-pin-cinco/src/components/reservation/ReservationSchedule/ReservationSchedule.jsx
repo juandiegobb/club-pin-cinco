@@ -10,40 +10,45 @@ const slots = [
 
 const STORAGE_KEY = 'pincinco_blocked_slots'
 
-function getBlockedSlots() {
+function getBlockedSlots(service) {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
     if (!raw) return {}
     const data = JSON.parse(raw)
     const now = Date.now()
     const valid = {}
-    Object.entries(data).forEach(([slot, expiresAt]) => {
-      if (expiresAt > now) valid[slot] = expiresAt
+    Object.entries(data).forEach(([key, expiresAt]) => {
+      // Solo los del servicio actual
+      if (key.startsWith(service + '_') && expiresAt > now) {
+        valid[key] = expiresAt
+      }
     })
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(valid))
     return valid
   } catch {
     return {}
   }
 }
 
-function ReservationSchedule({ selected, onChange }) {
-  const [blockedSlots, setBlockedSlots] = useState(() => getBlockedSlots())
+function ReservationSchedule({ selected, onChange, service }) {
+  const [blockedSlots, setBlockedSlots] = useState(() => getBlockedSlots(service))
 
   useEffect(() => {
+    setBlockedSlots(getBlockedSlots(service))
     const interval = setInterval(() => {
-      setBlockedSlots(getBlockedSlots())
+      setBlockedSlots(getBlockedSlots(service))
     }, 10000)
     return () => clearInterval(interval)
-  }, [])
+  }, [service])
 
   function timeLeft(slot) {
-    if (!blockedSlots[slot]) return null
-    return Math.ceil((blockedSlots[slot] - Date.now()) / 60000)
+    const key = `${service}_${slot}`
+    if (!blockedSlots[key]) return null
+    return Math.ceil((blockedSlots[key] - Date.now()) / 60000)
   }
 
   function handleSelect(slot) {
-    if (blockedSlots[slot]) return
+    const key = `${service}_${slot}`
+    if (blockedSlots[key]) return
     onChange(slot)
   }
 
@@ -52,7 +57,8 @@ function ReservationSchedule({ selected, onChange }) {
       <p className={styles.label}>3. Elige tu horario</p>
       <div className={styles.list}>
         {slots.map((slot) => {
-          const isBlocked = !!blockedSlots[slot]
+          const key = `${service}_${slot}`
+          const isBlocked = !!blockedSlots[key]
           const isSelected = selected === slot
           const mins = timeLeft(slot)
           return (
@@ -66,7 +72,7 @@ function ReservationSchedule({ selected, onChange }) {
               <span className={styles.slotTime}>{slot}</span>
               {isBlocked && (
                 <span className={styles.slotBlockedTag}>
-                  🔒 No disponible
+                  🔒 No disponible · {mins} min restantes
                 </span>
               )}
             </button>

@@ -1,8 +1,15 @@
 import React from "react";
 import { motion } from "framer-motion";
 import "./Services.css";
+import { useEffect } from 'react'
+
+
 
 function Services() {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+  
   const springTransition = { type: 'spring', stiffness: 75, damping: 16 }
 
   const containerVariants = {

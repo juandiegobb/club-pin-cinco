@@ -18,7 +18,11 @@ function MainLayout() {
       <Suspense fallback={null}>
         <Background />
       </Suspense>
-      {isHome && <BowlingBallCanvas />}
+      {isHome && (
+        <div style={{ pointerEvents: 'none', position: 'fixed', inset: 0, zIndex: 0 }}>
+          <BowlingBallCanvas />
+        </div>
+      )}
       <Navbar />
       <main className="site-main">
         <Outlet />
