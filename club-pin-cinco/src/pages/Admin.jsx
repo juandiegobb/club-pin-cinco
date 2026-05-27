@@ -21,26 +21,36 @@ function Admin() {
   const [messages, setMessages] = useState([])
   const [reply, setReply] = useState('')
   const [unread, setUnread] = useState(0)
-  const bottomRef = useRef(null)
+  const chatBoxRef = useRef(null)
 
   useEffect(() => {
     if (!isAdmin) return
-    // Cargar mensajes y marcar como leídos
     setMessages(getMessages())
     markAllRead()
     setUnread(0)
 
-    // Escuchar mensajes nuevos del usuario
     function handleUpdate() {
       setMessages(getMessages())
       setUnread(unreadCount())
     }
     window.addEventListener('chat-updated', handleUpdate)
-    return () => window.removeEventListener('chat-updated', handleUpdate)
+
+    const interval = setInterval(() => {
+      setMessages(getMessages())
+      setUnread(unreadCount())
+    }, 1000)
+
+    return () => {
+      window.removeEventListener('chat-updated', handleUpdate)
+      clearInterval(interval)
+    }
   }, [isAdmin])
 
+  // Scroll solo dentro del chatBox
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
+    if (chatBoxRef.current) {
+      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight
+    }
   }, [messages])
 
   function handleLogin() {
@@ -85,14 +95,40 @@ function Admin() {
           <p className={styles.loginSubtitle}>Club Deportivo Pin Cinco</p>
           <div className={styles.field}>
             <label className={styles.fieldLabel}>Usuario</label>
-            <input className={styles.input} type="text" placeholder="Usuario" value={username} onChange={e => setUsername(e.target.value)} onKeyDown={e => e.key === 'Enter' && handleLogin()} />
+            <input
+              className={styles.input}
+              type="text"
+              placeholder="Usuario"
+              value={username}
+              onChange={e => setUsername(e.target.value)}
+              onKeyDown={e => {
+                if (e.key === 'Enter') {
+                  e.preventDefault()
+                  handleLogin()
+                }
+              }}
+            />
           </div>
           <div className={styles.field}>
             <label className={styles.fieldLabel}>Contraseña</label>
-            <input className={styles.input} type="password" placeholder="Contraseña" value={password} onChange={e => setPassword(e.target.value)} onKeyDown={e => e.key === 'Enter' && handleLogin()} />
+            <input
+              className={styles.input}
+              type="password"
+              placeholder="Contraseña"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              onKeyDown={e => {
+                if (e.key === 'Enter') {
+                  e.preventDefault()
+                  handleLogin()
+                }
+              }}
+            />
           </div>
           {error && <p className={styles.error}>{error}</p>}
-          <button className={styles.loginBtn} onClick={handleLogin} type="button">Iniciar sesión</button>
+          <button className={styles.loginBtn} onClick={handleLogin} type="button">
+            Iniciar sesión
+          </button>
         </div>
       </div>
     )
@@ -106,7 +142,9 @@ function Admin() {
           <h1 className={styles.title}>Panel de Administración</h1>
           <p className={styles.headerSub}>Club Deportivo Pin Cinco</p>
         </div>
-        <button className={styles.logoutBtn} onClick={handleLogout} type="button">Cerrar sesión</button>
+        <button className={styles.logoutBtn} onClick={handleLogout} type="button">
+          Cerrar sesión
+        </button>
       </header>
 
       <main className={styles.content}>
@@ -120,7 +158,7 @@ function Admin() {
           </button>
         </section>
 
-        {/* Chat en tiempo real */}
+        {/* Chat */}
         <section className={styles.card}>
           <div className={styles.chatHeader}>
             <h2 className={styles.cardTitle}>
@@ -133,8 +171,8 @@ function Admin() {
           </div>
           <p className={styles.cardText}>{messages.length} mensaje(s) en total.</p>
 
-          {/* Mensajes */}
-          <div className={styles.chatBox}>
+          {/* chatBoxRef aquí — scroll interno */}
+          <div className={styles.chatBox} ref={chatBoxRef}>
             {messages.length === 0 ? (
               <p className={styles.empty}>No hay mensajes aún.</p>
             ) : (
@@ -154,10 +192,8 @@ function Admin() {
                 </div>
               ))
             )}
-            <div ref={bottomRef} />
           </div>
 
-          {/* Responder */}
           <div className={styles.replyBox}>
             <input
               className={styles.replyInput}
@@ -165,7 +201,12 @@ function Admin() {
               placeholder="Escribe una respuesta al usuario..."
               value={reply}
               onChange={e => setReply(e.target.value)}
-              onKeyDown={e => e.key === 'Enter' && handleReply()}
+              onKeyDown={e => {
+                if (e.key === 'Enter') {
+                  e.preventDefault()
+                  handleReply()
+                }
+              }}
             />
             <button className={styles.replyBtn} onClick={handleReply} type="button">
               Enviar ▶
@@ -173,7 +214,7 @@ function Admin() {
           </div>
         </section>
 
-        {/* Preguntas frecuentes */}
+        {/* FAQ */}
         <section className={styles.card}>
           <h2 className={styles.cardTitle}>📊 Preguntas Frecuentes</h2>
           <p className={styles.cardText}>Temas más consultados por los usuarios.</p>
@@ -185,7 +226,10 @@ function Admin() {
                   <span className={styles.faqText}>{item.pregunta}</span>
                 </div>
                 <div className={styles.faqBarWrapper}>
-                  <div className={styles.faqBar} style={{ width: `${(item.consultas / faqStats[0].consultas) * 100}%` }} />
+                  <div
+                    className={styles.faqBar}
+                    style={{ width: `${(item.consultas / faqStats[0].consultas) * 100}%` }}
+                  />
                   <span className={styles.faqCount}>{item.consultas}</span>
                 </div>
               </div>
