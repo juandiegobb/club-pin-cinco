@@ -1,24 +1,37 @@
+.heroWrapper {
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  overflow: hidden;
+}
+
 .hero {
   position: relative;
   display: grid;
   grid-template-columns: 260px 1fr 260px;
   align-items: center;
   min-height: 380px;
-  width: 100vw;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  border-radius: 0;
+  width: 100%;
   padding: 28px 0;
-  overflow: hidden;
+  z-index: 2;
+  background: transparent;
+}
+
+.heroBackground {
+  position: absolute;
+  inset: 0;
   background-image: url('../../../assets/home/home-hero-bg.jpg');  
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  z-index: 0;
+  pointer-events: none;
 }
 
-.hero::before {
+.heroBackground::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -26,7 +39,7 @@
   z-index: 1;
 }
 
-.hero::after {
+.heroBackground::after {
   content: "";
   position: absolute;
   inset: 0;

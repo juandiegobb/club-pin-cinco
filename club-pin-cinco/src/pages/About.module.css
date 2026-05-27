@@ -67,6 +67,7 @@
     padding: 28px 16px 48px;
   }
 }
+
 /* Chat en tiempo real */
 .chatHeader {
   align-items: center;
@@ -95,7 +96,10 @@
   padding: 6px 14px;
 }
 
-.clearBtn:hover { color: #fff; border-color: #c0392b; }
+.clearBtn:hover {
+  color: #fff;
+  border-color: #c0392b;
+}
 
 .chatBox {
   background: #07081a;
@@ -126,7 +130,10 @@
   padding: 0 16px;
 }
 
-.replyInput:focus { border-color: #3e43df; outline: none; }
+.replyInput:focus {
+  border-color: #3e43df;
+  outline: none;
+}
 
 .replyBtn {
   background: #3e43df;
@@ -140,37 +147,55 @@
   transition: background 0.2s;
 }
 
-.replyBtn:hover { background: #5258f0; }
+.replyBtn:hover {
+  background: #5258f0;
+}
 
 /* FAQ bars */
-.faqList { display: grid; 
-  gap: 14px; 
-  margin-top: 16px; }
+.faqList {
+  display: grid;
+  gap: 14px;
+  margin-top: 16px;
+}
 
-.faqItem { display: grid; 
-  gap: 6px; }
+.faqItem {
+  display: grid;
+  gap: 6px;
+}
 
-.faqInfo { align-items: center; 
-  display: flex; 
-  gap: 10px; }
+.faqInfo {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+}
 
-.faqRank { color: #f4ff58; 
-  font-size: 13px; 
+.faqRank {
+  color: #f4ff58;
+  font-size: 13px;
   font-weight: 800;
-   min-width: 28px; }
+  min-width: 28px;
+}
 
-.faqText { color: #e0e0ff; 
-  font-size: 14px; }
+.faqText {
+  color: #e0e0ff;
+  font-size: 14px;
+}
 
-.faqBarWrapper { align-items: center;
-   display: flex; 
-   gap: 10px; }
+.faqBarWrapper {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+}
 
-.faqBar { background: #3e43df; 
-  border-radius: 999px; 
-  height: 8px; 
-  transition: width 0.3s; }
+.faqBar {
+  background: #3e43df;
+  border-radius: 999px;
+  height: 8px;
+  transition: width 0.3s;
+}
 
-.faqCount { color: #8888aa; 
+.faqCount {
+  color: #8888aa;
   font-size: 12px;
-   min-width: 24px; }
+  min-width: 24px;
+}
