@@ -1,0 +1,234 @@
+/* ── Página de login ── */
+.loginPage {
+  align-items: center;
+  background: #02020d;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.loginCard {
+  background: #0d0e22;
+  border: 1px solid #2a2b50;
+  border-radius: 20px;
+  display: grid;
+  gap: 18px;
+  padding: 48px 40px;
+  width: min(420px, calc(100vw - 40px));
+}
+
+.loginTitle {
+  color: #f4ff58;
+  font-size: 32px;
+  font-weight: 900;
+  margin: 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.loginSubtitle {
+  color: #8888aa;
+  font-size: 14px;
+  margin: 0;
+  text-align: center;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+.fieldLabel {
+  color: #c0c0ff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.input {
+  background: #1a1b35;
+  border: 1px solid #3a3b6a;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 15px;
+  min-height: 48px;
+  padding: 0 16px;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+
+.input::placeholder { color: #444466; }
+.input:focus { border-color: #3e43df; outline: none; }
+
+.error {
+  background: rgba(192, 57, 43, 0.15);
+  border: 1px solid #c0392b;
+  border-radius: 8px;
+  color: #ff6b6b;
+  font-size: 13px;
+  margin: 0;
+  padding: 10px 14px;
+  text-align: center;
+}
+
+.loginBtn {
+  background: linear-gradient(135deg, #3e43df, #7f3ffc);
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  min-height: 50px;
+  text-transform: uppercase;
+  transition: opacity 0.2s, transform 0.2s;
+  width: 100%;
+}
+
+.loginBtn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+/* ── Panel admin ── */
+.page {
+  background: #02020d;
+  min-height: 100vh;
+}
+
+.loading {
+  align-items: center;
+  color: #fff;
+  display: flex;
+  font-size: 20px;
+  height: 100vh;
+  justify-content: center;
+}
+
+.header {
+  align-items: center;
+  background: #0d0e22;
+  border-bottom: 2px solid #3e43df;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 48px;
+}
+
+.title {
+  color: #f4ff58;
+  font-size: 22px;
+  font-weight: 900;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.logoutBtn {
+  background: #c0392b;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px 20px;
+  transition: background 0.2s;
+}
+
+.logoutBtn:hover { background: #e74c3c; }
+
+.content {
+  display: grid;
+  gap: 28px;
+  margin: 0 auto;
+  max-width: 1000px;
+  padding: 48px;
+}
+
+.card {
+  background: #0d0e22;
+  border: 1px solid #2a2b50;
+  border-radius: 16px;
+  padding: 32px;
+}
+
+.cardTitle {
+  color: #f4ff58;
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0 0 10px;
+}
+
+.cardText {
+  color: #8888aa;
+  font-size: 14px;
+  margin: 0 0 20px;
+}
+
+.whatsappBtn {
+  align-items: center;
+  background: #25d366;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 14px;
+  font-weight: 800;
+  gap: 8px;
+  padding: 12px 28px;
+  transition: background 0.2s;
+}
+
+.whatsappBtn:hover { background: #1ebe57; }
+
+.empty {
+  color: #555577;
+  font-size: 14px;
+  padding: 32px;
+  text-align: center;
+}
+
+.messageList {
+  display: grid;
+  gap: 12px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.message {
+  border-radius: 10px;
+  padding: 14px 18px;
+}
+
+.messageGuest {
+  background: #1a1b35;
+  border-left: 4px solid #c0392b;
+}
+
+.messageClub {
+  background: #1a1b35;
+  border-left: 4px solid #3e43df;
+}
+
+.messageAuthor {
+  color: #8888aa;
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.messageTime {
+  color: #555577;
+  font-weight: 400;
+  text-transform: none;
+}
+
+.messageText {
+  color: #fff;
+  font-size: 14px;
+  margin: 0;
+}

@@ -3,7 +3,7 @@
 import styles from './ReservationForm.module.css'
 
 // Número de WhatsApp del establecimiento (sin +)
-const WHATSAPP_NUMBER = '573202967582'
+const WHATSAPP_NUMBER = '573148877381'
 
 function ReservationForm({ service, date, schedule, name, phone, people, onChange }) {
 

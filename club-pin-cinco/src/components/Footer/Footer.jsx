@@ -1,6 +1,9 @@
 import styles from './Footer.module.css'
 
 function Footer() {
+  function handleAdminLogin() {
+  window.location.href = '/admin'
+}
   return (
     <footer className={styles.footer}>
 
@@ -51,7 +54,13 @@ function Footer() {
           <span className={styles.phoneIcon}>📞</span>
           320 2967582 — 311 2956363
         </p>
+
+         {/* Botón admin visible */}
+           <button className={styles.adminBtn} onClick={handleAdminLogin} type="button">
+          🔐 Administración
+           </button>
       </section>
+       
 
     </footer>
   )

@@ -6,6 +6,7 @@ import About from './pages/About'
 import Services from './pages/Services'
 import Gallery from './pages/Gallery'
 import Reservation from './pages/Reservation'
+import Admin from './pages/Admin'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/servicios" element={<Services />} />
         <Route path="/galeria" element={<Gallery />} />
         <Route path="/reserva" element={<Reservation />} />
+        <Route path="/admin" element={<Admin />} />
       </Route>
     </Routes>
   )

@@ -95,4 +95,25 @@
   .block {
     padding: 0;
   }
+  
+}
+/* Botón admin — discreto */
+.adminBtn {
+  align-items: center;
+  background: #3e43df;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  font-size: 13px;
+  font-weight: 700;
+  gap: 8px;
+  padding: 10px 20px;
+  transition: background 0.2s;
+  margin-top: 16px;
+}
+
+.adminBtn:hover {
+  background: #5258f0;
 }

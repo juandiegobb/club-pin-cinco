@@ -94,3 +94,25 @@
     font-size: 32px;
   }
 }
+
+.mapLink {
+  display: block;
+  text-decoration: none;
+}
+
+.mapLink:hover .map {
+  opacity: 0.85;
+  outline: 2px solid #3e43df;
+}
+
+.mapHint {
+  background: rgba(62, 67, 223, 0.85);
+  border-radius: 6px;
+  bottom: 10px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  position: absolute;
+  right: 10px;
+}
