@@ -39,14 +39,19 @@ function ChatWindow({ onClose }) {
 
   // Actualizar mensajes cada segundo — para ver respuestas del admin
   useEffect(() => {
-    const interval = setInterval(() => {
-      const fresh = getMessages()
-      if (fresh.length !== messages.length) {
-        setMessages(fresh)
-      }
-    }, 1000)
-    return () => clearInterval(interval)
-  }, [messages])
+  function handleStorage(e) {
+    if (e.key === 'pincinco_chat_messages') {
+      setMessages(getMessages())
+    }
+  }
+  // Escucha cambios del admin desde otra pestaña
+  window.addEventListener('storage', handleStorage)
+  window.addEventListener('chat-updated', () => setMessages(getMessages()))
+  return () => {
+    window.removeEventListener('storage', handleStorage)
+    window.removeEventListener('chat-updated', () => setMessages(getMessages()))
+  }
+}, [])
 
   // Escuchar evento del admin
   useEffect(() => {
