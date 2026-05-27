@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import ChatBubble from '../ChatBubble/ChatBubble'
+import { getMessages, saveMessage } from '../../../utils/chatStorage'
 import styles from './ChatWindow.module.css'
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -60,15 +61,27 @@ function getAutoReply(text) {
   )
   return match ? match.answer : DEFAULT_ANSWER
 }
-
 function ChatWindow({ onClose }) {
   const [message, setMessage] = useState('')
-  const [messages, setMessages] = useState([
-    { id: 1, author: 'club', text: '👋 Hola, somos Club Deportivo Pin Cinco. ¿En qué te podemos ayudar? Puedes preguntarme sobre horarios, precios, reservas o ubicación.' },
-  ])
-
-  // Referencia para hacer scroll automático al último mensaje
+  const [messages, setMessages] = useState(() => {
+    const saved = getMessages()
+    if (saved.length === 0) {
+      // Mensaje de bienvenida
+      saveMessage('club', '👋 Hola, somos Club Deportivo Pin Cinco. ¿En qué te podemos ayudar?')
+      return getMessages()
+    }
+    return saved
+  })
   const bottomRef = useRef(null)
+
+  // Escuchar cuando el admin responde
+  useEffect(() => {
+    function handleUpdate() {
+      setMessages(getMessages())
+    }
+    window.addEventListener('chat-updated', handleUpdate)
+    return () => window.removeEventListener('chat-updated', handleUpdate)
+  }, [])
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -76,29 +89,31 @@ function ChatWindow({ onClose }) {
 
   function handleSubmit() {
     if (!message.trim()) return
-
-    const userMessage = message.trim()
-
-    // Agrega el mensaje del usuario
-    setMessages((prev) => [
-      ...prev,
-      { id: Date.now(), author: 'guest', text: userMessage },
-    ])
+    const userMsg = message.trim()
     setMessage('')
 
-    // Respuesta automática con pequeño delay para que se sienta natural
+    // Guardar mensaje del usuario
+    saveMessage('guest', userMsg)
+    setMessages(getMessages())
+
+    // Respuesta automática con delay
     setTimeout(() => {
-      setMessages((prev) => [
-        ...prev,
-        { id: Date.now() + 1, author: 'club', text: getAutoReply(userMessage) },
-      ])
+      saveMessage('club', getAutoReply(userMsg))
+      setMessages(getMessages())
+    }, 600)
+  }
+
+  function handleSuggestion(text) {
+    saveMessage('guest', text)
+    setMessages(getMessages())
+    setTimeout(() => {
+      saveMessage('club', getAutoReply(text))
+      setMessages(getMessages())
     }, 600)
   }
 
   return (
     <aside className={styles.window} aria-label="Chat de contacto">
-
-      {/* Encabezado */}
       <div className={styles.header}>
         <div className={styles.headerInfo}>
           <span className={styles.avatar}>🎳</span>
@@ -107,52 +122,26 @@ function ChatWindow({ onClose }) {
             <p className={styles.subtitle}>Respuestas automáticas</p>
           </div>
         </div>
-        <button className={styles.closeBtn} type="button" onClick={onClose} aria-label="Cerrar chat">
-          ×
-        </button>
+        <button className={styles.closeBtn} type="button" onClick={onClose}>×</button>
       </div>
 
-      {/* Sugerencias rápidas */}
       <div className={styles.suggestions}>
-        {['Horarios', 'Precios', 'Reservas', 'Ubicación'].map((s) => (
-          <button
-            key={s}
-            className={styles.suggestion}
-            type="button"
-            onClick={() => {
-              setMessage(s)
-              setTimeout(() => {
-                setMessages((prev) => [
-                  ...prev,
-                  { id: Date.now(), author: 'guest', text: s },
-                ])
-                setMessage('')
-                setTimeout(() => {
-                  setMessages((prev) => [
-                    ...prev,
-                    { id: Date.now() + 1, author: 'club', text: getAutoReply(s) },
-                  ])
-                }, 600)
-              }, 0)
-            }}
-          >
+        {['Horarios', 'Precios', 'Reservas', 'Ubicación', 'Servicios'].map((s) => (
+          <button key={s} className={styles.suggestion} type="button" onClick={() => handleSuggestion(s)}>
             {s}
           </button>
         ))}
       </div>
 
-      {/* Mensajes */}
       <div className={styles.messages}>
         {messages.map((item) => (
           <ChatBubble key={item.id} author={item.author}>
             {item.text}
           </ChatBubble>
         ))}
-        {/* Ancla para scroll automático */}
         <div ref={bottomRef} />
       </div>
 
-      {/* Input */}
       <div className={styles.form}>
         <input
           className={styles.input}
@@ -162,18 +151,9 @@ function ChatWindow({ onClose }) {
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
         />
-        <button
-          className={styles.sendBtn}
-          type="button"
-          onClick={handleSubmit}
-          aria-label="Enviar"
-        >
-          ▶
-        </button>
+        <button className={styles.sendBtn} type="button" onClick={handleSubmit}>▶</button>
       </div>
-
     </aside>
   )
 }
-
 export default ChatWindow
