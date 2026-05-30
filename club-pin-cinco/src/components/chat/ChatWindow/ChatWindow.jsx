@@ -30,9 +30,30 @@ function ChatWindow({ onClose }) {
   const [message, setMessage] = useState('')
   const [autoScroll, setAutoScroll] = useState(true)
   const bottomRef = useRef(null)
+  const windowRef = useRef(null) // Para Click Outside
 
-  // WebSocket — mensajes en tiempo real
-  const { messages: wsMessages, sendMessage: wsSend, isConnected } = useChat()
+  // WebSocket — mensajes en tiempo real y estado del admin
+  const { messages: wsMessages, sendMessage: wsSend, isConnected, isAdminOnline } = useChat()
+
+  // Manejar Click Outside para cerrar la ventana del chat
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (windowRef.current && !windowRef.current.contains(event.target)) {
+        // Excluir el botón de cerrar y el botón flotante que abre el chat para evitar doble trigger
+        const isClickingCloseBtn = event.target.closest(`.${styles.closeBtn}`)
+        const isClickingFloatBtn = event.target.closest('[class*="FloatingChat_btn"]')
+        
+        if (!isClickingCloseBtn && !isClickingFloatBtn) {
+          onClose()
+        }
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [onClose])
 
   // Mensajes localStorage (fallback / historial previo a WS)
   const [localMessages, setLocalMessages] = useState(() => {
@@ -108,7 +129,7 @@ function ChatWindow({ onClose }) {
   }
 
   return (
-    <aside className={styles.window} aria-label="Chat de contacto">
+    <aside className={styles.window} ref={windowRef} aria-label="Chat de contacto">
       <div className={styles.header}>
         <div className={styles.headerInfo}>
           <span className={styles.avatar}>🎳</span>
@@ -116,7 +137,9 @@ function ChatWindow({ onClose }) {
             <strong className={styles.title}>Club Pin Cinco</strong>
             <p className={styles.subtitle}>
               {isConnected
-                ? <><span className={styles.dotOnline} />En línea — chat en vivo</>
+                ? isAdminOnline
+                  ? <><span className={styles.dotOnline} />En línea — chat en vivo</>
+                  : <><span className={styles.dotBot} />Respuestas automáticas (Bot)</>
                 : <><span className={styles.dotOffline} />Respuestas automáticas</>
               }
             </p>

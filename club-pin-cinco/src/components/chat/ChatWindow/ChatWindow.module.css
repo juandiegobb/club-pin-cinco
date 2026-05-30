@@ -191,7 +191,8 @@
 
 /* ── Indicador de estado WS ─────────────────────────────────── */
 .dotOnline,
-.dotOffline {
+.dotOffline,
+.dotBot {
   display: inline-block;
   width: 7px;
   height: 7px;
@@ -207,7 +208,14 @@
 }
 
 .dotOffline {
-  background: #f59e0b;
+  background: #ef4444;
+  box-shadow: 0 0 6px rgba(239, 68, 68, 0.6);
+}
+
+.dotBot {
+  background: #c084fc;
+  box-shadow: 0 0 6px rgba(192, 132, 252, 0.7);
+  animation: pulse 3s infinite ease-in-out;
 }
 
 @keyframes pulse {

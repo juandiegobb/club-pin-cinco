@@ -135,6 +135,78 @@
       "text": "Tu turno ha sido apartado. Recibirás una respuesta en breve.",
       "timestamp": "2026-05-30T03:13:40.698Z",
       "read": false
+    },
+    {
+      "id": "msg_1780114567559_nswnv",
+      "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
+      "author": "guest",
+      "text": "Hola Hola",
+      "timestamp": "2026-05-30T04:16:07.559Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780114579702_wb497",
+      "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
+      "author": "club",
+      "text": "hola",
+      "timestamp": "2026-05-30T04:16:19.702Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780114645176_7gwhr",
+      "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
+      "author": "guest",
+      "text": "Precios",
+      "timestamp": "2026-05-30T04:17:25.176Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780114666232_gs4yt",
+      "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
+      "author": "guest",
+      "text": "Horarios",
+      "timestamp": "2026-05-30T04:17:46.232Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780114667042_93rjp",
+      "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
+      "author": "club",
+      "text": "🕐 Nuestros horarios son:\n• Lunes a jueves: 11:00 a.m - 11:00 p.m\n• Viernes: 11:00 a.m - 1:00 a.m\n• Sábados: 2:30 p.m - 2:00 a.m\n• Domingos: 3:00 p.m - 10:00 p.m",
+      "timestamp": "2026-05-30T04:17:47.043Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780114672006_110oq",
+      "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
+      "author": "guest",
+      "text": "Reservas",
+      "timestamp": "2026-05-30T04:17:52.006Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780114672817_ql54v",
+      "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
+      "author": "club",
+      "text": "📅 Puedes apartar tu turno en nuestra página de reservas (sección \"Reserva\") o llamarnos al 320 2967582.",
+      "timestamp": "2026-05-30T04:17:52.817Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780115256016_mfciu",
+      "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
+      "author": "guest",
+      "text": "Ubicación",
+      "timestamp": "2026-05-30T04:27:36.016Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780115256831_qp0bm",
+      "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
+      "author": "club",
+      "text": "📍 Estamos en: Transversal 0 Este 66a 18, Muscas Centro Comercial Río, Tunja, Boyacá.",
+      "timestamp": "2026-05-30T04:27:36.833Z",
+      "read": false
     }
   ],
   "30e0f7e4-3f60-49cb-b943-b6297c57e322": [

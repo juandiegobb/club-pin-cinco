@@ -204,6 +204,13 @@ function broadcastUsersList() {
   broadcastToAdmins({ type: 'users_list', users: activeClients })
 }
 
+function broadcastAdminStatus() {
+  const isAdminOnline = connections.some(c => c.role === 'admin')
+  connections
+    .filter(c => c.role === 'guest')
+    .forEach(c => send(c.ws, { type: 'admin_status', online: isAdminOnline }))
+}
+
 function broadcastTurnsList() {
   const turns = getAllTurns()
   broadcastToAdmins({ type: 'turns_list', turns })
@@ -263,6 +270,10 @@ wss.on('connection', (ws) => {
 
         // Notificar a admins que hay un nuevo usuario
         broadcastUsersList()
+
+        // Enviar estado de admin actual al nuevo guest de forma inmediata
+        const isAdminOnline = connections.some(c => c.role === 'admin')
+        send(ws, { type: 'admin_status', online: isAdminOnline })
       }
 
       if (role === 'admin') {
@@ -274,6 +285,9 @@ wss.on('connection', (ws) => {
         // Admin recibe todos los mensajes organizados por clientId
         const allMessages = getAllMessages()
         send(ws, { type: 'all_messages', messages: allMessages })
+
+        // Notificar a todos los guests que el admin se ha conectado
+        broadcastAdminStatus()
       }
 
       send(ws, { type: 'registered', clientId, role })
@@ -393,6 +407,11 @@ wss.on('connection', (ws) => {
 
       if (currentConn.role === 'guest') {
         broadcastUsersList()
+      }
+
+      if (currentConn.role === 'admin') {
+        // Si el admin se desconecta, notificar a todos los guests
+        broadcastAdminStatus()
       }
     }
   })

@@ -52,6 +52,7 @@ export function ChatProvider({ children, role = 'guest' }) {
       return null
     }
   }) // Notificación visual de turno apartado
+  const [isAdminOnline, setIsAdminOnline] = useState(false)
 
   const updateTurnNotification = useCallback((value) => {
     setTurnNotification(value)
@@ -136,6 +137,10 @@ export function ChatProvider({ children, role = 'guest' }) {
             name: data.turn.name,
             people: data.turn.people
           })
+          break
+
+        case 'admin_status':
+          setIsAdminOnline(data.online)
           break
 
         case 'error':
@@ -224,6 +229,7 @@ export function ChatProvider({ children, role = 'guest' }) {
       turns,             // turnos — admin
       turnNotification,  // notificación de turno apartado
       setTurnNotification: updateTurnNotification, // para limpiar la notificación
+      isAdminOnline,     // estado de conexion del admin
       sendMessage,
       sendAdminReply,
       sendTurnRequest,
