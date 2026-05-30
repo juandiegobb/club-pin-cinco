@@ -70,6 +70,7 @@ function Reservation() {
             selected={form.schedule}
             onChange={(val) => handleChange('schedule', val)}
             service={form.service}
+            date={form.date}
           />
         </motion.div>
       </div>

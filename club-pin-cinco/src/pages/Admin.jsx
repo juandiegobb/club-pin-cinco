@@ -16,6 +16,7 @@ function AdminPanel({ onLogout }) {
     activeUsers,
     turns,
     sendAdminReply,
+    approveTurn,
     markTurnDone,
     deleteTurn,
   } = useChatContext()
@@ -74,6 +75,7 @@ function AdminPanel({ onLogout }) {
   }
 
   const pendingTurns = turns.filter(t => t.status === 'pending')
+  const approvedTurns = turns.filter(t => t.status === 'approved')
   const doneTurns = turns.filter(t => t.status === 'done')
 
   return (
@@ -286,10 +288,65 @@ function AdminPanel({ onLogout }) {
                       </div>
                       <div className={styles.turnActions}>
                         <button
+                          className={styles.approveBtn}
+                          onClick={() => approveTurn(turn.id)}
+                          type="button"
+                          title="Aprobar y bloquear horario globalmente"
+                        >
+                          ⭐ Aprobar
+                        </button>
+                        <button
+                          className={styles.deleteBtn}
+                          onClick={() => {
+                            if (confirm('¿Eliminar este turno?')) deleteTurn(turn.id)
+                          }}
+                          type="button"
+                          title="Eliminar turno"
+                        >
+                          🗑
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Turnos Aprobados y Bloqueados */}
+            <div className={styles.card}>
+              <h2 className={styles.cardTitle}>
+                🔒 Turnos Aprobados (Bloqueados Globalmente)
+                {approvedTurns.length > 0 && (
+                  <span className={styles.approvedBadge}>{approvedTurns.length}</span>
+                )}
+              </h2>
+
+              {approvedTurns.length === 0 ? (
+                <p className={styles.emptyTurns}>No hay turnos aprobados/bloqueados en este momento.</p>
+              ) : (
+                <div className={styles.turnsList}>
+                  {approvedTurns.map(turn => (
+                    <div key={turn.id} className={`${styles.turnCard} ${styles.turnCardApproved}`}>
+                      <div className={styles.turnInfo}>
+                        <div className={styles.turnService}>
+                          {turn.service === 'Bolos' ? '🎳' : '🎱'} {turn.service}
+                          <span className={styles.approvedPill}>Aprobado · Horario Bloqueado</span>
+                        </div>
+                        <div className={styles.turnDetails}>
+                          <span>📅 {turn.date}</span>
+                          <span>🕐 {turn.schedule}</span>
+                          <span>👤 {turn.name}</span>
+                          <span>📞 {turn.phone}</span>
+                          <span>👥 {turn.people} persona(s)</span>
+                          <span className={styles.turnId}>ID: {formatId(turn.clientId)}</span>
+                        </div>
+                      </div>
+                      <div className={styles.turnActions}>
+                        <button
                           className={styles.doneBtn}
                           onClick={() => markTurnDone(turn.id)}
                           type="button"
-                          title="Marcar como atendido"
+                          title="Marcar como atendido/finalizado"
                         >
                           ✅ Finalizar
                         </button>

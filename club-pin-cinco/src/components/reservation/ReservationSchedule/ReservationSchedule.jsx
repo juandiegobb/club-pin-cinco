@@ -29,9 +29,51 @@ function getBlockedSlots(service) {
   }
 }
 
-function ReservationSchedule({ selected, onChange, service }) {
+function ReservationSchedule({ selected, onChange, service, date }) {
   const [blockedSlots, setBlockedSlots] = useState(() => getBlockedSlots(service))
+  const [approvedServerSlots, setApprovedServerSlots] = useState([]) // Slots aprobados en el back
 
+  // Formatear fecha seleccionada a string igual al guardado en el backend
+  const dateStr = date
+    ? date.toLocaleDateString('es-CO', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+    : ''
+
+  // Cargar turnos aprobados desde la API REST del servidor
+  useEffect(() => {
+    if (!dateStr) {
+      setApprovedServerSlots([])
+      return
+    }
+
+    async function fetchApprovedTurns() {
+      try {
+        const res = await fetch('http://localhost:3001/api/turns')
+        if (!res.ok) return
+        const turns = await res.json()
+
+        // Filtrar turnos del back que estén aprobados y coincidan con el servicio y la fecha
+        const approved = turns.filter((turn) => {
+          const isSameService = turn.service.toLowerCase() === service.toLowerCase()
+          const isSameDate = turn.date.toLowerCase() === dateStr.toLowerCase()
+          const isApproved = turn.status === 'approved'
+          return isSameService && isSameDate && isApproved
+        })
+
+        // Guardar la lista de horarios (schedule) que están ocupados en el servidor
+        setApprovedServerSlots(approved.map(t => t.schedule))
+      } catch (err) {
+        console.warn('[Schedule] Error fetching server blocked slots:', err.message)
+      }
+    }
+
+    fetchApprovedTurns()
+
+    // Encuesta cada 15 segundos para mantener actualizado si otro usuario agendó en tiempo real
+    const interval = setInterval(fetchApprovedTurns, 15000)
+    return () => clearInterval(interval)
+  }, [service, dateStr])
+
+  // Bloqueos de localStorage
   useEffect(() => {
     setBlockedSlots(getBlockedSlots(service))
     const interval = setInterval(() => {
@@ -48,37 +90,51 @@ function ReservationSchedule({ selected, onChange, service }) {
 
   function handleSelect(slot) {
     const key = `${service}_${slot}`
-    if (blockedSlots[key]) return
+    const isLocalBlocked = !!blockedSlots[key]
+    const isServerBlocked = approvedServerSlots.includes(slot)
+    if (isLocalBlocked || isServerBlocked) return
     onChange(slot)
   }
 
   return (
     <div className={styles.wrapper}>
       <p className={styles.label}>3. Elige tu horario</p>
-      <div className={styles.list}>
-        {slots.map((slot) => {
-          const key = `${service}_${slot}`
-          const isBlocked = !!blockedSlots[key]
-          const isSelected = selected === slot
-          const mins = timeLeft(slot)
-          return (
-            <button
-              key={slot}
-              className={`${styles.slot} ${isSelected ? styles.slotActive : ''} ${isBlocked ? styles.slotBlocked : ''}`}
-              onClick={() => handleSelect(slot)}
-              type="button"
-              disabled={isBlocked}
-            >
-              <span className={styles.slotTime}>{slot}</span>
-              {isBlocked && (
-                <span className={styles.slotBlockedTag}>
-                  🔒 No disponible · {mins} min restantes
-                </span>
-              )}
-            </button>
-          )
-        })}
-      </div>
+      {!date ? (
+        <p className={styles.selectDatePrompt}>⚠️ Por favor selecciona una fecha primero para ver los horarios disponibles.</p>
+      ) : (
+        <div className={styles.list}>
+          {slots.map((slot) => {
+            const key = `${service}_${slot}`
+            const isLocalBlocked = !!blockedSlots[key]
+            const isServerBlocked = approvedServerSlots.includes(slot)
+            const isBlocked = isLocalBlocked || isServerBlocked
+            const isSelected = selected === slot
+            const mins = timeLeft(slot)
+
+            return (
+              <button
+                key={slot}
+                className={`${styles.slot} ${isSelected ? styles.slotActive : ''} ${isBlocked ? styles.slotBlocked : ''}`}
+                onClick={() => handleSelect(slot)}
+                type="button"
+                disabled={isBlocked}
+              >
+                <span className={styles.slotTime}>{slot}</span>
+                {isServerBlocked && (
+                  <span className={styles.slotBlockedTag}>
+                    🔒 Ocupado · Reservado
+                  </span>
+                )}
+                {isLocalBlocked && !isServerBlocked && (
+                  <span className={styles.slotBlockedTag}>
+                    🔒 Bloqueado temporalmente · {mins} min restantes
+                  </span>
+                )}
+              </button>
+            )
+          })}
+        </div>
+      )}
     </div>
   )
 }

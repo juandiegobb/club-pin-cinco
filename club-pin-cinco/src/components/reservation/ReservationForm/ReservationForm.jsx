@@ -3,7 +3,7 @@ import { useChat } from '../../../hooks/useChat'
 
 const WHATSAPP_NUMBER = '573148877381'
 const STORAGE_KEY = 'pincinco_blocked_slots'
-const BLOCK_MINUTES = 10
+const BLOCK_MINUTES = 1
 
 // Bloquea el horario por servicio — Bolos y Billar son independientes
 function blockSlot(service, slot) {
@@ -131,4 +131,4 @@ function ReservationForm({ service, date, schedule, name, phone, people, onChang
   )
 }
 
-export default ReservationForm
+export default ReservationForm

@@ -364,6 +364,13 @@ wss.on('connection', (ws) => {
       return
     }
 
+    // ── ADMIN: marcar turno como aprobado (bloqueado global) ──────────────────
+    if (data.type === 'turn_approve' && currentConn.role === 'admin') {
+      updateTurnStatus(data.turnId, 'approved')
+      broadcastTurnsList()
+      return
+    }
+
     // ── ADMIN: marcar turno como finalizado ───────────────────────────────────
     if (data.type === 'turn_done' && currentConn.role === 'admin') {
       updateTurnStatus(data.turnId, 'done')

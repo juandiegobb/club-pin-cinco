@@ -204,6 +204,11 @@ export function ChatProvider({ children, role = 'guest' }) {
     wsRef.current.send(JSON.stringify({ type: 'turn_done', turnId }))
   }, [])
 
+  const approveTurn = useCallback((turnId) => {
+    if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) return
+    wsRef.current.send(JSON.stringify({ type: 'turn_approve', turnId }))
+  }, [])
+
   const deleteTurn = useCallback((turnId) => {
     if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) return
     wsRef.current.send(JSON.stringify({ type: 'turn_delete', turnId }))
@@ -222,6 +227,7 @@ export function ChatProvider({ children, role = 'guest' }) {
       sendMessage,
       sendAdminReply,
       sendTurnRequest,
+      approveTurn,
       markTurnDone,
       deleteTurn,
     }}>
