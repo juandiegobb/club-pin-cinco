@@ -1,32 +1,59 @@
-/* Página Galería */
+/* ─── Página Galería ──────────────────────────────────── */
 .page {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 40px;
-  margin: 0 auto;
-  max-width: 1100px;
-  padding: 48px 48px 80px;
+  /* El max-width aplica al título y al grid, no al carrusel */
+  padding: 48px 0 80px;
+  overflow-x: hidden; /* evita scroll horizontal por el ticker */
 }
 
 .title {
   color: var(--text-accent);
-  font-size: clamp(32px, 5vw, 56px);
+  font-size: clamp(28px, 5vw, 56px);
   font-weight: 900;
   letter-spacing: 3px;
-  margin: 0;
+  margin: 0 auto;
+  max-width: 1100px;
+  padding: 0 48px;
+  width: 100%;
   text-transform: uppercase;
   transition: color 0.3s ease;
 }
 
+/* El GalleryGrid sigue centrado y con padding normal */
+.gridWrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 48px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ─── Responsive ─────────────────────────────────────── */
 @media (max-width: 860px) {
   .page {
-    padding: 36px 24px 60px;
     gap: 32px;
+    padding: 36px 0 60px;
+  }
+  .title {
+    padding: 0 24px;
+  }
+  .gridWrapper {
+    padding: 0 24px;
   }
 }
 
 @media (max-width: 560px) {
   .page {
-    padding: 28px 16px 48px;
     gap: 24px;
+    padding: 28px 0 48px;
+  }
+  .title {
+    padding: 0 16px;
+    letter-spacing: 1.5px;
+  }
+  .gridWrapper {
+    padding: 0 16px;
   }
 }

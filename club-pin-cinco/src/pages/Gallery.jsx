@@ -66,7 +66,9 @@ function Gallery() {
         {t('galleryHeroTitle')}
       </motion.h1>
       <GalleryCarousel images={carouselImagesTrans} />
-      <GalleryGrid images={gridImagesTrans} />
+      <div className={styles.gridWrapper}>
+        <GalleryGrid images={gridImagesTrans} />
+      </div>
     </div>
   )
 }

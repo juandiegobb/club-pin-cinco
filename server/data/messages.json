@@ -223,6 +223,166 @@
       "text": "..........",
       "timestamp": "2026-05-30T04:41:28.757Z",
       "read": false
+    },
+    {
+      "id": "msg_1780116460549_pyzdf",
+      "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
+      "author": "guest",
+      "text": "ximenuchisss",
+      "timestamp": "2026-05-30T04:47:40.550Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780116495291_a2fwc",
+      "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
+      "author": "club",
+      "text": "holaaaaaaa",
+      "timestamp": "2026-05-30T04:48:15.291Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780116518218_jgeui",
+      "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
+      "author": "club",
+      "text": "Karoluchis",
+      "timestamp": "2026-05-30T04:48:38.218Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780116551895_cw010",
+      "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
+      "author": "club",
+      "text": ",,",
+      "timestamp": "2026-05-30T04:49:11.909Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780116554206_y5mte",
+      "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
+      "author": "club",
+      "text": "mmmmmm",
+      "timestamp": "2026-05-30T04:49:14.206Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780116557229_42qnf",
+      "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
+      "author": "club",
+      "text": "Prueba mensajes",
+      "timestamp": "2026-05-30T04:49:17.229Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780116567760_7ij0e",
+      "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
+      "author": "guest",
+      "text": "sisis prueba",
+      "timestamp": "2026-05-30T04:49:27.760Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780116853799_kcp1j",
+      "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
+      "author": "guest",
+      "text": "Ximenuchis",
+      "timestamp": "2026-05-30T04:54:13.799Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780116865418_ehdlv",
+      "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
+      "author": "club",
+      "text": "Karoluchis",
+      "timestamp": "2026-05-30T04:54:25.418Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780116937378_55jbk",
+      "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
+      "author": "guest",
+      "text": "....",
+      "timestamp": "2026-05-30T04:55:37.378Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780116938195_8qsaf",
+      "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
+      "author": "club",
+      "text": "🤔 No entendí tu pregunta. Puedes preguntarme sobre:\n• 🕐 Horarios\n• 💰 Precios\n• 📅 Reservas\n• 📍 Ubicación\n• 🎮 Servicios\n• 📞 Contacto\n\nO escríbenos directamente y un agente te atenderá.",
+      "timestamp": "2026-05-30T04:55:38.196Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780116942785_ym6oy",
+      "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
+      "author": "guest",
+      "text": "Reservas",
+      "timestamp": "2026-05-30T04:55:42.785Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780116943600_t0u8h",
+      "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
+      "author": "club",
+      "text": "📅 Puedes apartar tu turno en nuestra página de reservas (sección \"Reserva\") o llamarnos al 320 2967582.",
+      "timestamp": "2026-05-30T04:55:43.600Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780116946488_2e9zc",
+      "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
+      "author": "guest",
+      "text": "Precios",
+      "timestamp": "2026-05-30T04:55:46.488Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780116947295_ga76z",
+      "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
+      "author": "club",
+      "text": "💰 Los precios varían según el servicio y el tiempo. Llámanos al 320 2967582 para más información.",
+      "timestamp": "2026-05-30T04:55:47.295Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780116951436_h5ksy",
+      "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
+      "author": "guest",
+      "text": "Ubicación",
+      "timestamp": "2026-05-30T04:55:51.436Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780116952238_z0gwg",
+      "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
+      "author": "club",
+      "text": "📍 Estamos en: Transversal 0 Este 66a 18, Muscas Centro Comercial Río, Tunja, Boyacá.",
+      "timestamp": "2026-05-30T04:55:52.239Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780116988424_qpdpq",
+      "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
+      "author": "club",
+      "text": "hola karoluchissss",
+      "timestamp": "2026-05-30T04:56:28.424Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780117009291_g3z4e",
+      "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
+      "author": "guest",
+      "text": "Horarios",
+      "timestamp": "2026-05-30T04:56:49.291Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780117010112_eokjr",
+      "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
+      "author": "club",
+      "text": "🕐 Nuestros horarios son:\n• Lunes a jueves: 11:00 a.m - 11:00 p.m\n• Viernes: 11:00 a.m - 1:00 a.m\n• Sábados: 2:30 p.m - 2:00 a.m\n• Domingos: 3:00 p.m - 10:00 p.m",
+      "timestamp": "2026-05-30T04:56:50.112Z",
+      "read": false
     }
   ],
   "30e0f7e4-3f60-49cb-b943-b6297c57e322": [
@@ -272,6 +432,24 @@
       "author": "guest",
       "text": "Ubicación",
       "timestamp": "2026-05-30T03:18:12.860Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780116530424_44yti",
+      "clientId": "30e0f7e4-3f60-49cb-b943-b6297c57e322",
+      "author": "club",
+      "text": "..",
+      "timestamp": "2026-05-30T04:48:50.424Z",
+      "read": false
+    }
+  ],
+  "cc52c338-8e15-4651-9534-bbd00256cae1": [
+    {
+      "id": "msg_1780116535816_j9yue",
+      "clientId": "cc52c338-8e15-4651-9534-bbd00256cae1",
+      "author": "club",
+      "text": "..",
+      "timestamp": "2026-05-30T04:48:55.816Z",
       "read": false
     }
   ]
