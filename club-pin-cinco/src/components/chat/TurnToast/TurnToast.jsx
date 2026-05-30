@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
+import { useLanguage } from '../../../context/LanguageContext'
 import { useChat } from '../../../hooks/useChat'
 import styles from './TurnToast.module.css'
 
 function TurnToast() {
+  const { t, language } = useLanguage()
   const { turnNotification, setTurnNotification } = useChat()
 
   if (!turnNotification) return null
@@ -15,15 +17,15 @@ function TurnToast() {
         <div className={styles.header}>
           <div className={styles.titleArea}>
             <div>
-              <h4 className={styles.title}>¡Turno Apartado!</h4>
-              <p className={styles.subtitle}>Recibirás una respuesta en breve</p>
+              <h4 className={styles.title}>{t('toastTitle')}</h4>
+              <p className={styles.subtitle}>{t('toastSubtitle')}</p>
             </div>
           </div>
           <button
             className={styles.closeBtn}
             onClick={() => setTurnNotification(null)}
             type="button"
-            aria-label="Cerrar notificación"
+            aria-label={language === 'es' ? 'Cerrar notificación' : 'Close notification'}
           >
             ×
           </button>
@@ -31,37 +33,39 @@ function TurnToast() {
 
         <div className={styles.body}>
           <div className={styles.detailRow}>
-            <span className={styles.label}>Cliente:</span>
+            <span className={styles.label}>{t('labelClient')}</span>
             <span className={styles.value}>{name}</span>
           </div>
           <div className={styles.detailRow}>
-            <span className={styles.label}>Servicio:</span>
-            <span className={styles.value}>{service === 'bolos' ? '🎳 Bolos' : '🎱 Billar'}</span>
+            <span className={styles.label}>{t('labelService')}</span>
+            <span className={styles.value}>
+              {service && service.toLowerCase() === 'bolos' ? t('bolosServiceTag') : t('billarServiceTag')}
+            </span>
           </div>
           <div className={styles.detailRow}>
-            <span className={styles.label}>Fecha:</span>
+            <span className={styles.label}>{t('labelDate')}</span>
             <span className={styles.value}>{date}</span>
           </div>
           <div className={styles.detailRow}>
-            <span className={styles.label}>Horario:</span>
+            <span className={styles.label}>{t('labelSchedule')}</span>
             <span className={styles.value}>{schedule}</span>
           </div>
           <div className={styles.detailRow}>
-            <span className={styles.label}>Personas:</span>
+            <span className={styles.label}>{t('labelPeople')}</span>
             <span className={styles.value}>{people}</span>
           </div>
         </div>
 
         <div className={styles.footer}>
           <p className={styles.whatsappNote}>
-            🟢 Tu solicitud de turno está registrada de forma segura en nuestro sistema.
+            {t('toastBadge')}
           </p>
           <button
             className={styles.acceptBtn}
             onClick={() => setTurnNotification(null)}
             type="button"
           >
-            Entendido, ¡gracias!
+            {t('toastAcceptBtn')}
           </button>
         </div>
       </div>

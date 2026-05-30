@@ -55,15 +55,17 @@
 .desktopToggle {
   display: flex;
   align-items: center;
+  gap: 12px;
   margin-left: 10px;
 }
 
 .mobileToggle {
   display: none;
   align-items: center;
+  gap: 8px;
   position: absolute;
   top: 50%;
-  right: 88px;
+  right: 96px;
   transform: translateY(-50%);
   z-index: 40;
 }
@@ -71,12 +73,13 @@
 @media (max-width: 860px) {
   .mobileToggle {
     display: flex;
+    right: 96px;
   }
 }
 
 @media (max-width: 560px) {
   .mobileToggle {
-    right: 74px;
+    right: 84px;
   }
 }
 

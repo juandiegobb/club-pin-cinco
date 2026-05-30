@@ -1,7 +1,10 @@
 import { motion } from 'framer-motion'
+import { useLanguage } from '../../../context/LanguageContext'
 import styles from './AboutHero.module.css'
 
 function AboutHero() {
+  const { t } = useLanguage()
+
   return (
     // Contenedor principal del hero con imagen de fondo
     <section className={styles.hero} aria-labelledby="about-title">
@@ -13,7 +16,7 @@ function AboutHero() {
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ type: 'spring', stiffness: 75, damping: 16 }}
       >
-        Acerca de Nosotros
+        {t('aboutHeroTitle')}
       </motion.h1>
     </section>
   )

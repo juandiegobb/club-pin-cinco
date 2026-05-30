@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useLanguage } from '../../../context/LanguageContext'
 import styles from './ReservationSchedule.module.css'
 
 const slots = [
@@ -35,6 +36,7 @@ function getBlockedSlots(service, date) {
 }
 
 function ReservationSchedule({ selected, onChange, service, date }) {
+  const { t, language } = useLanguage()
   const [blockedSlots, setBlockedSlots] = useState(() => getBlockedSlots(service, date))
   const [approvedServerSlots, setApprovedServerSlots] = useState([]) // Slots aprobados en el back
 
@@ -109,9 +111,9 @@ function ReservationSchedule({ selected, onChange, service, date }) {
 
   return (
     <div className={styles.wrapper}>
-      <p className={styles.label}>3. Elige tu horario</p>
+      <p className={styles.label}>{t('step3')}</p>
       {!date ? (
-        <p className={styles.selectDatePrompt}>⚠️ Por favor selecciona una fecha primero para ver los horarios disponibles.</p>
+        <p className={styles.selectDatePrompt}>{t('selectDatePrompt')}</p>
       ) : (
         <div className={styles.list}>
           {slots.map((slot) => {
@@ -136,12 +138,12 @@ function ReservationSchedule({ selected, onChange, service, date }) {
                 <span className={styles.slotTime}>{slot}</span>
                 {isServerBlocked && (
                   <span className={styles.slotBlockedTag}>
-                    🔒 Ocupado · Reservado
+                    {t('serverOccupiedTag')}
                   </span>
                 )}
                 {isLocalBlocked && !isServerBlocked && (
                   <span className={styles.slotBlockedTag}>
-                    🔒 Bloqueado temporalmente · {mins} min restantes
+                    {t('localBlockedTag')}{mins}{language === 'es' ? ' min restantes' : ' min remaining'}
                   </span>
                 )}
               </button>

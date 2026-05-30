@@ -1,15 +1,15 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useLanguage } from "../context/LanguageContext";
 import "./Services.css";
 import { useEffect } from 'react'
-
-
 
 function Services() {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
   
+  const { t, language } = useLanguage()
   const springTransition = { type: 'spring', stiffness: 75, damping: 16 }
 
   const containerVariants = {
@@ -51,7 +51,7 @@ function Services() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={springTransition}
         >
-          SERVICIOS
+          {t('servicesHeroTitle')}
         </motion.h1>
       </div>
 
@@ -70,15 +70,12 @@ function Services() {
         >
           <img
             src="/images/iconoBolaBillar.svg"
-            alt="Icono Billar"
+            alt={language === 'es' ? 'Icono Billar' : 'Billiards Icon'}
             className="icono"
           />
           <div className="tarjeta-contenido">
-            <h2>BILLAR</h2>
-            <p>
-              Un espacio donde la precisión, el ambiente y la competencia se
-              convierten en experiencia.
-            </p>
+            <h2>{t('billarGridTitle')}</h2>
+            <p>{t('billarGridDesc')}</p>
           </div>
         </motion.div>
 
@@ -90,14 +87,14 @@ function Services() {
         >
           <img
             src="/images/iconoPesos.svg"
-            alt="Icono Tarifas"
+            alt={language === 'es' ? 'Icono Tarifas' : 'Rates Icon'}
             className="icono"
           />
           <div className="tarjeta-contenido">
-            <h2 className="titulo-tarifa">TARIFAS</h2>
+            <h2 className="titulo-tarifa">{t('ratesTitle')}</h2>
             <ul>
-              <li>Billar libre y pool- $9.000</li>
-              <li>Billar tres bandas- $11.000</li>
+              <li>{t('billarRate1')}</li>
+              <li>{t('billarRate2')}</li>
             </ul>
           </div>
         </motion.div>
@@ -110,15 +107,12 @@ function Services() {
         >
           <img
             src="/images/iconoBolos.svg"
-            alt="Icono Bolos"
+            alt={language === 'es' ? 'Icono Bolos' : 'Bowling Icon'}
             className="icono"
           />
           <div className="tarjeta-contenido">
-            <h2>BOLOS</h2>
-            <p>
-              Un espacio donde la precisión, el ambiente y la competencia se
-              convierten en experiencia.
-            </p>
+            <h2>{t('bolosGridTitle')}</h2>
+            <p>{t('bolosGridDesc')}</p>
           </div>
         </motion.div>
 
@@ -130,15 +124,15 @@ function Services() {
         >
           <img
             src="/images/iconoPesos.svg"
-            alt="Icono Tarifas"
+            alt={language === 'es' ? 'Icono Tarifas' : 'Rates Icon'}
             className="icono"
           />
           <div className="tarjeta-contenido">
-            <h2>TARIFAS</h2>
+            <h2>{t('ratesTitle')}</h2>
             <ul>
-              <li>20 lanzamientos por persona: $12.000</li>
-              <li>Zapatillas y medias: $3.000</li>
-              <li>Total por persona: $15.000</li>
+              <li>{t('bolosRate1')}</li>
+              <li>{t('bolosRate2')}</li>
+              <li>{t('bolosRate3')}</li>
             </ul>
           </div>
         </motion.div>
@@ -159,7 +153,7 @@ function Services() {
           viewport={{ once: true }}
           transition={springTransition}
         >
-          La Gran Virusa Aguinaldo Boyacense
+          {t('eventTitle')}
         </motion.h2>
         <motion.p 
           className="texto-evento"
@@ -168,9 +162,7 @@ function Services() {
           viewport={{ once: true }}
           transition={{ delay: 0.15 }}
         >
-          El Aguinaldo Boyacense reúne a jugadores de todo el país en un torneo
-          profesional de bolos donde la precisión, la competencia y la pasión
-          por el juego se viven en cada lanzamiento.
+          {t('eventDesc')}
         </motion.p>
 
         <motion.div 
@@ -182,21 +174,21 @@ function Services() {
         >
           <motion.img
             src="/images/TorneoAguinaldo14.jpeg"
-            alt="Evento 1"
+            alt={language === 'es' ? 'Evento 1' : 'Event 1'}
             className="imagen-evento"
             variants={imageVariants}
             transition={springTransition}
           />
           <motion.img
             src="/images/TorneoAguinaldo15.jpeg"
-            alt="Evento 2"
+            alt={language === 'es' ? 'Evento 2' : 'Event 2'}
             className="imagen-evento"
             variants={imageVariants}
             transition={springTransition}
           />
           <motion.img
             src="/images/TorneoAguinaldo16.jpeg"
-            alt="Evento 3"
+            alt={language === 'es' ? 'Evento 3' : 'Event 3'}
             className="imagen-evento"
             variants={imageVariants}
             transition={springTransition}

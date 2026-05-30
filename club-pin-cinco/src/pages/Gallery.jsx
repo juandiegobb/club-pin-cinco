@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { useLanguage } from '../context/LanguageContext'
 import GalleryCarousel from '../components/gallery/GalleryCarousel/GalleryCarousel'
 import GalleryGrid from '../components/gallery/GalleryGrid/GalleryGrid'
 import styles from './Gallery.module.css'
@@ -42,6 +43,18 @@ const gridImages = [
 ]
 
 function Gallery() {
+  const { t, language } = useLanguage()
+
+  const carouselImagesTrans = carouselImages.map(img => ({
+    ...img,
+    alt: language === 'es' ? img.alt : 'Pin Cinco Gallery'
+  }))
+
+  const gridImagesTrans = gridImages.map(img => ({
+    ...img,
+    alt: language === 'es' ? img.alt : 'Pin Cinco Gallery'
+  }))
+
   return (
     <div className={styles.page}>
       <motion.h1 
@@ -50,10 +63,10 @@ function Gallery() {
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ type: 'spring', stiffness: 75, damping: 16 }}
       >
-        Galería
+        {t('galleryHeroTitle')}
       </motion.h1>
-      <GalleryCarousel images={carouselImages} />
-      <GalleryGrid images={gridImages} />
+      <GalleryCarousel images={carouselImagesTrans} />
+      <GalleryGrid images={gridImagesTrans} />
     </div>
   )
 }

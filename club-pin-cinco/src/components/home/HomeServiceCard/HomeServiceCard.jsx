@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { useLanguage } from '../../../context/LanguageContext'
 import styles from './HomeServiceCard.module.css'
 
 function HomeServiceCard({ title, description, image, imageAlt, reverse = false }) {
+  const { t } = useLanguage()
+
   return (
     <motion.article 
       className={`${styles.card} ${reverse ? styles.cardReverse : ''}`}
@@ -18,7 +21,7 @@ function HomeServiceCard({ title, description, image, imageAlt, reverse = false 
         <h3 className={styles.cardTitle}>{title}</h3>
         <p className={styles.cardText}>{description}</p>
         <Link className={styles.button} to="/servicios">
-          Ver más
+          {t('viewMore')}
         </Link>
       </div>
 

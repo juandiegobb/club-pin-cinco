@@ -1,10 +1,12 @@
 import { motion } from 'framer-motion'
+import { useLanguage } from '../../../context/LanguageContext'
 import styles from './LocationPanel.module.css'
 
 const GOOGLE_MAPS_URL =
   'https://www.google.com/maps/search/?api=1&query=Club+Deportivo+Pin+Cinco+Tunja+Colombia'
 
 function LocationPanel() {
+  const { t, language } = useLanguage()
   const springTransition = { type: 'spring', stiffness: 60, damping: 15 }
 
   return (
@@ -24,7 +26,7 @@ function LocationPanel() {
         viewport={{ once: true }}
         transition={springTransition}
       >
-        Ubicación
+        {t('locationTitle')}
       </motion.h2>
 
       {/* Enlace a Google Maps */}
@@ -32,12 +34,12 @@ function LocationPanel() {
         href={GOOGLE_MAPS_URL}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Ver ubicación en Google Maps"
+        aria-label={language === 'es' ? 'Ver ubicación en Google Maps' : 'View location on Google Maps'}
         className={styles.mapLink}
       >
         <motion.div
           className={styles.map}
-          aria-label="Mapa referencial de ubicación"
+          aria-label={language === 'es' ? 'Mapa referencial de ubicación' : 'Reference map of location'}
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
@@ -50,7 +52,7 @@ function LocationPanel() {
             Club Deportivo Pin Cinco
           </strong>
           <span className={styles.mapHint}>
-            📍 Ver en Google Maps
+            {t('mapsLink')}
           </span>
         </motion.div>
       </a>
@@ -62,8 +64,7 @@ function LocationPanel() {
         viewport={{ once: true }}
         transition={{ delay: 0.2 }}
       >
-        Transversal 0 Este 66a 18 Muscas Centro Comercial Rio 150003 Tunja,
-        Colombia
+        {t('address')}
       </motion.p>
     </motion.section>
   )

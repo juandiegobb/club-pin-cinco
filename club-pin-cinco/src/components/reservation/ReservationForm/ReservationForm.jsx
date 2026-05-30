@@ -1,3 +1,4 @@
+import { useLanguage } from '../../../context/LanguageContext'
 import styles from './ReservationForm.module.css'
 import { useChat } from '../../../hooks/useChat'
 
@@ -22,34 +23,49 @@ function blockSlot(service, date, slot) {
 }
 
 function ReservationForm({ service, date, schedule, name, phone, people, onChange }) {
+  const { t, language } = useLanguage()
   const { sendTurnRequest, isConnected } = useChat()
 
   function buildWhatsAppMessage() {
     const dateStr = date
       ? date.toLocaleDateString('es-CO', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
       : 'No seleccionada'
-    return encodeURIComponent(
-      `Hola! Quiero apartar un turno:\n` +
-      `• Servicio: ${service || 'No seleccionado'}\n` +
-      `• Fecha: ${dateStr}\n` +
-      `• Horario: ${schedule || 'No seleccionado'}\n` +
-      `• Nombre: ${name}\n` +
-      `• Celular: ${phone}\n` +
-      `• Personas: ${people}`
-    )
+    
+    if (language === 'es') {
+      return encodeURIComponent(
+        `Hola! Quiero apartar un turno:\n` +
+        `• Servicio: ${service || 'No seleccionado'}\n` +
+        `• Fecha: ${dateStr}\n` +
+        `• Horario: ${schedule || 'No seleccionado'}\n` +
+        `• Nombre: ${name}\n` +
+        `• Celular: ${phone}\n` +
+        `• Personas: ${people}`
+      )
+    } else {
+      const displayService = service === 'Bolos' ? 'Bowling' : 'Billiards'
+      return encodeURIComponent(
+        `Hello! I want to book a turn:\n` +
+        `• Service: ${displayService}\n` +
+        `• Date: ${dateStr}\n` +
+        `• Schedule: ${schedule || 'Not selected'}\n` +
+        `• Name: ${name}\n` +
+        `• Phone: ${phone}\n` +
+        `• Guests: ${people}`
+      )
+    }
   }
 
   function handleSubmit() {
     if (!name || !phone || !people) {
-      alert('Por favor completa todos los campos.')
+      alert(t('alertCompleteFields'))
       return
     }
     if (!schedule) {
-      alert('Por favor selecciona un horario.')
+      alert(t('alertSelectSchedule'))
       return
     }
     if (!date) {
-      alert('Por favor selecciona una fecha.')
+      alert(t('alertSelectDate'))
       return
     }
 
@@ -82,31 +98,31 @@ function ReservationForm({ service, date, schedule, name, phone, people, onChang
     <div className={styles.wrapper}>
       <div className={styles.fields}>
         <label className={styles.field}>
-          <span className={styles.fieldLabel}>4. Nombre completo</span>
+          <span className={styles.fieldLabel}>{t('step4')}</span>
           <input
             className={styles.input}
             type="text"
-            placeholder="Escribe tu nombre"
+            placeholder={t('placeholderName')}
             value={name}
             onChange={(e) => onChange('name', e.target.value)}
           />
         </label>
         <label className={styles.field}>
-          <span className={styles.fieldLabel}>5. Número de celular</span>
+          <span className={styles.fieldLabel}>{t('step5')}</span>
           <input
             className={styles.input}
             type="tel"
-            placeholder="Ej. 320 240 7517"
+            placeholder={t('placeholderPhone')}
             value={phone}
             onChange={(e) => onChange('phone', e.target.value)}
           />
         </label>
         <label className={styles.field}>
-          <span className={styles.fieldLabel}>6. Cantidad de personas</span>
+          <span className={styles.fieldLabel}>{t('step6')}</span>
           <input
             className={styles.input}
             type="number"
-            placeholder="Ej. 4"
+            placeholder={t('placeholderPeople')}
             min={1}
             max={20}
             value={people}
@@ -118,17 +134,16 @@ function ReservationForm({ service, date, schedule, name, phone, people, onChang
       <div className={styles.notice}>
         <span className={styles.noticeIcon}>⚠</span>
         <p className={styles.noticeText}>
-          Tu turno será asignado según la disponibilidad del establecimiento.
-          La hora seleccionada es aproximada y puede variar.
+          {t('warningNotice')}
         </p>
       </div>
 
       <button className={styles.button} onClick={handleSubmit} type="button">
-        Solicita tu turno
+        {t('reserveBtn')}
       </button>
 
       <p className={styles.hint}>
-        Te redirigimos a WhatsApp para confirmar tu solicitud
+        {t('whatsappBtnNote')}
       </p>
     </div>
   )

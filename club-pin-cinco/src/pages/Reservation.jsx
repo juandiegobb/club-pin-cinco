@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import { useLanguage } from '../context/LanguageContext'
 import ReservationService from '../components/reservation/ReservationService/ReservationService'
 import ReservationCalendar from '../components/reservation/ReservationCalendar/ReservationCalendar'
 import ReservationSchedule from '../components/reservation/ReservationSchedule/ReservationSchedule'
@@ -7,6 +8,7 @@ import ReservationForm from '../components/reservation/ReservationForm/Reservati
 import styles from './Reservation.module.css'
 
 function Reservation() {
+  const { t } = useLanguage()
   const [form, setForm] = useState({
     service: 'Bolos',
     date: null,
@@ -31,7 +33,7 @@ function Reservation() {
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={springTransition}
       >
-        Aparta tu Turno
+        {t('reservationTitle')}
       </motion.h1>
 
       <motion.div
@@ -52,7 +54,7 @@ function Reservation() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ ...springTransition, delay: 0.25 }}
         >
-          <p className={styles.stepLabel}>2. Elige la fecha</p>
+          <p className={styles.stepLabel}>{t('step2')}</p>
           <ReservationCalendar
             selected={form.date}
             onChange={(val) => handleChange('date', val)}

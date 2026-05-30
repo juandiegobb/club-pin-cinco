@@ -1,15 +1,17 @@
 import { motion } from 'framer-motion'
+import { useLanguage } from '../../../context/LanguageContext'
 import styles from './ScheduleList.module.css'
 
-const scheduleItems = [
-  'Lunes a jueves - 11:00 a.m a 11:00 p.m',
-  'Viernes - 11:00 a.m a 1:00 a.m',
-  'Sábados - 2:30 p.m a 2:00 a.m',
-  'Domingo - 3:00 p.m a 10:00 p.m',
-]
-
 function ScheduleList() {
+  const { t } = useLanguage()
   const springTransition = { type: 'spring', stiffness: 60, damping: 15 }
+
+  const scheduleItems = [
+    t('lunJue'),
+    t('viernes'),
+    t('sabados'),
+    t('domingos'),
+  ]
 
   const containerVariants = {
     hidden: {},
@@ -43,7 +45,7 @@ function ScheduleList() {
         viewport={{ once: true }}
         transition={springTransition}
       >
-        Horario
+        {t('scheduleTitle')}
       </motion.h2>
 
       <motion.div 
@@ -72,7 +74,7 @@ function ScheduleList() {
         viewport={{ once: true }}
         transition={{ delay: 0.3 }}
       >
-        En días festivos los horarios pueden variar según demanda y reservas.
+        {t('scheduleNote')}
       </motion.small>
     </motion.section>
   )

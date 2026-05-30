@@ -1,14 +1,8 @@
 // Calendario interactivo para elegir la fecha
 // Navegación por mes y selección de día
 import { useState } from 'react'
+import { useLanguage } from '../../../context/LanguageContext'
 import styles from './ReservationCalendar.module.css'
-
-// Nombres de días y meses en español
-const DAYS = ['LUN', 'MAR', 'MIÉ', 'JUE', 'VIE', 'SÁB', 'DOM']
-const MONTHS = [
-  'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-  'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
-]
 
 // Devuelve los días del mes incluyendo vacíos al inicio para alinear con el día correcto
 function buildCalendar(year, month) {
@@ -23,6 +17,7 @@ function buildCalendar(year, month) {
 }
 
 function ReservationCalendar({ selected, onChange }) {
+  const { daysList, monthsList, language } = useLanguage()
   const today = new Date()
   const [viewYear, setViewYear] = useState(today.getFullYear())
   const [viewMonth, setViewMonth] = useState(today.getMonth())
@@ -65,16 +60,30 @@ function ReservationCalendar({ selected, onChange }) {
     <div className={styles.calendar}>
       {/* Encabezado con mes/año y flechas de navegación */}
       <div className={styles.header}>
-        <button className={styles.arrow} onClick={prevMonth} type="button" aria-label="Mes anterior">‹</button>
+        <button
+          className={styles.arrow}
+          onClick={prevMonth}
+          type="button"
+          aria-label={language === 'es' ? 'Mes anterior' : 'Previous month'}
+        >
+          ‹
+        </button>
         <span className={styles.monthLabel}>
-          {MONTHS[viewMonth]} {viewYear}
+          {monthsList[viewMonth]} {viewYear}
         </span>
-        <button className={styles.arrow} onClick={nextMonth} type="button" aria-label="Mes siguiente">›</button>
+        <button
+          className={styles.arrow}
+          onClick={nextMonth}
+          type="button"
+          aria-label={language === 'es' ? 'Mes siguiente' : 'Next month'}
+        >
+          ›
+        </button>
       </div>
 
       {/* Nombres de los días de la semana */}
       <div className={styles.grid}>
-        {DAYS.map((d) => (
+        {daysList.map((d) => (
           <span key={d} className={styles.dayName}>{d}</span>
         ))}
 
@@ -86,7 +95,7 @@ function ReservationCalendar({ selected, onChange }) {
             onClick={() => day && !isPast(day) && onChange(new Date(viewYear, viewMonth, day))}
             type="button"
             disabled={!day || isPast(day)}
-            aria-label={day ? `${day} de ${MONTHS[viewMonth]}` : undefined}
+            aria-label={day ? (language === 'es' ? `${day} de ${monthsList[viewMonth]}` : `${monthsList[viewMonth]} ${day}`) : undefined}
           >
             {day || ''}
           </button>

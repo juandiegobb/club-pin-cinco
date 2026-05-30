@@ -3,10 +3,13 @@ import { NavLink } from "react-router-dom";
 import { navItems } from "../../data/navigation";
 import logo from "../../assets/home/logo-pincinco.jpeg";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
+import LanguageToggle from "../LanguageToggle/LanguageToggle";
+import { useLanguage } from "../../context/LanguageContext";
 import styles from "./Navbar.module.css";
 
 function Navbar() {
   const [open, setOpen] = useState(false);
+  const { t } = useLanguage();
 
   function closeMenu() {
     setOpen(false);
@@ -16,17 +19,20 @@ function Navbar() {
     <header className={styles.navbar}>
       <nav className={styles.inner} aria-label="Principal">
         <div className={`${styles.links} ${styles.linksLeft}`}>
-          {navItems.slice(0, 2).map((item) => (
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? `${styles.link} ${styles.linkActive}` : styles.link
-              }
-              key={item.path}
-              to={item.path}
-            >
-              {item.label}
-            </NavLink>
-          ))}
+          {navItems.slice(0, 2).map((item) => {
+            const translationKey = item.path === '/' ? 'home' : 'about';
+            return (
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? `${styles.link} ${styles.linkActive}` : styles.link
+                }
+                key={item.path}
+                to={item.path}
+              >
+                {t(translationKey)}
+              </NavLink>
+            );
+          })}
         </div>
 
         <NavLink className={styles.logo} to="/" aria-label="Ir al inicio">
@@ -34,24 +40,29 @@ function Navbar() {
         </NavLink>
 
         <div className={`${styles.links} ${styles.linksRight}`}>
-          {navItems.slice(2).map((item) => (
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? `${styles.link} ${styles.linkActive}` : styles.link
-              }
-              key={item.path}
-              to={item.path}
-              onClick={closeMenu}
-            >
-              {item.label}
-            </NavLink>
-          ))}
+          {navItems.slice(2).map((item) => {
+            const translationKey = item.path === '/servicios' ? 'services' : 'gallery';
+            return (
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? `${styles.link} ${styles.linkActive}` : styles.link
+                }
+                key={item.path}
+                to={item.path}
+                onClick={closeMenu}
+              >
+                {t(translationKey)}
+              </NavLink>
+            );
+          })}
           <div className={styles.desktopToggle}>
+            <LanguageToggle />
             <ThemeToggle />
           </div>
         </div>
 
         <div className={styles.mobileToggle}>
+          <LanguageToggle />
           <ThemeToggle />
         </div>
 
@@ -59,7 +70,7 @@ function Navbar() {
           type="button"
           className={styles.menuButton}
           aria-expanded={open}
-          aria-label={open ? "Cerrar menú" : "Abrir menú"}
+          aria-label={open ? t("closeMenu") : t("openMenu")}
           onClick={() => setOpen((prev) => !prev)}
         >
           <span
@@ -72,20 +83,27 @@ function Navbar() {
         className={`${styles.mobileMenu} ${open ? styles.mobileMenuOpen : ""}`}
       >
         <div className={styles.mobileMenuInner}>
-          {navItems.map((item) => (
-            <NavLink
-              className={({ isActive }) =>
-                isActive
-                  ? `${styles.mobileLink} ${styles.mobileLinkActive}`
-                  : styles.mobileLink
-              }
-              key={item.path}
-              to={item.path}
-              onClick={closeMenu}
-            >
-              {item.label}
-            </NavLink>
-          ))}
+          {navItems.map((item) => {
+            let translationKey = 'home';
+            if (item.path === '/nosotros') translationKey = 'about';
+            else if (item.path === '/servicios') translationKey = 'services';
+            else if (item.path === '/galeria') translationKey = 'gallery';
+
+            return (
+              <NavLink
+                className={({ isActive }) =>
+                  isActive
+                    ? `${styles.mobileLink} ${styles.mobileLinkActive}`
+                    : styles.mobileLink
+                }
+                key={item.path}
+                to={item.path}
+                onClick={closeMenu}
+              >
+                {t(translationKey)}
+              </NavLink>
+            );
+          })}
         </div>
       </div>
     </header>

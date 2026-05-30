@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { useLanguage } from '../../../context/LanguageContext'
 import imgIzquierda from '../../../assets/home/bolo-inicio.png'
 import imgDerecha from '../../../assets/home/billar-inicio.png'
 import styles from './HomeHero.module.css'
 
 function HomeHero() {
+  const { t } = useLanguage()
   const springTransition = { type: 'spring', stiffness: 75, damping: 16 }
 
   const textVariants = {
@@ -48,7 +50,7 @@ function HomeHero() {
             variants={textVariants}
             transition={springTransition}
           >
-            Club Deportivo
+            {t('heroSubtitle')}
           </motion.span>
           <motion.h1
             id="home-title"
@@ -56,21 +58,21 @@ function HomeHero() {
             variants={textVariants}
             transition={springTransition}
           >
-            Pin Cinco
+            {t('heroTitle')}
           </motion.h1>
           <motion.p
             className={styles.description}
             variants={textVariants}
             transition={springTransition}
           >
-            Diversión, entretenimiento y grandes experiencias en un solo lugar
+            {t('heroDesc')}
           </motion.p>
           <motion.div
             variants={textVariants}
             transition={springTransition}
           >
             <Link className={styles.button} to="/reserva">
-              Turnar aquí
+              {t('heroBtn')}
             </Link>
           </motion.div>
         </motion.div>
