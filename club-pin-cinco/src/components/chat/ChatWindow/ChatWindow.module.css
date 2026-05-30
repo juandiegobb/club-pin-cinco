@@ -188,3 +188,29 @@
   transform: scale(1.05) translateY(-1px);
   box-shadow: 0 6px 16px rgba(69, 75, 230, 0.35);
 }
+
+/* ── Indicador de estado WS ─────────────────────────────────── */
+.dotOnline,
+.dotOffline {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.dotOnline {
+  background: #22c55e;
+  box-shadow: 0 0 6px rgba(34, 197, 94, 0.7);
+  animation: pulse 2s infinite;
+}
+
+.dotOffline {
+  background: #f59e0b;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}

@@ -3,6 +3,7 @@ import { lazy, Suspense } from 'react'
 import Navbar from '../components/Navbar/Navbar'
 import Footer from '../components/Footer/Footer'
 import FloatingChat from '../components/chat/FloatingChat/FloatingChat'
+import TurnToast from '../components/chat/TurnToast/TurnToast'
 import CustomCursor from '../components/CustomCursor/CustomCursor'
 import BowlingBallCanvas from '../components/3d/BowlingBallCanvas'
 
@@ -29,6 +30,7 @@ function MainLayout() {
       </main>
       <Footer />
       <FloatingChat />
+      <TurnToast />
     </div>
   )
 }

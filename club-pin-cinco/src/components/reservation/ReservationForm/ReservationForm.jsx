@@ -1,4 +1,5 @@
 import styles from './ReservationForm.module.css'
+import { useChat } from '../../../hooks/useChat'
 
 const WHATSAPP_NUMBER = '573148877381'
 const STORAGE_KEY = 'pincinco_blocked_slots'
@@ -18,6 +19,7 @@ function blockSlot(service, slot) {
 }
 
 function ReservationForm({ service, date, schedule, name, phone, people, onChange }) {
+  const { sendTurnRequest, isConnected } = useChat()
 
   function buildWhatsAppMessage() {
     const dateStr = date
@@ -47,10 +49,30 @@ function ReservationForm({ service, date, schedule, name, phone, people, onChang
       alert('Por favor selecciona una fecha.')
       return
     }
-    // Bloquear horario por servicio al enviar
+
+    // 1. Bloquear horario por servicio al enviar
     blockSlot(service, schedule)
+
+    // 2. Canal WhatsApp — comunicación directa con el establecimiento
     const msg = buildWhatsAppMessage()
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank')
+
+    // 3. Canal WebSocket — registra el turno en el panel admin
+    //    y dispara el mensaje automático de confirmación en el chat
+    if (isConnected) {
+      const dateStr = date
+        ? date.toLocaleDateString('es-CO', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+        : 'No seleccionada'
+
+      sendTurnRequest({
+        service,
+        date: dateStr,
+        schedule,
+        name,
+        phone,
+        people,
+      })
+    }
   }
 
   return (
@@ -109,4 +131,4 @@ function ReservationForm({ service, date, schedule, name, phone, people, onChang
   )
 }
 
-export default ReservationForm
+export default ReservationForm

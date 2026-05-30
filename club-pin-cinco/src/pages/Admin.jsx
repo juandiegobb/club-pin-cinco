@@ -1,58 +1,364 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { getMessages, saveMessage, markAllRead, clearMessages, unreadCount } from '../utils/chatStorage'
+import { ChatProvider } from '../context/ChatContext'
+import { useChatContext } from '../context/ChatContext'
 import styles from './Admin.module.css'
 
 const ADMIN_USER = 'admin'
 const ADMIN_PASSWORD = 'pincinco2024'
 
-const faqStats = [
-  { pregunta: 'Horarios de atención', consultas: 24 },
-  { pregunta: 'Precios y tarifas', consultas: 18 },
-  { pregunta: 'Reservas', consultas: 15 },
-  { pregunta: 'Ubicación', consultas: 12 },
-  { pregunta: 'Servicios disponibles', consultas: 9 },
-]
+// ─── Panel de Admin (usa el contexto WS con rol admin) ────────────────────────
+function AdminPanel({ onLogout }) {
+  const navigate = useNavigate()
+  const {
+    isConnected,
+    allMessages,
+    activeUsers,
+    turns,
+    sendAdminReply,
+    markTurnDone,
+    deleteTurn,
+  } = useChatContext()
 
+  const [selectedUser, setSelectedUser] = useState(null)
+  const [reply, setReply] = useState('')
+  const [activeTab, setActiveTab] = useState('chat') // 'chat' | 'turns'
+  const chatBoxRef = useRef(null)
+
+  // Todos los clientIds que han enviado mensajes (activos + con historial)
+  const allClientIds = Array.from(new Set([
+    ...activeUsers.map(u => u.clientId),
+    ...Object.keys(allMessages),
+  ]))
+
+  // Mensajes del usuario seleccionado
+  const selectedMessages = selectedUser ? (allMessages[selectedUser] || []) : []
+
+  // Contar mensajes no leídos por usuario
+  function unreadCount(clientId) {
+    const msgs = allMessages[clientId] || []
+    return msgs.filter(m => m.author === 'guest' && !m.read).length
+  }
+
+  // Scroll automático al fondo del chat
+  useEffect(() => {
+    if (chatBoxRef.current) {
+      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight
+    }
+  }, [selectedMessages])
+
+  // Seleccionar primer usuario automáticamente si no hay uno activo
+  useEffect(() => {
+    if (!selectedUser && allClientIds.length > 0) {
+      setSelectedUser(allClientIds[0])
+    }
+  }, [allClientIds, selectedUser])
+
+  function handleSendReply() {
+    if (!reply.trim() || !selectedUser) return
+    sendAdminReply(selectedUser, reply.trim())
+    setReply('')
+  }
+
+  function formatId(id) {
+    // Muestra solo los primeros 8 caracteres del UUID para compactar
+    return id ? `#${id.slice(0, 8)}` : '---'
+  }
+
+  function isUserOnline(clientId) {
+    return activeUsers.some(u => u.clientId === clientId)
+  }
+
+  function handleWhatsApp() {
+    window.open('https://wa.me/573202967582', '_blank')
+  }
+
+  const pendingTurns = turns.filter(t => t.status === 'pending')
+  const doneTurns = turns.filter(t => t.status === 'done')
+
+  return (
+    <div className={styles.page}>
+      {/* ── Header ── */}
+      <header className={styles.header}>
+        <div>
+          <h1 className={styles.title}>Panel de Administración</h1>
+          <p className={styles.headerSub}>Club Deportivo Pin Cinco</p>
+        </div>
+        <div className={styles.headerActions}>
+          <span className={isConnected ? styles.wsOnline : styles.wsOffline}>
+            <span className={styles.wsStatusDot} />
+            {isConnected ? 'WS Conectado' : 'WS Desconectado'}
+          </span>
+          <button className={styles.backBtn} onClick={() => navigate('/')} type="button">
+            ← Inicio
+          </button>
+          <button className={styles.logoutBtn} onClick={onLogout} type="button">
+            Cerrar sesión
+          </button>
+        </div>
+      </header>
+
+      {/* ── Tabs ── */}
+      <div className={styles.tabs}>
+        <button
+          className={`${styles.tab} ${activeTab === 'chat' ? styles.tabActive : ''}`}
+          onClick={() => setActiveTab('chat')}
+          type="button"
+        >
+          💬 Chat con Usuarios
+          {allClientIds.reduce((acc, id) => acc + unreadCount(id), 0) > 0 && (
+            <span className={styles.tabBadge}>
+              {allClientIds.reduce((acc, id) => acc + unreadCount(id), 0)}
+            </span>
+          )}
+        </button>
+        <button
+          className={`${styles.tab} ${activeTab === 'turns' ? styles.tabActive : ''}`}
+          onClick={() => setActiveTab('turns')}
+          type="button"
+        >
+          🎳 Gestión de Turnos
+          {pendingTurns.length > 0 && (
+            <span className={styles.tabBadgeTurns}>{pendingTurns.length}</span>
+          )}
+        </button>
+        <button className={styles.tabWa} onClick={handleWhatsApp} type="button">
+          📲 WhatsApp Business
+        </button>
+      </div>
+
+      <main className={styles.content}>
+
+        {/* ══════════════════════════════════════════════════════════
+            TAB: CHAT
+        ══════════════════════════════════════════════════════════ */}
+        {activeTab === 'chat' && (
+          <div className={styles.chatLayout}>
+
+            {/* ── Columna izquierda: Lista de usuarios ── */}
+            <aside className={styles.usersList}>
+              <div className={styles.usersHeader}>
+                <span className={styles.usersTitle}>Conversaciones</span>
+                <span className={styles.usersCount}>{allClientIds.length}</span>
+              </div>
+
+              {allClientIds.length === 0 ? (
+                <p className={styles.noUsers}>Esperando usuarios...</p>
+              ) : (
+                allClientIds.map(clientId => {
+                  const unread = unreadCount(clientId)
+                  const online = isUserOnline(clientId)
+                  const lastMsg = (allMessages[clientId] || []).slice(-1)[0]
+
+                  return (
+                    <button
+                      key={clientId}
+                      className={`${styles.userItem} ${selectedUser === clientId ? styles.userItemActive : ''}`}
+                      onClick={() => setSelectedUser(clientId)}
+                      type="button"
+                    >
+                      <div className={styles.userAvatar}>
+                        👤
+                        <span className={online ? styles.onlineDot : styles.offlineDot} />
+                      </div>
+                      <div className={styles.userInfo}>
+                        <span className={styles.userId}>{formatId(clientId)}</span>
+                        {lastMsg && (
+                          <span className={styles.lastMsg}>
+                            {lastMsg.author === 'club' ? '→ ' : ''}
+                            {lastMsg.text.slice(0, 30)}{lastMsg.text.length > 30 ? '…' : ''}
+                          </span>
+                        )}
+                      </div>
+                      {unread > 0 && (
+                        <span className={styles.unreadBadge}>{unread}</span>
+                      )}
+                    </button>
+                  )
+                })
+              )}
+            </aside>
+
+            {/* ── Área derecha: Ventana de conversación ── */}
+            <section className={styles.chatArea}>
+              {!selectedUser ? (
+                <div className={styles.chatPlaceholder}>
+                  <span className={styles.chatPlaceholderIcon}>💬</span>
+                  <p>Selecciona una conversación para comenzar</p>
+                </div>
+              ) : (
+                <>
+                  <div className={styles.chatHeader}>
+                    <div className={styles.chatHeaderInfo}>
+                      <span>Conversación con: <strong>{formatId(selectedUser)}</strong></span>
+                      <span className={isUserOnline(selectedUser) ? styles.statusOnline : styles.statusOffline}>
+                        {isUserOnline(selectedUser) ? '● En línea' : '○ Desconectado'}
+                      </span>
+                    </div>
+                    <span className={styles.msgCount}>
+                      {selectedMessages.length} mensaje(s)
+                    </span>
+                  </div>
+
+                  <div className={styles.chatBox} ref={chatBoxRef}>
+                    {selectedMessages.length === 0 ? (
+                      <p className={styles.emptyChat}>Sin mensajes aún.</p>
+                    ) : (
+                      selectedMessages.map((msg) => (
+                        <div
+                          key={msg.id}
+                          className={`${styles.message} ${msg.author === 'guest' ? styles.messageGuest : styles.messageClub}`}
+                        >
+                          <span className={styles.messageAuthor}>
+                            {msg.author === 'guest' ? '👤 Usuario' : '🎳 Club'}
+                            {' · '}
+                            <span className={styles.messageTime}>
+                              {new Date(msg.timestamp).toLocaleString('es-CO', {
+                                hour: '2-digit', minute: '2-digit', day: '2-digit', month: 'short'
+                              })}
+                            </span>
+                          </span>
+                          <p className={styles.messageText}>{msg.text}</p>
+                        </div>
+                      ))
+                    )}
+                  </div>
+
+                  <div className={styles.replyBox}>
+                    <input
+                      className={styles.replyInput}
+                      type="text"
+                      placeholder={`Responder a ${formatId(selectedUser)}...`}
+                      value={reply}
+                      onChange={e => setReply(e.target.value)}
+                      onKeyDown={e => {
+                        if (e.key === 'Enter') { e.preventDefault(); handleSendReply() }
+                      }}
+                    />
+                    <button className={styles.replyBtn} onClick={handleSendReply} type="button">
+                      Enviar ▶
+                    </button>
+                  </div>
+                </>
+              )}
+            </section>
+          </div>
+        )}
+
+        {/* ══════════════════════════════════════════════════════════
+            TAB: GESTIÓN DE TURNOS
+        ══════════════════════════════════════════════════════════ */}
+        {activeTab === 'turns' && (
+          <div className={styles.turnsSection}>
+
+            {/* Turnos Pendientes */}
+            <div className={styles.card}>
+              <h2 className={styles.cardTitle}>
+                ⏳ Turnos Pendientes
+                {pendingTurns.length > 0 && (
+                  <span className={styles.pendingBadge}>{pendingTurns.length}</span>
+                )}
+              </h2>
+
+              {pendingTurns.length === 0 ? (
+                <p className={styles.emptyTurns}>No hay turnos pendientes. 🎉</p>
+              ) : (
+                <div className={styles.turnsList}>
+                  {pendingTurns.map(turn => (
+                    <div key={turn.id} className={styles.turnCard}>
+                      <div className={styles.turnInfo}>
+                        <div className={styles.turnService}>
+                          {turn.service === 'Bolos' ? '🎳' : '🎱'} {turn.service}
+                        </div>
+                        <div className={styles.turnDetails}>
+                          <span>📅 {turn.date}</span>
+                          <span>🕐 {turn.schedule}</span>
+                          <span>👤 {turn.name}</span>
+                          <span>📞 {turn.phone}</span>
+                          <span>👥 {turn.people} persona(s)</span>
+                          <span className={styles.turnId}>ID: {formatId(turn.clientId)}</span>
+                        </div>
+                        <div className={styles.turnMeta}>
+                          {new Date(turn.createdAt).toLocaleString('es-CO', {
+                            day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit'
+                          })}
+                        </div>
+                      </div>
+                      <div className={styles.turnActions}>
+                        <button
+                          className={styles.doneBtn}
+                          onClick={() => markTurnDone(turn.id)}
+                          type="button"
+                          title="Marcar como atendido"
+                        >
+                          ✅ Finalizar
+                        </button>
+                        <button
+                          className={styles.deleteBtn}
+                          onClick={() => {
+                            if (confirm('¿Eliminar este turno?')) deleteTurn(turn.id)
+                          }}
+                          type="button"
+                          title="Eliminar turno"
+                        >
+                          🗑
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Turnos Finalizados */}
+            {doneTurns.length > 0 && (
+              <div className={styles.card}>
+                <h2 className={styles.cardTitle}>✅ Turnos Finalizados</h2>
+                <div className={styles.turnsList}>
+                  {doneTurns.map(turn => (
+                    <div key={turn.id} className={`${styles.turnCard} ${styles.turnCardDone}`}>
+                      <div className={styles.turnInfo}>
+                        <div className={styles.turnService}>
+                          {turn.service === 'Bolos' ? '🎳' : '🎱'} {turn.service}
+                          <span className={styles.donePill}>Finalizado</span>
+                        </div>
+                        <div className={styles.turnDetails}>
+                          <span>📅 {turn.date}</span>
+                          <span>👤 {turn.name}</span>
+                          <span>🕐 {turn.schedule}</span>
+                        </div>
+                      </div>
+                      <div className={styles.turnActions}>
+                        <button
+                          className={styles.deleteBtn}
+                          onClick={() => {
+                            if (confirm('¿Eliminar este turno del historial?')) deleteTurn(turn.id)
+                          }}
+                          type="button"
+                        >
+                          🗑
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+      </main>
+    </div>
+  )
+}
+
+// ─── Admin wrapper — maneja login y provee el contexto WS de admin ────────────
 function Admin() {
   const navigate = useNavigate()
   const [isAdmin, setIsAdmin] = useState(false)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
-  const [messages, setMessages] = useState([])
-  const [reply, setReply] = useState('')
-  const [unread, setUnread] = useState(0)
-  const chatBoxRef = useRef(null)
-
-  useEffect(() => {
-    if (!isAdmin) return
-    setMessages(getMessages())
-    markAllRead()
-    setUnread(0)
-
-    function handleUpdate() {
-      setMessages(getMessages())
-      setUnread(unreadCount())
-    }
-    window.addEventListener('chat-updated', handleUpdate)
-
-    const interval = setInterval(() => {
-      setMessages(getMessages())
-      setUnread(unreadCount())
-    }, 1000)
-
-    return () => {
-      window.removeEventListener('chat-updated', handleUpdate)
-      clearInterval(interval)
-    }
-  }, [isAdmin])
-
-  useEffect(() => {
-    if (chatBoxRef.current) {
-      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight
-    }
-  }, [messages])
 
   function handleLogin() {
     setError('')
@@ -68,24 +374,6 @@ function Admin() {
     setUsername('')
     setPassword('')
     navigate('/')
-  }
-
-  function handleReply() {
-    if (!reply.trim()) return
-    saveMessage('club', reply.trim())
-    setMessages(getMessages())
-    setReply('')
-  }
-
-  function handleClear() {
-    if (confirm('¿Borrar todos los mensajes del chat?')) {
-      clearMessages()
-      setMessages([])
-    }
-  }
-
-  function handleWhatsApp() {
-    window.open('https://wa.me/573202967582', '_blank')
   }
 
   // ── Login ──
@@ -104,12 +392,7 @@ function Admin() {
               placeholder="Usuario"
               value={username}
               onChange={e => setUsername(e.target.value)}
-              onKeyDown={e => {
-                if (e.key === 'Enter') {
-                  e.preventDefault()
-                  handleLogin()
-                }
-              }}
+              onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); handleLogin() } }}
             />
           </div>
 
@@ -121,12 +404,7 @@ function Admin() {
               placeholder="Contraseña"
               value={password}
               onChange={e => setPassword(e.target.value)}
-              onKeyDown={e => {
-                if (e.key === 'Enter') {
-                  e.preventDefault()
-                  handleLogin()
-                }
-              }}
+              onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); handleLogin() } }}
             />
           </div>
 
@@ -136,12 +414,7 @@ function Admin() {
             Iniciar sesión
           </button>
 
-          {/* Botón volver al inicio */}
-          <button
-            className={styles.backBtn}
-            onClick={() => navigate('/')}
-            type="button"
-          >
+          <button className={styles.backBtn} onClick={() => navigate('/')} type="button">
             ← Volver al inicio
           </button>
         </div>
@@ -149,120 +422,11 @@ function Admin() {
     )
   }
 
-  // ── Panel admin ──
+  // ── Panel admin — envuelto con su propio ChatProvider de rol admin ──
   return (
-    <div className={styles.page}>
-      <header className={styles.header}>
-        <div>
-          <h1 className={styles.title}>Panel de Administración</h1>
-          <p className={styles.headerSub}>Club Deportivo Pin Cinco</p>
-        </div>
-        <div style={{ display: 'flex', gap: '12px' }}>
-          <button
-            className={styles.backBtn}
-            onClick={() => navigate('/')}
-            type="button"
-            style={{ marginTop: 0 }}
-          >
-            ← Inicio
-          </button>
-          <button className={styles.logoutBtn} onClick={handleLogout} type="button">
-            Cerrar sesión
-          </button>
-        </div>
-      </header>
-
-      <main className={styles.content}>
-
-        {/* WhatsApp */}
-        <section className={styles.card}>
-          <h2 className={styles.cardTitle}>📱 Reservas por WhatsApp</h2>
-          <p className={styles.cardText}>Ver y gestionar las reservas enviadas desde la página.</p>
-          <button className={styles.whatsappBtn} onClick={handleWhatsApp} type="button">
-            📲 Abrir WhatsApp Business
-          </button>
-        </section>
-
-        {/* Chat */}
-        <section className={styles.card}>
-          <div className={styles.chatHeader}>
-            <h2 className={styles.cardTitle}>
-              💬 Chat con Usuarios
-              {unread > 0 && <span className={styles.badge}>{unread}</span>}
-            </h2>
-            <button className={styles.clearBtn} onClick={handleClear} type="button">
-              🗑 Limpiar chat
-            </button>
-          </div>
-          <p className={styles.cardText}>{messages.length} mensaje(s) en total.</p>
-
-          <div className={styles.chatBox} ref={chatBoxRef}>
-            {messages.length === 0 ? (
-              <p className={styles.empty}>No hay mensajes aún.</p>
-            ) : (
-              messages.map((msg) => (
-                <div
-                  key={msg.id}
-                  className={`${styles.message} ${msg.author === 'guest' ? styles.messageGuest : styles.messageClub}`}
-                >
-                  <span className={styles.messageAuthor}>
-                    {msg.author === 'guest' ? '👤 Usuario' : '🎳 Club'}
-                    {' · '}
-                    <span className={styles.messageTime}>
-                      {new Date(msg.timestamp).toLocaleString('es-CO')}
-                    </span>
-                  </span>
-                  <p className={styles.messageText}>{msg.text}</p>
-                </div>
-              ))
-            )}
-          </div>
-
-          <div className={styles.replyBox}>
-            <input
-              className={styles.replyInput}
-              type="text"
-              placeholder="Escribe una respuesta al usuario..."
-              value={reply}
-              onChange={e => setReply(e.target.value)}
-              onKeyDown={e => {
-                if (e.key === 'Enter') {
-                  e.preventDefault()
-                  handleReply()
-                }
-              }}
-            />
-            <button className={styles.replyBtn} onClick={handleReply} type="button">
-              Enviar ▶
-            </button>
-          </div>
-        </section>
-
-        {/* FAQ */}
-        <section className={styles.card}>
-          <h2 className={styles.cardTitle}>📊 Preguntas Frecuentes</h2>
-          <p className={styles.cardText}>Temas más consultados por los usuarios.</p>
-          <div className={styles.faqList}>
-            {faqStats.map((item, i) => (
-              <div key={i} className={styles.faqItem}>
-                <div className={styles.faqInfo}>
-                  <span className={styles.faqRank}>#{i + 1}</span>
-                  <span className={styles.faqText}>{item.pregunta}</span>
-                </div>
-                <div className={styles.faqBarWrapper}>
-                  <div
-                    className={styles.faqBar}
-                    style={{ width: `${(item.consultas / faqStats[0].consultas) * 100}%` }}
-                  />
-                  <span className={styles.faqCount}>{item.consultas}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-      </main>
-    </div>
+    <ChatProvider role="admin">
+      <AdminPanel onLogout={handleLogout} />
+    </ChatProvider>
   )
 }
 
