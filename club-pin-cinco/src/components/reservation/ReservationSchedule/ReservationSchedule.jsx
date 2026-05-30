@@ -10,16 +10,21 @@ const slots = [
 
 const STORAGE_KEY = 'pincinco_blocked_slots'
 
-function getBlockedSlots(service) {
+function getBlockedSlots(service, date) {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
     if (!raw) return {}
     const data = JSON.parse(raw)
     const now = Date.now()
     const valid = {}
+    const dateStr = date
+      ? date.toLocaleDateString('es-CO', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+      : 'No seleccionada'
+
     Object.entries(data).forEach(([key, expiresAt]) => {
-      // Solo los del servicio actual
-      if (key.startsWith(service + '_') && expiresAt > now) {
+      // Clave es: service_dateStr_slot
+      const prefix = `${service}_${dateStr}_`
+      if (key.startsWith(prefix) && expiresAt > now) {
         valid[key] = expiresAt
       }
     })
@@ -30,7 +35,7 @@ function getBlockedSlots(service) {
 }
 
 function ReservationSchedule({ selected, onChange, service, date }) {
-  const [blockedSlots, setBlockedSlots] = useState(() => getBlockedSlots(service))
+  const [blockedSlots, setBlockedSlots] = useState(() => getBlockedSlots(service, date))
   const [approvedServerSlots, setApprovedServerSlots] = useState([]) // Slots aprobados en el back
 
   // Formatear fecha seleccionada a string igual al guardado en el backend
@@ -75,21 +80,27 @@ function ReservationSchedule({ selected, onChange, service, date }) {
 
   // Bloqueos de localStorage
   useEffect(() => {
-    setBlockedSlots(getBlockedSlots(service))
+    setBlockedSlots(getBlockedSlots(service, date))
     const interval = setInterval(() => {
-      setBlockedSlots(getBlockedSlots(service))
+      setBlockedSlots(getBlockedSlots(service, date))
     }, 10000)
     return () => clearInterval(interval)
-  }, [service])
+  }, [service, date])
 
   function timeLeft(slot) {
-    const key = `${service}_${slot}`
+    const dateStr = date
+      ? date.toLocaleDateString('es-CO', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+      : 'No seleccionada'
+    const key = `${service}_${dateStr}_${slot}`
     if (!blockedSlots[key]) return null
     return Math.ceil((blockedSlots[key] - Date.now()) / 60000)
   }
 
   function handleSelect(slot) {
-    const key = `${service}_${slot}`
+    const dateStr = date
+      ? date.toLocaleDateString('es-CO', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+      : 'No seleccionada'
+    const key = `${service}_${dateStr}_${slot}`
     const isLocalBlocked = !!blockedSlots[key]
     const isServerBlocked = approvedServerSlots.includes(slot)
     if (isLocalBlocked || isServerBlocked) return
@@ -104,7 +115,10 @@ function ReservationSchedule({ selected, onChange, service, date }) {
       ) : (
         <div className={styles.list}>
           {slots.map((slot) => {
-            const key = `${service}_${slot}`
+            const dateStr = date
+              ? date.toLocaleDateString('es-CO', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+              : 'No seleccionada'
+            const key = `${service}_${dateStr}_${slot}`
             const isLocalBlocked = !!blockedSlots[key]
             const isServerBlocked = approvedServerSlots.includes(slot)
             const isBlocked = isLocalBlocked || isServerBlocked
