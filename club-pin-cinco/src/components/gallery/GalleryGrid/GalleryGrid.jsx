@@ -1,7 +1,7 @@
 // Grid de miniaturas "Otras Imágenes"
 import styles from './GalleryGrid.module.css'
 
-function GalleryGrid({ images }) {
+function GalleryGrid({ images, onImageClick }) {
   return (
     <section aria-labelledby="gallery-grid-title">
       <h2 id="gallery-grid-title" className={styles.title}>
@@ -16,6 +16,7 @@ function GalleryGrid({ images }) {
             className={styles.photo}
             src={image.src}
             alt={image.alt}
+            onClick={() => onImageClick && onImageClick(image)}
           />
         ))}
       </div>

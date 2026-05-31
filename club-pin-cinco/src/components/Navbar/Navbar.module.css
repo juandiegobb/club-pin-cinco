@@ -31,7 +31,7 @@
   background: rgba(2, 2, 14, 0.88);
   backdrop-filter: blur(28px) saturate(180%);
   -webkit-backdrop-filter: blur(28px) saturate(180%);
-  /* Se eliminó la línea horizontal 1px de sombra de abajo para que no cruce el logo */
+
   box-shadow:
     0 12px 48px rgba(0, 0, 0, 0.6),
     0 0 60px rgba(69, 75, 230, 0.05);
@@ -44,64 +44,60 @@
   left: 0;
   right: 0;
   height: 2px;
-  z-index: 1; /* Garantiza estar detrás de todo el nav */
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(69, 75, 230, 0.8) 20%,
-    #ffff66 50%,
-    rgba(147, 51, 234, 0.8) 80%,
-    transparent 100%
-  );
+  z-index: 1;
+  /* Garantiza estar detrás de todo el nav */
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(69, 75, 230, 0.8) 20%,
+      #ffff66 50%,
+      rgba(147, 51, 234, 0.8) 80%,
+      transparent 100%);
   background-size: 200% 100%;
   animation: neonSlide 4s linear infinite;
 
   /* Máscara inteligente para cortar la línea de forma limpia donde se ubica el logo */
-  -webkit-mask-image: linear-gradient(
-    90deg,
-    #000 0%,
-    #000 calc(50% - 75px),
-    transparent calc(50% - 74px),
-    transparent calc(50% + 74px),
-    #000 calc(50% + 75px),
-    #000 100%
-  );
-  mask-image: linear-gradient(
-    90deg,
-    #000 0%,
-    #000 calc(50% - 75px),
-    transparent calc(50% - 74px),
-    transparent calc(50% + 74px),
-    #000 calc(50% + 75px),
-    #000 100%
-  );
+  -webkit-mask-image: linear-gradient(90deg,
+      #000 0%,
+      #000 calc(50% - 75px),
+      transparent calc(50% - 74px),
+      transparent calc(50% + 74px),
+      #000 calc(50% + 75px),
+      #000 100%);
+  mask-image: linear-gradient(90deg,
+      #000 0%,
+      #000 calc(50% - 75px),
+      transparent calc(50% - 74px),
+      transparent calc(50% + 74px),
+      #000 calc(50% + 75px),
+      #000 100%);
 }
 
 .scrolled .neonLine {
   /* En versión compacta, el logo es más pequeño */
-  -webkit-mask-image: linear-gradient(
-    90deg,
-    #000 0%,
-    #000 calc(50% - 56px),
-    transparent calc(50% - 55px),
-    transparent calc(50% + 55px),
-    #000 calc(50% + 56px),
-    #000 100%
-  );
-  mask-image: linear-gradient(
-    90deg,
-    #000 0%,
-    #000 calc(50% - 56px),
-    transparent calc(50% - 55px),
-    transparent calc(50% + 55px),
-    #000 calc(50% + 56px),
-    #000 100%
-  );
+  -webkit-mask-image: linear-gradient(90deg,
+      #000 0%,
+      #000 calc(50% - 56px),
+      transparent calc(50% - 55px),
+      transparent calc(50% + 55px),
+      #000 calc(50% + 56px),
+      #000 100%);
+  mask-image: linear-gradient(90deg,
+      #000 0%,
+      #000 calc(50% - 56px),
+      transparent calc(50% - 55px),
+      transparent calc(50% + 55px),
+      #000 calc(50% + 56px),
+      #000 100%);
 }
 
 @keyframes neonSlide {
-  0%   { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 /* ── Grid interior ────────────────────────────────── */
@@ -116,7 +112,8 @@
   overflow: visible;
   transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
-  z-index: 10; /* Eleva el contenido sobre la línea neón */
+  z-index: 10;
+  /* Eleva el contenido sobre la línea neón */
 }
 
 .scrolled .inner {
@@ -130,13 +127,20 @@
   gap: 42px;
 }
 
-.linksLeft  { justify-content: flex-end; }
-.linksRight { justify-content: flex-start; }
+.linksLeft {
+  justify-content: flex-end;
+}
+
+.linksRight {
+  justify-content: flex-start;
+}
 
 /* ── Link individual ──────────────────────────────── */
 .link {
-  color: #ffff66; /* Amarillo neón idéntico al título PIN CINCO */
-  font-size: 20px; /* Tamaño de letra a 20px */
+  color: #ffff66;
+  /* Amarillo neón idéntico al título PIN CINCO */
+  font-size: 20px;
+  /* Tamaño de letra a 20px */
   font-weight: 700;
   letter-spacing: 0.12em;
   text-decoration: none;
@@ -192,8 +196,17 @@
 }
 
 @keyframes glowPulse {
-  0%, 100% { opacity: 1; box-shadow: 0 0 6px rgba(255, 255, 102, 0.8), 0 0 16px rgba(255, 255, 102, 0.4); }
-  50%       { opacity: 0.7; box-shadow: 0 0 12px rgba(255, 255, 102, 1), 0 0 28px rgba(255, 255, 102, 0.6); }
+
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 6px rgba(255, 255, 102, 0.8), 0 0 16px rgba(255, 255, 102, 0.4);
+  }
+
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 12px rgba(255, 255, 102, 1), 0 0 28px rgba(255, 255, 102, 0.6);
+  }
 }
 
 .linkText {
@@ -220,12 +233,14 @@
   justify-content: center;
   text-decoration: none;
   position: relative;
-  z-index: 9999; /* Trae el logo al frente absoluto */
+  z-index: 9999;
+  /* Trae el logo al frente absoluto */
 }
 
 .logoRing {
   position: relative;
-  z-index: 9999; /* Asegura el anillo al frente */
+  z-index: 9999;
+  /* Asegura el anillo al frente */
   border-radius: 50%;
   padding: 3px;
   background: linear-gradient(135deg, #454be6, #ffff66 50%, #9333ea);
@@ -238,9 +253,17 @@
 }
 
 @keyframes gradientSpin {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .logo:hover .logoRing {
@@ -260,7 +283,8 @@
   background: #02020d;
   transition: filter 0.4s ease;
   position: relative;
-  z-index: 9999; /* Asegura la imagen al frente */
+  z-index: 9999;
+  /* Asegura la imagen al frente */
 }
 
 .logo:hover .logoImg {
@@ -344,10 +368,12 @@
 .menuButtonOpen .bar:nth-child(1) {
   transform: translateY(7px) rotate(45deg);
 }
+
 .menuButtonOpen .bar:nth-child(2) {
   opacity: 0;
   width: 0;
 }
+
 .menuButtonOpen .bar:nth-child(3) {
   transform: translateY(-7px) rotate(-45deg);
 }
@@ -363,8 +389,13 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 /* ── Menú móvil desplegable ───────────────────────── */
@@ -429,6 +460,7 @@
     opacity: 0;
     transform: translateX(-16px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);

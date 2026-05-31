@@ -23,6 +23,7 @@
   box-shadow: var(--shadow-sm);
   transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.3s ease, filter 0.3s ease;
   width: 100%;
+  cursor: zoom-in;
 }
 
 .photo:hover {

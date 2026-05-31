@@ -7,7 +7,7 @@ import styles from "./GalleryCarousel.module.css";
  * - La cinta corre continuamente con animación CSS pura.
  * - Se pausa al hacer hover.
  */
-function GalleryCarousel({ images }) {
+function GalleryCarousel({ images, onImageClick }) {
   const [paused, setPaused] = useState(false);
 
   // Duplicamos para crear el loop sin saltos
@@ -21,10 +21,14 @@ function GalleryCarousel({ images }) {
       aria-label="Carrusel de galería"
       role="region"
     >
-      <div className={styles.trackWrapper}>
+      <div className={styles.trackWrapper} style={{ cursor: "pointer" }}>
         <div className={`${styles.track} ${paused ? styles.paused : ""}`}>
           {doubled.map((img, i) => (
-            <div className={styles.slide} key={i}>
+            <div 
+              className={styles.slide} 
+              key={i}
+              onClick={() => onImageClick && onImageClick(img)}
+            >
               <img
                 className={styles.img}
                 src={img.src}

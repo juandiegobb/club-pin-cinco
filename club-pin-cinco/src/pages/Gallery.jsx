@@ -1,7 +1,9 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useLanguage } from '../context/LanguageContext'
 import GalleryCarousel from '../components/gallery/GalleryCarousel/GalleryCarousel'
 import GalleryGrid from '../components/gallery/GalleryGrid/GalleryGrid'
+import Lightbox from '../components/gallery/Lightbox/Lightbox'
 import styles from './Gallery.module.css'
 
 // ── Carrusel (5 fotos) ──
@@ -44,6 +46,8 @@ const gridImages = [
 
 function Gallery() {
   const { t, language } = useLanguage()
+  const [isOpen, setIsOpen] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState(0)
 
   const carouselImagesTrans = carouselImages.map(img => ({
     ...img,
@@ -55,6 +59,25 @@ function Gallery() {
     alt: language === 'es' ? img.alt : 'Pin Cinco Gallery'
   }))
 
+  // Unificamos todas las imágenes para permitir una navegación fluida y continua
+  const allImages = [...carouselImagesTrans, ...gridImagesTrans]
+
+  const handleImageClick = (clickedImg) => {
+    const idx = allImages.findIndex(img => img.src === clickedImg.src)
+    if (idx !== -1) {
+      setCurrentIndex(idx)
+      setIsOpen(true)
+    }
+  }
+
+  const handlePrev = () => {
+    setCurrentIndex(prev => (prev - 1 + allImages.length) % allImages.length)
+  }
+
+  const handleNext = () => {
+    setCurrentIndex(prev => (prev + 1) % allImages.length)
+  }
+
   return (
     <div className={styles.page}>
       <motion.h1 
@@ -65,10 +88,20 @@ function Gallery() {
       >
         {t('galleryHeroTitle')}
       </motion.h1>
-      <GalleryCarousel images={carouselImagesTrans} />
+      <GalleryCarousel images={carouselImagesTrans} onImageClick={handleImageClick} />
       <div className={styles.gridWrapper}>
-        <GalleryGrid images={gridImagesTrans} />
+        <GalleryGrid images={gridImagesTrans} onImageClick={handleImageClick} />
       </div>
+
+      {/* Visualizador Lightbox de imágenes en pantalla completa */}
+      <Lightbox
+        images={allImages}
+        currentIndex={currentIndex}
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        onPrev={handlePrev}
+        onNext={handleNext}
+      />
     </div>
   )
 }

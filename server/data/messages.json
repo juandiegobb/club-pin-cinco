@@ -16,5 +16,39 @@
       "timestamp": "2026-05-31T01:23:28.069Z",
       "read": false
     }
+  ],
+  "cc664388-a61c-442d-8e3a-d8de08279348": [
+    {
+      "id": "msg_1780244630147_5n1oo",
+      "clientId": "cc664388-a61c-442d-8e3a-d8de08279348",
+      "author": "guest",
+      "text": "Horarios",
+      "timestamp": "2026-05-31T16:23:50.147Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780244630953_xpgrg",
+      "clientId": "cc664388-a61c-442d-8e3a-d8de08279348",
+      "author": "club",
+      "text": "🕐 Nuestros horarios son:\n• Lunes a jueves: 11:00 a.m - 11:00 p.m\n• Viernes: 11:00 a.m - 1:00 a.m\n• Sábados: 2:30 p.m - 2:00 a.m\n• Domingos: 3:00 p.m - 10:00 p.m",
+      "timestamp": "2026-05-31T16:23:50.953Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780244744696_zoyz1",
+      "clientId": "cc664388-a61c-442d-8e3a-d8de08279348",
+      "author": "guest",
+      "text": "hola admin",
+      "timestamp": "2026-05-31T16:25:44.696Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780244751270_d15cd",
+      "clientId": "cc664388-a61c-442d-8e3a-d8de08279348",
+      "author": "club",
+      "text": "Hol user",
+      "timestamp": "2026-05-31T16:25:51.270Z",
+      "read": false
+    }
   ]
 }

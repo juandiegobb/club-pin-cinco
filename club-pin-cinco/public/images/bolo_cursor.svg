@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <!-- Rotar el pin de bolo 45 grados a la izquierda para que la cabeza apunte a la esquina superior izquierda (hotspot del cursor) -->
+  <g transform="rotate(-45 16 16)">
+    <!-- Silueta base de relleno Amarillo Neón con borde negro para contraste extremo en fondos oscuros/claros -->
+    <path 
+      d="M16 2 C14 2, 13 4, 13 7 C13 9, 14 10, 14.5 12 C13 14, 11 17, 11 21 C11 25, 13 28, 16 28 C19 28, 21 25, 21 21 C21 17, 19 14, 17.5 12 C18 10, 19 9, 19 7 C19 4, 18 2, 16 2 Z" 
+      fill="#ffff66" 
+      stroke="#02020d" 
+      stroke-width="2.5" 
+      stroke-linejoin="round"
+    />
+    <!-- Cuerpo del pino en blanco brillante -->
+    <path 
+      d="M16 3.5 C14.5 3.5, 14 4.8, 14 7 C14 8.5, 14.8 9.8, 15.2 11.5 C13.5 13.5, 12 16.5, 12 21 C12 24.5, 13.8 27, 16 27 C18.2 27, 20 24.5, 20 21 C20 16.5, 18.5 13.5, 16.8 11.5 C17.2 9.8, 18 8.5, 18 7 C18 4.8, 17.5 3.5, 16 3.5 Z" 
+      fill="#ffff66" 
+    />
+    <!-- Rayas rojas características del bolo de boliche -->
+    <path d="M13.6 12.8 C14 12.4, 15 12.2, 16 12.2 C17 12.2, 18 12.4, 18.4 12.8" fill="none" stroke="#ff2a2a" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M13.3 14.8 C13.8 14.4, 15 14.2, 16 14.2 C17 14.2, 18 14.4, 18.7 14.8" fill="none" stroke="#ff2a2a" stroke-width="1.8" stroke-linecap="round"/>
+  </g>
+</svg>

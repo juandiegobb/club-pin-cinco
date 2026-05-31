@@ -6,13 +6,14 @@
   height: 40px;
   border-radius: 50%;
   pointer-events: none;
-  z-index: 999999; /* Asegura estar sobre las tarjetas pero sin obstruir clics */
-  
+  z-index: 999999;
+  /* Asegura estar sobre las tarjetas pero sin obstruir clics */
+
   /* Gradiente radial dinámico de acuerdo a las variables de tema */
   background: radial-gradient(circle, var(--border-hover) 0%, transparent 70%);
   opacity: 0.75;
   filter: blur(4px);
-  
+
   /* Transición de colores suave */
   transition: opacity 0.3s ease, background 0.3s ease;
   will-change: transform;

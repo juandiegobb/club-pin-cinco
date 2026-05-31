@@ -6,7 +6,7 @@
   align-items: center;
   gap: 6px;
   padding: 4px 8px;
-  cursor: url("/images/bolo_cursor.png") 16 16, pointer;
+  cursor: url("/images/bolo_cursor.svg") 4 4, pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   user-select: none;
   min-height: 36px;
