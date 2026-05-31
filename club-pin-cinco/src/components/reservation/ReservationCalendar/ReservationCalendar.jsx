@@ -1,13 +1,17 @@
 // Calendario interactivo para elegir la fecha
 // Navegación por mes y selección de día
 import { useState } from 'react'
-import { useLanguage } from '../../../context/LanguageContext'
 import styles from './ReservationCalendar.module.css'
 
-// Devuelve los días del mes incluyendo vacíos al inicio para alinear con el día correcto
+// Días y meses fijos en español — sin depender de useLanguage
+const DAYS = ['LUN', 'MAR', 'MIÉ', 'JUE', 'VIE', 'SÁB', 'DOM']
+const MONTHS = [
+  'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+  'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+]
+
 function buildCalendar(year, month) {
   const firstDay = new Date(year, month, 1).getDay()
-  // Ajuste: semana empieza en lunes (0=lun ... 6=dom)
   const offset = (firstDay + 6) % 7
   const daysInMonth = new Date(year, month + 1, 0).getDate()
   const cells = []
@@ -17,26 +21,22 @@ function buildCalendar(year, month) {
 }
 
 function ReservationCalendar({ selected, onChange }) {
-  const { daysList, monthsList, language } = useLanguage()
   const today = new Date()
   const [viewYear, setViewYear] = useState(today.getFullYear())
   const [viewMonth, setViewMonth] = useState(today.getMonth())
 
   const cells = buildCalendar(viewYear, viewMonth)
 
-  // Ir al mes anterior
   function prevMonth() {
     if (viewMonth === 0) { setViewMonth(11); setViewYear(y => y - 1) }
     else setViewMonth(m => m - 1)
   }
 
-  // Ir al mes siguiente
   function nextMonth() {
     if (viewMonth === 11) { setViewMonth(0); setViewYear(y => y + 1) }
     else setViewMonth(m => m + 1)
   }
 
-  // Verifica si un día es el seleccionado actualmente
   function isSelected(day) {
     if (!selected || !day) return false
     return (
@@ -46,7 +46,6 @@ function ReservationCalendar({ selected, onChange }) {
     )
   }
 
-  // Verifica si un día ya pasó (no se puede seleccionar)
   function isPast(day) {
     if (!day) return false
     const d = new Date(viewYear, viewMonth, day)
@@ -58,32 +57,18 @@ function ReservationCalendar({ selected, onChange }) {
 
   return (
     <div className={styles.calendar}>
-      {/* Encabezado con mes/año y flechas de navegación */}
       <div className={styles.header}>
-        <button
-          className={styles.arrow}
-          onClick={prevMonth}
-          type="button"
-          aria-label={language === 'es' ? 'Mes anterior' : 'Previous month'}
-        >
-          ‹
-        </button>
+        <button className={styles.arrow} onClick={prevMonth} type="button" aria-label="Mes anterior">‹</button>
+        {/* Mes y año en español fijo */}
         <span className={styles.monthLabel}>
-          {monthsList[viewMonth]} {viewYear}
+          {MONTHS[viewMonth]} de {viewYear}
         </span>
-        <button
-          className={styles.arrow}
-          onClick={nextMonth}
-          type="button"
-          aria-label={language === 'es' ? 'Mes siguiente' : 'Next month'}
-        >
-          ›
-        </button>
+        <button className={styles.arrow} onClick={nextMonth} type="button" aria-label="Mes siguiente">›</button>
       </div>
 
-      {/* Nombres de los días de la semana */}
       <div className={styles.grid}>
-        {daysList.map((d) => (
+        {/* Días de la semana fijos */}
+        {DAYS.map((d) => (
           <span key={d} className={styles.dayName}>{d}</span>
         ))}
 
@@ -95,7 +80,7 @@ function ReservationCalendar({ selected, onChange }) {
             onClick={() => day && !isPast(day) && onChange(new Date(viewYear, viewMonth, day))}
             type="button"
             disabled={!day || isPast(day)}
-            aria-label={day ? (language === 'es' ? `${day} de ${monthsList[viewMonth]}` : `${monthsList[viewMonth]} ${day}`) : undefined}
+            aria-label={day ? `${day} de ${MONTHS[viewMonth]}` : undefined}
           >
             {day || ''}
           </button>

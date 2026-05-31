@@ -81,7 +81,8 @@ function Reservation() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ ...springTransition, delay: 0.45 }}
-      >
+        className={styles.scheduleCol}
+          >
         <ReservationForm
           service={form.service}
           date={form.date}
