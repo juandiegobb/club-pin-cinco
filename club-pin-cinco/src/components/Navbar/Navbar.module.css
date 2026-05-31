@@ -1,18 +1,110 @@
+/* ══════════════════════════════════════════════════
+   NAVBAR — Dark Neon Glassmorphism | Club Pin Cinco
+   ══════════════════════════════════════════════════ */
+
+/* ── Contenedor principal ─────────────────────────── */
 .navbar {
-  background: var(--bg-glass);
-  backdrop-filter: var(--backdrop-blur);
-  -webkit-backdrop-filter: var(--backdrop-blur);
-  border-bottom: 1px solid var(--border-color);
-  box-shadow: var(--shadow-sm);
   left: 0;
   position: fixed;
   right: 0;
   top: 0;
-  z-index: 20;
+  z-index: 100;
   overflow: visible;
-  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+
+  /* Glassmorphism premium base */
+  background: rgba(4, 4, 18, 0.72);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+
+  /* Transición suave al scroll */
+  transition:
+    background 0.4s ease,
+    box-shadow 0.4s ease,
+    height 0.4s ease;
+
+  /* Se eliminó la línea horizontal 1px de sombra de abajo para que no cruce el logo */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
 }
 
+/* ── Estado compacto al hacer scroll ─────────────── */
+.navbar.scrolled {
+  background: rgba(2, 2, 14, 0.88);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  /* Se eliminó la línea horizontal 1px de sombra de abajo para que no cruce el logo */
+  box-shadow:
+    0 12px 48px rgba(0, 0, 0, 0.6),
+    0 0 60px rgba(69, 75, 230, 0.05);
+}
+
+/* ── Línea neon inferior con máscara exacta para el logo ── */
+.neonLine {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 1; /* Garantiza estar detrás de todo el nav */
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(69, 75, 230, 0.8) 20%,
+    #ffff66 50%,
+    rgba(147, 51, 234, 0.8) 80%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: neonSlide 4s linear infinite;
+
+  /* Máscara inteligente para cortar la línea de forma limpia donde se ubica el logo */
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    #000 0%,
+    #000 calc(50% - 75px),
+    transparent calc(50% - 74px),
+    transparent calc(50% + 74px),
+    #000 calc(50% + 75px),
+    #000 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    #000 0%,
+    #000 calc(50% - 75px),
+    transparent calc(50% - 74px),
+    transparent calc(50% + 74px),
+    #000 calc(50% + 75px),
+    #000 100%
+  );
+}
+
+.scrolled .neonLine {
+  /* En versión compacta, el logo es más pequeño */
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    #000 0%,
+    #000 calc(50% - 56px),
+    transparent calc(50% - 55px),
+    transparent calc(50% + 55px),
+    #000 calc(50% + 56px),
+    #000 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    #000 0%,
+    #000 calc(50% - 56px),
+    transparent calc(50% - 55px),
+    transparent calc(50% + 55px),
+    #000 calc(50% + 56px),
+    #000 100%
+  );
+}
+
+@keyframes neonSlide {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Grid interior ────────────────────────────────── */
 .inner {
   align-items: center;
   display: grid;
@@ -22,220 +114,362 @@
   max-width: 1380px;
   padding: 0 72px;
   overflow: visible;
+  transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 10; /* Eleva el contenido sobre la línea neón */
 }
 
+.scrolled .inner {
+  height: 66px;
+}
+
+/* ── Links de navegación ──────────────────────────── */
 .links {
   align-items: center;
   display: flex;
-  gap: 46px;
+  gap: 42px;
 }
 
-.linksLeft {
-  justify-content: flex-end;
-}
+.linksLeft  { justify-content: flex-end; }
+.linksRight { justify-content: flex-start; }
 
-.linksRight {
-  justify-content: flex-start;
-}
-
+/* ── Link individual ──────────────────────────────── */
 .link {
-  color: var(--text-accent);
-  font-size: 18px;
+  color: #ffff66; /* Amarillo neón idéntico al título PIN CINCO */
+  font-size: 20px; /* Tamaño de letra a 20px */
   font-weight: 700;
+  letter-spacing: 0.12em;
   text-decoration: none;
-  text-shadow: 1px 2px 0 var(--bg-primary);
   text-transform: uppercase;
-  transition: color 0.3s ease, text-shadow 0.3s ease;
+  position: relative;
+  padding-bottom: 4px;
+  transition: color 0.25s ease, text-shadow 0.25s ease;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+/* Subrayado animado */
+.link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  right: 50%;
+  height: 2px;
+  background: linear-gradient(90deg, #454be6, #ffff66, #9333ea);
+  border-radius: 999px;
+  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1), right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 8px rgba(255, 255, 102, 0.4);
+}
+
+.link:hover {
+  color: #ffffff;
+  text-shadow:
+    0 0 8px rgba(255, 255, 102, 0.6),
+    0 0 20px rgba(255, 255, 102, 0.3);
+}
+
+.link:hover::after {
+  left: 0;
+  right: 0;
+}
+
+/* ── Link activo ──────────────────────────────────── */
 .linkActive {
-  color: #ff6d4f;
+  color: #ffff66 !important;
+  text-shadow:
+    0 0 12px rgba(255, 255, 102, 0.7),
+    0 0 24px rgba(255, 255, 102, 0.3);
 }
 
+.linkActive::after {
+  left: 0 !important;
+  right: 0 !important;
+  background: #ffff66;
+  box-shadow:
+    0 0 6px rgba(255, 255, 102, 0.8),
+    0 0 16px rgba(255, 255, 102, 0.4);
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 6px rgba(255, 255, 102, 0.8), 0 0 16px rgba(255, 255, 102, 0.4); }
+  50%       { opacity: 0.7; box-shadow: 0 0 12px rgba(255, 255, 102, 1), 0 0 28px rgba(255, 255, 102, 0.6); }
+}
+
+.linkText {
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+
+.link:hover .linkText {
+  transform: translateY(-1px);
+}
+
+/* ── Toggles desktop ──────────────────────────────── */
 .desktopToggle {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-left: 10px;
+  gap: 10px;
+  margin-left: 8px;
 }
 
-.mobileToggle {
-  display: none;
-  align-items: center;
-  gap: 8px;
-  position: absolute;
-  top: 50%;
-  right: 96px;
-  transform: translateY(-50%);
-  z-index: 40;
-}
-
-@media (max-width: 860px) {
-  .mobileToggle {
-    display: flex;
-    right: 96px;
-  }
-}
-
-@media (max-width: 560px) {
-  .mobileToggle {
-    right: 84px;
-  }
-}
-
-
+/* ── Logo central ─────────────────────────────────── */
 .logo {
   align-items: center;
   display: flex;
   justify-content: center;
   text-decoration: none;
   position: relative;
-  z-index: 30;
+  z-index: 9999; /* Trae el logo al frente absoluto */
+}
+
+.logoRing {
+  position: relative;
+  z-index: 9999; /* Asegura el anillo al frente */
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(135deg, #454be6, #ffff66 50%, #9333ea);
+  background-size: 300% 300%;
+  animation: gradientSpin 4s linear infinite;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 102, 0.15),
+    0 8px 28px rgba(0, 0, 0, 0.45);
+}
+
+@keyframes gradientSpin {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.logo:hover .logoRing {
+  transform: scale(1.08) rotate(-6deg);
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 102, 0.4),
+    0 0 32px rgba(255, 255, 102, 0.25),
+    0 12px 40px rgba(0, 0, 0, 0.5);
 }
 
 .logoImg {
-  border: 2px solid rgba(255, 255, 255, 0.15);
-  border-radius: var(--radius-full);
-  height: 100px;
-  width: 100px;
+  border-radius: 50%;
+  display: block;
+  height: 94px;
+  width: 94px;
   object-fit: cover;
-  margin-top: 0;
-  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.35));
+  background: #02020d;
+  transition: filter 0.4s ease;
+  position: relative;
+  z-index: 9999; /* Asegura la imagen al frente */
 }
 
-.menuButton {
+.logo:hover .logoImg {
+  filter: brightness(1.12) saturate(1.2);
+}
+
+.scrolled .logoImg {
+  height: 68px;
+  width: 68px;
+  transition: height 0.4s ease, width 0.4s ease, filter 0.4s ease;
+}
+
+/* ── Toggles móvil ────────────────────────────────── */
+.mobileToggle {
   display: none;
   align-items: center;
-  justify-content: center;
+  gap: 8px;
   position: absolute;
   top: 50%;
-  right: 24px;
+  right: 72px;
   transform: translateY(-50%);
-  height: 46px;
-  width: 46px;
-  border-radius: var(--radius-md);
-  border: 1px solid rgba(244, 255, 88, 0.24);
-  background: rgba(255, 255, 255, 0.08);
-  cursor: pointer;
   z-index: 40;
 }
 
-.menuButton:hover {
-  background: rgba(255, 255, 255, 0.14);
+@media (max-width: 860px) {
+  .mobileToggle {
+    display: flex;
+    right: 72px;
+  }
 }
 
-.menuIcon,
-.menuIcon::before,
-.menuIcon::after {
-  display: block;
-  width: 24px;
-  height: 2px;
-  background: #f4ff58;
-  border-radius: 999px;
-  transition:
-    transform 0.25s ease,
-    opacity 0.25s ease;
+@media (max-width: 560px) {
+  .mobileToggle {
+    right: 62px;
+  }
 }
 
-.menuIcon {
-  position: relative;
-}
-
-.menuIcon::before,
-.menuIcon::after {
-  content: "";
-  position: absolute;
-  left: 0;
-}
-
-.menuIcon::before {
-  top: -8px;
-}
-
-.menuIcon::after {
-  top: 8px;
-}
-
-.menuIconOpen {
-  background: transparent;
-}
-
-.menuIconOpen::before {
-  transform: rotate(45deg) translate(4px, 4px);
-  top: 0;
-}
-
-.menuIconOpen::after {
-  transform: rotate(-45deg) translate(4px, -4px);
-  top: 0;
-}
-
-.mobileMenu {
+/* ── Botón hamburguesa ────────────────────────────── */
+.menuButton {
   display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  height: 44px;
+  width: 44px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 102, 0.18);
+  background: rgba(255, 255, 102, 0.05);
+  cursor: pointer;
+  z-index: 110;
+  transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  padding: 0;
+}
+
+.menuButton:hover {
+  background: rgba(255, 255, 102, 0.12);
+  border-color: rgba(255, 255, 102, 0.4);
+  box-shadow: 0 0 16px rgba(255, 255, 102, 0.15);
+}
+
+/* Las 3 barras de la hamburguesa */
+.bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  border-radius: 999px;
+  background: #ffff66;
+  transition:
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.2s ease,
+    width 0.3s ease;
+  transform-origin: center;
+}
+
+/* Animación hamburguesa → X */
+.menuButtonOpen .bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.menuButtonOpen .bar:nth-child(2) {
+  opacity: 0;
+  width: 0;
+}
+.menuButtonOpen .bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ── Overlay fondo menú móvil ─────────────────────── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 2, 14, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 95;
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Menú móvil desplegable ───────────────────────── */
+.mobileMenu {
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
-  background: var(--bg-glass);
-  backdrop-filter: var(--backdrop-blur);
-  border-top: 1px solid var(--border-color);
-  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.25);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-10px);
+  z-index: 100;
+
+  background: rgba(4, 4, 18, 0.96);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 102, 0.1);
+
+  /* Animación slide-down */
+  max-height: 0;
+  overflow: hidden;
   transition:
-    opacity 0.25s ease,
-    transform 0.25s ease,
-    background-color 0.3s ease,
-    border-color 0.3s ease,
-    visibility 0.25s ease;
-  z-index: 35;
+    max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.3s ease;
+
+  pointer-events: none;
 }
 
 .mobileMenuOpen {
-  display: block;
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
+  max-height: 420px;
+  pointer-events: all;
 }
 
 .mobileMenuInner {
-  display: grid;
-  gap: 12px;
-  padding: 20px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px 20px 28px;
 }
 
+/* ── Link móvil individual ────────────────────────── */
 .mobileLink {
-  color: var(--text-accent);
-  background: var(--border-color);
-  border-radius: var(--radius-md);
-  display: block;
-  font-size: 15px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  padding: 14px 18px;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  color: rgba(255, 255, 102, 0.75);
+  display: flex;
+  font-size: 14px;
+  font-weight: 700;
+  gap: 14px;
+  letter-spacing: 0.1em;
+  padding: 16px 20px;
   text-decoration: none;
   text-transform: uppercase;
-  transition: color 0.3s ease, background-color 0.3s ease;
+  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+
+  /* Stagger de entrada */
+  animation: slideItem 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 60ms + 80ms);
+}
+
+@keyframes slideItem {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .mobileLink:hover {
-  background: var(--border-hover);
+  background: rgba(255, 255, 102, 0.07);
+  border-color: rgba(255, 255, 102, 0.25);
+  color: #ffff66;
+  transform: translateX(4px);
 }
 
 .mobileLinkActive {
-  background: var(--border-hover);
-  color: var(--text-primary);
+  background: rgba(255, 255, 102, 0.1) !important;
+  border-color: rgba(255, 255, 102, 0.35) !important;
+  color: #ffff66 !important;
+  box-shadow: inset 0 0 12px rgba(255, 255, 102, 0.06), 0 0 12px rgba(255, 255, 102, 0.08);
 }
+
+.mobileLinkIcon {
+  font-size: 18px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════ */
 
 @media (max-width: 860px) {
   .inner {
-    gap: 12px;
     grid-template-columns: 1fr 100px auto;
-    height: 74px;
+    height: 70px;
     padding: 0 16px;
   }
 
+  .scrolled .inner {
+    height: 58px;
+  }
+
   .links {
     display: none;
   }
@@ -244,64 +478,39 @@
     display: flex;
   }
 
-  .link {
-    font-size: 12px;
+  .logoImg {
+    height: 80px;
+    width: 80px;
+    margin-top: 0;
   }
 
-  .logoImg {
-    height: 90px;
-    width: 90px;
-    margin-top: 28px;
+  .scrolled .logoImg {
+    height: 58px;
+    width: 58px;
   }
 }
 
 @media (max-width: 560px) {
   .inner {
-    grid-template-columns: 1fr 90px auto;
-    height: 70px;
+    grid-template-columns: 1fr 86px auto;
+    height: 64px;
     padding: 0 12px;
-  }
-
-  .links {
-    display: none;
-  }
-
-  .menuButton {
-    display: flex;
-    right: 12px;
-    width: 42px;
-    height: 42px;
-  }
-
-  .link {
-    font-size: 10px;
-  }
-
-  .logoImg {
-    height: 72px;
-    width: 72px;
-    margin-top: 22px;
-  }
-}
-
-@media (max-width: 560px) {
-  .inner {
-    grid-template-columns: minmax(0, 1fr) 70px minmax(0, 1fr);
-    height: 70px;
-    padding: 0 8px;
-  }
-
-  .links {
-    gap: 5px;
-  }
-
-  .link {
-    font-size: 9px;
   }
 
   .logoImg {
     height: 70px;
     width: 70px;
-    margin-top: 22px;
+    margin-top: 0;
+  }
+
+  .scrolled .logoImg {
+    height: 52px;
+    width: 52px;
+  }
+
+  .menuButton {
+    right: 14px;
+    height: 40px;
+    width: 40px;
   }
 }

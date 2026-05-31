@@ -94,12 +94,32 @@
   flex-shrink: 0;
   gap: var(--space-xs);
   overflow-x: auto;
-  padding: var(--space-sm) var(--space-md);
+  padding: var(--space-sm) var(--space-md) 12px var(--space-md);
 }
 
-/* Ocultar barra de scroll en sugerencias */
+/* Barra de scroll premium para sugerencias (fácil navegación en desktop) */
+.suggestions {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
 .suggestions::-webkit-scrollbar {
-  display: none;
+  height: 6px;
+}
+
+.suggestions::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 3px;
+}
+
+.suggestions::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+  transition: background 0.2s ease;
+}
+
+.suggestions::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
 }
 
 .suggestion {
