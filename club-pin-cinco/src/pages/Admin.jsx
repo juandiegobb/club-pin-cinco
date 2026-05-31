@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { ChatProvider } from '../context/ChatContext'
 import { useChatContext } from '../context/ChatContext'
 import styles from './Admin.module.css'
+import { MessageCircle, Settings, Phone, User, Bot, Trash2, Check, Star, LogOut, ArrowLeft, SendHorizontal, Lock, Users, CalendarDays } from 'lucide-react'
 
 const ADMIN_USER = 'admin'
 const ADMIN_PASSWORD = 'pincinco2024'
@@ -92,10 +93,10 @@ function AdminPanel({ onLogout }) {
             {isConnected ? 'WS Conectado' : 'WS Desconectado'}
           </span>
           <button className={styles.backBtn} onClick={() => navigate('/')} type="button">
-            ← Inicio
+            <ArrowLeft size={16} /> Inicio
           </button>
           <button className={styles.logoutBtn} onClick={onLogout} type="button">
-            Cerrar sesión
+            <LogOut size={16} /> Cerrar sesión
           </button>
         </div>
       </header>
@@ -107,7 +108,7 @@ function AdminPanel({ onLogout }) {
           onClick={() => setActiveTab('chat')}
           type="button"
         >
-          💬 Chat con Usuarios
+          <MessageCircle size={18} /> Chat con Usuarios
           {allClientIds.reduce((acc, id) => acc + unreadCount(id), 0) > 0 && (
             <span className={styles.tabBadge}>
               {allClientIds.reduce((acc, id) => acc + unreadCount(id), 0)}
@@ -119,13 +120,13 @@ function AdminPanel({ onLogout }) {
           onClick={() => setActiveTab('turns')}
           type="button"
         >
-          🎳 Gestión de Turnos
+          <CalendarDays size={18} /> Gestión de Turnos
           {pendingTurns.length > 0 && (
             <span className={styles.tabBadgeTurns}>{pendingTurns.length}</span>
           )}
         </button>
         <button className={styles.tabWa} onClick={handleWhatsApp} type="button">
-          📲 WhatsApp Business
+          <Phone size={18} /> WhatsApp Business
         </button>
       </div>
 
@@ -160,7 +161,7 @@ function AdminPanel({ onLogout }) {
                       type="button"
                     >
                       <div className={styles.userAvatar}>
-                        👤
+                        <User size={20} />
                         <span className={online ? styles.onlineDot : styles.offlineDot} />
                       </div>
                       <div className={styles.userInfo}>
@@ -185,7 +186,7 @@ function AdminPanel({ onLogout }) {
             <section className={styles.chatArea}>
               {!selectedUser ? (
                 <div className={styles.chatPlaceholder}>
-                  <span className={styles.chatPlaceholderIcon}>💬</span>
+                  <MessageCircle size={48} className={styles.chatPlaceholderIcon} />
                   <p>Selecciona una conversación para comenzar</p>
                 </div>
               ) : (
@@ -212,7 +213,8 @@ function AdminPanel({ onLogout }) {
                           className={`${styles.message} ${msg.author === 'guest' ? styles.messageGuest : styles.messageClub}`}
                         >
                           <span className={styles.messageAuthor}>
-                            {msg.author === 'guest' ? '👤 Usuario' : '🎳 Club'}
+                            {msg.author === 'guest' ? <User size={14}/> : <Bot size={14}/>}
+                            {msg.author === 'guest' ? ' Usuario' : ' Club'}
                             {' · '}
                             <span className={styles.messageTime}>
                               {new Date(msg.timestamp).toLocaleString('es-CO', {
@@ -238,7 +240,7 @@ function AdminPanel({ onLogout }) {
                       }}
                     />
                     <button className={styles.replyBtn} onClick={handleSendReply} type="button">
-                      Enviar ▶
+                      Enviar <SendHorizontal size={16} />
                     </button>
                   </div>
                 </>
@@ -256,21 +258,21 @@ function AdminPanel({ onLogout }) {
             {/* Turnos Pendientes */}
             <div className={styles.card}>
               <h2 className={styles.cardTitle}>
-                ⏳ Turnos Pendientes
+                Pendientes
                 {pendingTurns.length > 0 && (
                   <span className={styles.pendingBadge}>{pendingTurns.length}</span>
                 )}
               </h2>
 
               {pendingTurns.length === 0 ? (
-                <p className={styles.emptyTurns}>No hay turnos pendientes. 🎉</p>
+                <p className={styles.emptyTurns}>No hay turnos pendientes.</p>
               ) : (
                 <div className={styles.turnsList}>
                   {pendingTurns.map(turn => (
                     <div key={turn.id} className={styles.turnCard}>
                       <div className={styles.turnInfo}>
                         <div className={styles.turnService}>
-                          {turn.service === 'Bolos' ? '🎳' : '🎱'} {turn.service}
+                          {turn.service}
                         </div>
                         <div className={styles.turnDetails}>
                           <span>📅 {turn.date}</span>
@@ -280,20 +282,14 @@ function AdminPanel({ onLogout }) {
                           <span>👥 {turn.people} persona(s)</span>
                           <span className={styles.turnId}>ID: {formatId(turn.clientId)}</span>
                         </div>
-                        <div className={styles.turnMeta}>
-                          {new Date(turn.createdAt).toLocaleString('es-CO', {
-                            day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit'
-                          })}
-                        </div>
                       </div>
                       <div className={styles.turnActions}>
                         <button
                           className={styles.approveBtn}
                           onClick={() => approveTurn(turn.id)}
                           type="button"
-                          title="Aprobar y bloquear horario globalmente"
                         >
-                          ⭐ Aprobar
+                          <Star size={16} /> Aprobar
                         </button>
                         <button
                           className={styles.deleteBtn}
@@ -301,9 +297,8 @@ function AdminPanel({ onLogout }) {
                             if (confirm('¿Eliminar este turno?')) deleteTurn(turn.id)
                           }}
                           type="button"
-                          title="Eliminar turno"
                         >
-                          🗑
+                          <Trash2 size={16} />
                         </button>
                       </div>
                     </div>
@@ -315,29 +310,26 @@ function AdminPanel({ onLogout }) {
             {/* Turnos Aprobados y Bloqueados */}
             <div className={styles.card}>
               <h2 className={styles.cardTitle}>
-                🔒 Turnos Aprobados (Bloqueados Globalmente)
+                Aprobados (Bloqueados)
                 {approvedTurns.length > 0 && (
                   <span className={styles.approvedBadge}>{approvedTurns.length}</span>
                 )}
               </h2>
 
               {approvedTurns.length === 0 ? (
-                <p className={styles.emptyTurns}>No hay turnos aprobados/bloqueados en este momento.</p>
+                <p className={styles.emptyTurns}>No hay turnos aprobados.</p>
               ) : (
                 <div className={styles.turnsList}>
                   {approvedTurns.map(turn => (
                     <div key={turn.id} className={`${styles.turnCard} ${styles.turnCardApproved}`}>
                       <div className={styles.turnInfo}>
                         <div className={styles.turnService}>
-                          {turn.service === 'Bolos' ? '🎳' : '🎱'} {turn.service}
-                          <span className={styles.approvedPill}>Aprobado · Horario Bloqueado</span>
+                          {turn.service}
+                          <span className={styles.approvedPill}>Aprobado</span>
                         </div>
                         <div className={styles.turnDetails}>
                           <span>📅 {turn.date}</span>
-                          <span>🕐 {turn.schedule}</span>
                           <span>👤 {turn.name}</span>
-                          <span>📞 {turn.phone}</span>
-                          <span>👥 {turn.people} persona(s)</span>
                           <span className={styles.turnId}>ID: {formatId(turn.clientId)}</span>
                         </div>
                       </div>
@@ -346,9 +338,8 @@ function AdminPanel({ onLogout }) {
                           className={styles.doneBtn}
                           onClick={() => markTurnDone(turn.id)}
                           type="button"
-                          title="Marcar como atendido/finalizado"
                         >
-                          ✅ Finalizar
+                          <Check size={16} /> Finalizar
                         </button>
                         <button
                           className={styles.deleteBtn}
@@ -356,9 +347,8 @@ function AdminPanel({ onLogout }) {
                             if (confirm('¿Eliminar este turno?')) deleteTurn(turn.id)
                           }}
                           type="button"
-                          title="Eliminar turno"
                         >
-                          🗑
+                          <Trash2 size={16} />
                         </button>
                       </div>
                     </div>
@@ -370,30 +360,25 @@ function AdminPanel({ onLogout }) {
             {/* Turnos Finalizados */}
             {doneTurns.length > 0 && (
               <div className={styles.card}>
-                <h2 className={styles.cardTitle}>✅ Turnos Finalizados</h2>
+                <h2 className={styles.cardTitle}>Finalizados</h2>
                 <div className={styles.turnsList}>
                   {doneTurns.map(turn => (
                     <div key={turn.id} className={`${styles.turnCard} ${styles.turnCardDone}`}>
                       <div className={styles.turnInfo}>
                         <div className={styles.turnService}>
-                          {turn.service === 'Bolos' ? '🎳' : '🎱'} {turn.service}
+                          {turn.service}
                           <span className={styles.donePill}>Finalizado</span>
-                        </div>
-                        <div className={styles.turnDetails}>
-                          <span>📅 {turn.date}</span>
-                          <span>👤 {turn.name}</span>
-                          <span>🕐 {turn.schedule}</span>
                         </div>
                       </div>
                       <div className={styles.turnActions}>
                         <button
                           className={styles.deleteBtn}
                           onClick={() => {
-                            if (confirm('¿Eliminar este turno del historial?')) deleteTurn(turn.id)
+                            if (confirm('¿Eliminar este turno?')) deleteTurn(turn.id)
                           }}
                           type="button"
                         >
-                          🗑
+                          <Trash2 size={16} />
                         </button>
                       </div>
                     </div>
@@ -438,7 +423,7 @@ function Admin() {
     return (
       <div className={styles.loginPage}>
         <div className={styles.loginCard}>
-          <h1 className={styles.loginTitle}>🔐 Administrador</h1>
+          <h1 className={styles.loginTitle}><Lock size={32} /> Administrador</h1>
           <p className={styles.loginSubtitle}>Club Deportivo Pin Cinco</p>
 
           <div className={styles.field}>
@@ -446,10 +431,8 @@ function Admin() {
             <input
               className={styles.input}
               type="text"
-              placeholder="Usuario"
               value={username}
               onChange={e => setUsername(e.target.value)}
-              onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); handleLogin() } }}
             />
           </div>
 
@@ -458,10 +441,8 @@ function Admin() {
             <input
               className={styles.input}
               type="password"
-              placeholder="Contraseña"
               value={password}
               onChange={e => setPassword(e.target.value)}
-              onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); handleLogin() } }}
             />
           </div>
 
@@ -472,14 +453,13 @@ function Admin() {
           </button>
 
           <button className={styles.backBtn} onClick={() => navigate('/')} type="button">
-            ← Volver al inicio
+            <ArrowLeft size={16} /> Volver
           </button>
         </div>
       </div>
     )
   }
 
-  // ── Panel admin — envuelto con su propio ChatProvider de rol admin ──
   return (
     <ChatProvider role="admin">
       <AdminPanel onLogout={handleLogout} />
