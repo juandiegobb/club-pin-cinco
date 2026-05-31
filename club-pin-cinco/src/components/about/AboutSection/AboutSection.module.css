@@ -1,8 +1,10 @@
 /* Sección con imagen a la izquierda y texto a la derecha */
 .section {
   align-items: center;
-  background: #0a0b1a;
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  /* ✅ CORREGIDO: background hardcodeado #0a0b1a → usa variable de tema */
+  background: var(--bg-card);
+  /* ✅ CORREGIDO: border hardcodeado rgba(255,255,255,0.04) → usa variable de tema */
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   display: grid;
   gap: var(--space-lg);
@@ -11,6 +13,10 @@
   overflow: hidden;
   padding: var(--space-lg);
   box-shadow: var(--shadow-sm);
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 /* Variante: imagen a la derecha y texto a la izquierda */
@@ -38,21 +44,25 @@
   gap: 14px;
 }
 
-/* Título amarillo igual que en el resto del sitio */
+/* ✅ CORREGIDO: color amarillo fijo #f4ff58 → usa variable de tema
+   En dark mode: amarillo neon. En light mode: azul eléctrico (var(--text-accent)) */
 .title {
-  color: #f4ff58;
+  color: var(--text-accent);
   font-size: clamp(20px, 2.5vw, 28px);
   font-weight: 800;
   letter-spacing: 1px;
   margin: 0;
   text-transform: uppercase;
+  transition: color 0.3s ease;
 }
 
+/* ✅ CORREGIDO: color fijo #e0e0f0 → usa variable de tema para contraste correcto */
 .text {
-  color: #e0e0f0;
+  color: var(--text-secondary);
   font-size: 15px;
   line-height: 1.6;
   margin: 0;
+  transition: color 0.3s ease;
 }
 
 /* En móvil todo queda en columna */

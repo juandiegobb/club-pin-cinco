@@ -12,13 +12,15 @@
 }
 
 .map {
-  background: #f8f8fb;
+  /* ✅ CORREGIDO: bg hardcodeado #f8f8fb (siempre claro) → usa variable de tema */
+  background: var(--bg-card);
   border-radius: var(--radius-lg);
   height: 210px;
   margin: var(--space-md) 0 var(--space-sm);
   overflow: hidden;
   position: relative;
   box-shadow: var(--shadow-sm);
+  transition: background-color 0.3s ease;
 }
 
 .road {

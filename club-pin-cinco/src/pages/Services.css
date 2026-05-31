@@ -106,8 +106,10 @@
   transition: color 0.3s ease;
 }
 
+/* ✅ CORREGIDO: color fijo #ff6b6b → usa variable de tema para consistencia */
 .titulo-tarifa {
-  color: #ff6b6b;
+  color: var(--text-accent-secondary);
+  transition: color 0.3s ease;
 }
 
 .tarjeta .icono {
@@ -184,14 +186,16 @@
   box-shadow: var(--shadow-md);
 }
 
+/* ✅ CORREGIDO: colores fijos oscuros → usan variables de tema */
 .imagen-placeholder {
-  background-color: #333;
+  background-color: var(--bg-card);
   height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 5px;
-  color: #777;
+  color: var(--text-muted);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 @media (max-width: 860px) {
