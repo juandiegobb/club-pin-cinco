@@ -114,7 +114,14 @@ function ReservationForm({ service, date, schedule, name, phone, people, onChang
             type="tel"
             placeholder={t('placeholderPhone')}
             value={phone}
-            onChange={(e) => onChange('phone', e.target.value)}
+            onChange={(e) => {
+              const val = e.target.value
+              // Permitir únicamente números enteros y limitar a un máximo de 10 dígitos
+              const onlyNums = val.replace(/\D/g, '')
+              if (onlyNums.length <= 10) {
+                onChange('phone', onlyNums)
+              }
+            }}
           />
         </label>
         <label className={styles.field}>

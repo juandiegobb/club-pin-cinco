@@ -129,9 +129,6 @@ function Navbar() {
               onClick={closeMenu}
               style={{ "--i": i }}
             >
-              <span className={styles.mobileLinkIcon}>
-                {item.path === "/" ? "🏠" : item.path === "/nosotros" ? "🎳" : item.path === "/servicios" ? "🎱" : "🖼️"}
-              </span>
               {t(translationMap[item.path])}
             </NavLink>
           ))}
