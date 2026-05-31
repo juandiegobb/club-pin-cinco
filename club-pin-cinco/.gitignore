@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+# Archivos de datos temporales (evita conflictos de fusión)
+server/data/*.json
+
+# Archivos de entorno (protege tus claves secretas)
+.env
+
