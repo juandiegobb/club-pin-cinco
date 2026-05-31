@@ -1,0 +1,20 @@
+{
+  "dc0c8a23-41ce-40d3-a011-c5c928b47521": [
+    {
+      "id": "msg_1780190593456_joepe",
+      "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
+      "author": "guest",
+      "text": "mensaje prueba",
+      "timestamp": "2026-05-31T01:23:13.457Z",
+      "read": false
+    },
+    {
+      "id": "msg_1780190608068_hdp6i",
+      "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
+      "author": "club",
+      "text": "Oe",
+      "timestamp": "2026-05-31T01:23:28.069Z",
+      "read": false
+    }
+  ]
+}
