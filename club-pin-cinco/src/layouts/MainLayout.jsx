@@ -11,7 +11,12 @@ const Background = lazy(() => import('../components/Background/Background'))
 
 function MainLayout() {
   const location = useLocation()
-  const isHome = location.pathname === '/'
+  
+  // Mostrar la animación 3D de los bolos en todas las secciones excepto en la galería, reserva e interfaz de administrador
+  const show3DBackground = 
+    location.pathname !== '/galeria' && 
+    location.pathname !== '/admin' && 
+    location.pathname !== '/reserva'
 
   return (
     <div className="site-shell">
@@ -19,7 +24,7 @@ function MainLayout() {
       <Suspense fallback={null}>
         <Background />
       </Suspense>
-      {isHome && (
+      {show3DBackground && (
         <div style={{ pointerEvents: 'none', position: 'fixed', inset: 0, zIndex: 0 }}>
           <BowlingBallCanvas />
         </div>

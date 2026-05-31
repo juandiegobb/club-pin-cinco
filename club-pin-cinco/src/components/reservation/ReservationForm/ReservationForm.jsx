@@ -2,9 +2,9 @@ import { useLanguage } from '../../../context/LanguageContext'
 import styles from './ReservationForm.module.css'
 import { useChat } from '../../../hooks/useChat'
 
-const WHATSAPP_NUMBER = '573148877381'
+const WHATSAPP_NUMBER = '573202967582'
 const STORAGE_KEY = 'pincinco_blocked_slots'
-const BLOCK_MINUTES = 1
+const BLOCK_MINUTES = 30
 
 // Bloquea el horario por servicio y fecha — Bolos y Billar son independientes y específicos por fecha
 function blockSlot(service, date, slot) {
@@ -30,7 +30,7 @@ function ReservationForm({ service, date, schedule, name, phone, people, onChang
     const dateStr = date
       ? date.toLocaleDateString('es-CO', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
       : 'No seleccionada'
-    
+
     if (language === 'es') {
       return encodeURIComponent(
         `Hola! Quiero apartar un turno:\n` +
