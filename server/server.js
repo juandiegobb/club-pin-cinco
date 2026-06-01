@@ -217,16 +217,35 @@ function broadcastAdminStatus() {
 
 function broadcastTurnsList() {
   const turns = getAllTurns()
+  // Broadcast completo a administradores
   broadcastToAdmins({ type: 'turns_list', turns })
+
+  // Broadcast sanitizado a invitados para proteger la privacidad
+  const sanitized = turns.map(t => ({
+    service: t.service,
+    date: t.date,
+    schedule: t.schedule,
+    status: t.status
+  }))
+  connections
+    .filter(c => c.role === 'guest')
+    .forEach(c => send(c.ws, { type: 'turns_list', turns: sanitized }))
 }
 
 // ─── Express + HTTP ───────────────────────────────────────────────────────────
 const app = express()
 app.use(cors())
 app.use(express.json())
-// REST: obtener turnos (por si el admin recarga la página)
+// REST: obtener turnos (sanitizado para proteger la privacidad de los invitados)
 app.get('/api/turns', (req, res) => {
-  res.json(getAllTurns())
+  const turns = getAllTurns()
+  const sanitized = turns.map(t => ({
+    service: t.service,
+    date: t.date,
+    schedule: t.schedule,
+    status: t.status
+  }))
+  res.json(sanitized)
 })
 
 // REST: obtener mensajes de un cliente
@@ -277,6 +296,16 @@ wss.on('connection', (ws) => {
         // Enviar estado de admin actual al nuevo guest de forma inmediata
         const isAdminOnline = connections.some(c => c.role === 'admin')
         send(ws, { type: 'admin_status', online: isAdminOnline })
+
+        // Enviar lista inicial de turnos sanitizada de forma inmediata
+        const turns = getAllTurns()
+        const sanitized = turns.map(t => ({
+          service: t.service,
+          date: t.date,
+          schedule: t.schedule,
+          status: t.status
+        }))
+        send(ws, { type: 'turns_list', turns: sanitized })
       }
 
       if (role === 'admin') {

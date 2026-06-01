@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useChat } from '../../../hooks/useChat'
 import styles from './ReservationSchedule.module.css'
 
 const getApiUrl = () => {
@@ -55,8 +56,9 @@ function getBlockedSlots(service, date) {
 }
 
 function ReservationSchedule({ selected, onChange, service, date }) {
+  const { turns: wsTurns = [] } = useChat()
   const [blockedSlots, setBlockedSlots] = useState(() => getBlockedSlots(service, date))
-  const [approvedServerSlots, setApprovedServerSlots] = useState([])
+  const [polledTurns, setPolledTurns] = useState([])
 
   const dateStr = date
     ? date.toLocaleDateString('es-CO', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
@@ -66,30 +68,24 @@ function ReservationSchedule({ selected, onChange, service, date }) {
   const dayOfWeek = date ? date.getDay() : null
   const slots = dayOfWeek !== null ? (SLOTS_BY_DAY[dayOfWeek] || []) : []
 
-  // Cargar turnos aprobados desde el servidor
+  // Cargar turnos desde el servidor vía HTTP (polling de respaldo)
   useEffect(() => {
     if (!dateStr) {
-      setApprovedServerSlots([])
+      setPolledTurns([])
       return
     }
-    async function fetchApprovedTurns() {
+    async function fetchTurns() {
       try {
         const res = await fetch(`${API_URL}/api/turns`)
         if (!res.ok) return
-        const turns = await res.json()
-        const approved = turns.filter((turn) => {
-          const isSameService = turn.service.toLowerCase() === service.toLowerCase()
-          const isSameDate = turn.date.toLowerCase() === dateStr.toLowerCase()
-          const isApproved = turn.status === 'approved'
-          return isSameService && isSameDate && isApproved
-        })
-        setApprovedServerSlots(approved.map(t => t.schedule))
+        const turnsData = await res.json()
+        setPolledTurns(turnsData || [])
       } catch (err) {
-        console.warn('[Schedule] Error fetching server blocked slots:', err.message)
+        console.warn('[Schedule] Error polling server turns:', err.message)
       }
     }
-    fetchApprovedTurns()
-    const interval = setInterval(fetchApprovedTurns, 15000)
+    fetchTurns()
+    const interval = setInterval(fetchTurns, 15000)
     return () => clearInterval(interval)
   }, [service, dateStr])
 
@@ -102,6 +98,20 @@ function ReservationSchedule({ selected, onChange, service, date }) {
     return () => clearInterval(interval)
   }, [service, date])
 
+  // Mezclar ambas fuentes de datos (WebSocket tiempo real + HTTP de respaldo)
+  const activeTurnsList = wsTurns.length > 0 ? wsTurns : polledTurns
+
+  // Mapear los slots del servidor con su respectivo estado activo
+  const serverSlotsMap = {}
+  activeTurnsList.forEach((turn) => {
+    const isSameService = turn.service.toLowerCase() === service.toLowerCase()
+    const isSameDate = turn.date.toLowerCase() === dateStr.toLowerCase()
+    const isActive = turn.status === 'pending' || turn.status === 'approved'
+    if (isSameService && isSameDate && isActive) {
+      serverSlotsMap[turn.schedule] = turn.status
+    }
+  })
+
   function timeLeft(slot) {
     const key = `${service}_${dateStr}_${slot}`
     if (!blockedSlots[key]) return null
@@ -110,7 +120,7 @@ function ReservationSchedule({ selected, onChange, service, date }) {
 
   function handleSelect(slot) {
     const key = `${service}_${dateStr}_${slot}`
-    if (blockedSlots[key] || approvedServerSlots.includes(slot)) return
+    if (blockedSlots[key] || serverSlotsMap[slot]) return
     onChange(slot)
   }
 
@@ -137,7 +147,8 @@ function ReservationSchedule({ selected, onChange, service, date }) {
           {slots.map((slot) => {
             const key = `${service}_${dateStr}_${slot}`
             const isBlockedLocal = !!blockedSlots[key]
-            const isBlockedServer = approvedServerSlots.includes(slot)
+            const serverStatus = serverSlotsMap[slot]
+            const isBlockedServer = !!serverStatus
             const isBlocked = isBlockedLocal || isBlockedServer
             const isSelected = selected === slot
             const mins = timeLeft(slot)
@@ -158,7 +169,7 @@ function ReservationSchedule({ selected, onChange, service, date }) {
                 )}
                 {isBlockedServer && !isBlockedLocal && (
                   <span className={styles.slotBlockedTag}>
-                    🔒 Ocupado
+                    {serverStatus === 'approved' ? '🔒 Ocupado' : '🔒 Reservado (Pendiente)'}
                   </span>
                 )}
               </button>
