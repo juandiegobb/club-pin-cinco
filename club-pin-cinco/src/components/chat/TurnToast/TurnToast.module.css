@@ -59,19 +59,25 @@
 }
 
 .closeBtn {
-  background: none;
-  border: none;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
   color: var(--text-muted);
-  font-size: 24px;
-  line-height: 1;
-  padding: 0;
   cursor: url("/images/bolo_cursor.svg") 4 4, pointer;
-  transition: color 0.2s ease, transform 0.2s ease;
+  display: flex;
+  height: 28px;
+  justify-content: center;
+  padding: 0;
+  transition: all 0.2s ease;
+  width: 28px;
 }
 
 .closeBtn:hover {
+  background: rgba(255, 255, 255, 0.12);
   color: var(--text-primary);
-  transform: scale(1.2);
+  transform: scale(1.08) rotate(90deg);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .body {

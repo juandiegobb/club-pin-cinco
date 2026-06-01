@@ -78,9 +78,26 @@ function ChatWindow({ onClose }) {
   const [autoScroll, setAutoScroll] = useState(true)
   const bottomRef = useRef(null)
   const windowRef = useRef(null) // Para Click Outside
+  const inputRef = useRef(null) // Para auto-focus de teclado
 
   // WebSocket — mensajes en tiempo real y estado del admin
   const { messages: wsMessages, sendMessage: wsSend, isConnected, isAdminOnline } = useChat()
+
+  // Auto-enfocar el input al abrir el chat y permitir cerrar con Escape
+  useEffect(() => {
+    inputRef.current?.focus()
+
+    function handleKeyDown(event) {
+      if (event.key === 'Escape') {
+        onClose()
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [onClose])
 
   // Manejar Click Outside para cerrar la ventana del chat
   useEffect(() => {
@@ -229,7 +246,12 @@ function ChatWindow({ onClose }) {
       </div>
 
       <div className={styles.form}>
+        <label htmlFor="chat-message-input" className={styles.srOnly}>
+          {language === 'es' ? 'Escribe tu mensaje' : 'Type your message'}
+        </label>
         <input
+          id="chat-message-input"
+          ref={inputRef}
           className={styles.input}
           type="text"
           placeholder={isConnected ? tChat.placeholderWs : tChat.placeholderFaq}

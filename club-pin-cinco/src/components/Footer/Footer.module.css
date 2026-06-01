@@ -78,7 +78,19 @@
 }
 
 .phoneIcon {
-  font-size: 18px;
+  color: #ffff66;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.adminIcon {
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Responsive */

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { Phone, Lock } from 'lucide-react'
 import styles from './Footer.module.css'
 
 function Footer() {
@@ -46,11 +47,12 @@ function Footer() {
       <section className={styles.block}>
         <h2 className={styles.blockTitle}>Contáctanos</h2>
         <p className={styles.contactRow}>
-          <span className={styles.phoneIcon}>📞</span>
-          320 2967582 — 311 2956363
+          <Phone size={16} className={styles.phoneIcon} />
+          <span>320 2967582 — 311 2956363</span>
         </p>
         <Link className={styles.adminBtn} to="/admin">
-          🔐 Administración
+          <Lock size={14} className={styles.adminIcon} />
+          <span>Administración</span>
         </Link>
       </section>
 

@@ -108,6 +108,14 @@
   transform: rotate(90deg) scale(1.05);
 }
 
+.closeBtn:focus-visible {
+  outline: 2.5px solid #c084fc;
+  outline-offset: 2px;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  transform: rotate(90deg) scale(1.05);
+}
+
 .closeBtn:active {
   transform: scale(0.95);
 }
@@ -167,6 +175,15 @@
   box-shadow: 0 4px 12px rgba(62, 67, 223, 0.3);
 }
 
+.suggestion:focus-visible {
+  outline: 2.5px solid #ffff66;
+  outline-offset: 2.5px;
+  background: #3e43df;
+  border-color: #3e43df;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
 /* Mensajes */
 .messages {
   display: flex;
@@ -223,6 +240,7 @@
   font-size: 20px;
   height: 46px;
   justify-content: center;
+  padding-left: 2px;
   transition: all 0.2s ease;
   width: 46px;
   box-shadow: 0 4px 12px rgba(69, 75, 230, 0.2);
@@ -232,6 +250,13 @@
   background: #3e43df;
   transform: scale(1.05) translateY(-1px);
   box-shadow: 0 6px 16px rgba(69, 75, 230, 0.35);
+}
+
+.sendBtn:focus-visible {
+  outline: 2.5px solid #ffff66;
+  outline-offset: 2.5px;
+  background: #3e43df;
+  transform: scale(1.05) translateY(-1px);
 }
 
 /* ── Indicador de estado WS ─────────────────────────────────── */
@@ -273,4 +298,15 @@
   50% {
     opacity: 0.4;
   }
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }

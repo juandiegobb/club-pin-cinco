@@ -20,6 +20,12 @@
 
 .btn:hover { transform: scale(1.08); }
 
+.btn:focus-visible {
+  outline: 3px solid #ffff66;
+  outline-offset: 4px;
+  transform: scale(1.08);
+}
+
 @media (max-width: 560px) {
   .btn { bottom: 18px; right: 18px; height: 54px; width: 54px; font-size: 22px; }
 }

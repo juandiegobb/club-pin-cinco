@@ -1,3 +1,4 @@
+import { Sun, Moon } from 'lucide-react'
 import { useTheme } from '../../hooks/useTheme'
 import styles from './ThemeToggle.module.css'
 
@@ -13,9 +14,9 @@ export default function ThemeToggle() {
     >
       <div className={styles.iconContainer}>
         {isDark ? (
-          <span className={styles.sunIcon} role="img" aria-hidden="true">☀</span>
+          <Sun size={16} className={styles.sunIcon} aria-hidden="true" />
         ) : (
-          <span className={styles.moonIcon} role="img" aria-hidden="true">☾</span>
+          <Moon size={16} className={styles.moonIcon} aria-hidden="true" />
         )}
       </div>
       <span className={styles.themeText}>

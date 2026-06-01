@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { ChatProvider } from '../context/ChatContext'
 import { useChatContext } from '../context/ChatContext'
 import styles from './Admin.module.css'
-import { MessageCircle, Settings, Phone, User, Bot, Trash2, Check, Star, LogOut, ArrowLeft, SendHorizontal, Lock, Users, CalendarDays } from 'lucide-react'
+import { MessageCircle, Settings, Phone, User, Bot, Trash2, Check, Star, LogOut, ArrowLeft, SendHorizontal, Lock, Users, CalendarDays, Clock } from 'lucide-react'
 
 const ADMIN_USER = 'admin'
 const ADMIN_PASSWORD = 'pincinco2024'
@@ -244,7 +244,11 @@ function AdminPanel({ onLogout }) {
                   </div>
 
                   <div className={styles.replyBox}>
+                    <label htmlFor="admin-reply-input" className={styles.srOnly}>
+                      Responder a usuario
+                    </label>
                     <input
+                      id="admin-reply-input"
                       className={styles.replyInput}
                       type="text"
                       placeholder={`Responder a ${formatId(selectedUser)}...`}
@@ -290,11 +294,11 @@ function AdminPanel({ onLogout }) {
                           {turn.service}
                         </div>
                         <div className={styles.turnDetails}>
-                          <span>📅 {turn.date}</span>
-                          <span>🕐 {turn.schedule}</span>
-                          <span>👤 {turn.name}</span>
-                          <span>📞 {turn.phone}</span>
-                          <span>👥 {turn.people} persona(s)</span>
+                          <span><CalendarDays size={14} /> {turn.date}</span>
+                          <span><Clock size={14} /> {turn.schedule}</span>
+                          <span><User size={14} /> {turn.name}</span>
+                          <span><Phone size={14} /> {turn.phone}</span>
+                          <span><Users size={14} /> {turn.people} persona(s)</span>
                           <span className={styles.turnId}>ID: {formatId(turn.clientId)}</span>
                         </div>
                       </div>
@@ -343,8 +347,8 @@ function AdminPanel({ onLogout }) {
                           <span className={styles.approvedPill}>Aprobado</span>
                         </div>
                         <div className={styles.turnDetails}>
-                          <span>📅 {turn.date}</span>
-                          <span>👤 {turn.name}</span>
+                          <span><CalendarDays size={14} /> {turn.date}</span>
+                          <span><User size={14} /> {turn.name}</span>
                           <span className={styles.turnId}>ID: {formatId(turn.clientId)}</span>
                         </div>
                       </div>
@@ -442,8 +446,9 @@ function Admin() {
           <p className={styles.loginSubtitle}>Club Deportivo Pin Cinco</p>
 
           <div className={styles.field}>
-            <label className={styles.fieldLabel}>Usuario</label>
+            <label htmlFor="admin-username" className={styles.fieldLabel}>Usuario</label>
             <input
+              id="admin-username"
               className={styles.input}
               type="text"
               value={username}
@@ -452,8 +457,9 @@ function Admin() {
           </div>
 
           <div className={styles.field}>
-            <label className={styles.fieldLabel}>Contraseña</label>
+            <label htmlFor="admin-password" className={styles.fieldLabel}>Contraseña</label>
             <input
+              id="admin-password"
               className={styles.input}
               type="password"
               value={password}

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { X } from 'lucide-react'
 import { useLanguage } from '../../../context/LanguageContext'
 import { useChat } from '../../../hooks/useChat'
 import styles from './TurnToast.module.css'
@@ -27,7 +28,7 @@ function TurnToast() {
             type="button"
             aria-label={language === 'es' ? 'Cerrar notificación' : 'Close notification'}
           >
-            ×
+            <X size={16} />
           </button>
         </div>
 
