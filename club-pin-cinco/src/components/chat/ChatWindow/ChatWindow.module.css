@@ -1,3 +1,5 @@
+Ne
+
 /* Ventana de chat - Estilo base para móvil (Pantalla completa) */
 .window {
   background: #0a0b18;
@@ -200,15 +202,15 @@
   transition: all 0.2s ease;
 }
 
-.input::placeholder { 
-  color: #555577; 
+.input::placeholder {
+  color: #555577;
 }
 
-.input:focus { 
+.input:focus {
   background: rgba(255, 255, 255, 0.06);
-  border-color: #454be6; 
+  border-color: #454be6;
   box-shadow: 0 0 12px rgba(69, 75, 230, 0.25);
-  outline: none; 
+  outline: none;
 }
 
 .sendBtn {
@@ -228,8 +230,8 @@
   box-shadow: 0 4px 12px rgba(69, 75, 230, 0.2);
 }
 
-.sendBtn:hover { 
-  background: #3e43df; 
+.sendBtn:hover {
+  background: #3e43df;
   transform: scale(1.05) translateY(-1px);
   box-shadow: 0 6px 16px rgba(69, 75, 230, 0.35);
 }
@@ -264,6 +266,13 @@
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.4;
+  }
+}

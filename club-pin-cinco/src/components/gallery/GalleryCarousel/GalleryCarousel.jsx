@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import ImageWithSkeleton from "../ImageWithSkeleton/ImageWithSkeleton";
 import styles from "./GalleryCarousel.module.css";
 
 /**
@@ -29,7 +30,7 @@ function GalleryCarousel({ images, onImageClick }) {
               key={i}
               onClick={() => onImageClick && onImageClick(img)}
             >
-              <img
+              <ImageWithSkeleton
                 className={styles.img}
                 src={img.src}
                 alt={img.alt}

@@ -25,6 +25,7 @@ function AdminPanel({ onLogout }) {
   const [selectedUser, setSelectedUser] = useState(null)
   const [reply, setReply] = useState('')
   const [activeTab, setActiveTab] = useState('chat') // 'chat' | 'turns'
+  const [mobileShowChat, setMobileShowChat] = useState(false)
   const chatBoxRef = useRef(null)
 
   // Todos los clientIds que han enviado mensajes (activos + con historial)
@@ -136,7 +137,7 @@ function AdminPanel({ onLogout }) {
             TAB: CHAT
         ══════════════════════════════════════════════════════════ */}
         {activeTab === 'chat' && (
-          <div className={styles.chatLayout}>
+          <div className={`${styles.chatLayout} ${mobileShowChat ? styles.mobileShowChat : ''}`}>
 
             {/* ── Columna izquierda: Lista de usuarios ── */}
             <aside className={styles.usersList}>
@@ -145,41 +146,46 @@ function AdminPanel({ onLogout }) {
                 <span className={styles.usersCount}>{allClientIds.length}</span>
               </div>
 
-              {allClientIds.length === 0 ? (
-                <p className={styles.noUsers}>Esperando usuarios...</p>
-              ) : (
-                allClientIds.map(clientId => {
-                  const unread = unreadCount(clientId)
-                  const online = isUserOnline(clientId)
-                  const lastMsg = (allMessages[clientId] || []).slice(-1)[0]
+              <div className={styles.usersContainer}>
+                {allClientIds.length === 0 ? (
+                  <p className={styles.noUsers}>Esperando usuarios...</p>
+                ) : (
+                  allClientIds.map(clientId => {
+                    const unread = unreadCount(clientId)
+                    const online = isUserOnline(clientId)
+                    const lastMsg = (allMessages[clientId] || []).slice(-1)[0]
 
-                  return (
-                    <button
-                      key={clientId}
-                      className={`${styles.userItem} ${selectedUser === clientId ? styles.userItemActive : ''}`}
-                      onClick={() => setSelectedUser(clientId)}
-                      type="button"
-                    >
-                      <div className={styles.userAvatar}>
-                        <User size={20} />
-                        <span className={online ? styles.onlineDot : styles.offlineDot} />
-                      </div>
-                      <div className={styles.userInfo}>
-                        <span className={styles.userId}>{formatId(clientId)}</span>
-                        {lastMsg && (
-                          <span className={styles.lastMsg}>
-                            {lastMsg.author === 'club' ? '→ ' : ''}
-                            {lastMsg.text.slice(0, 30)}{lastMsg.text.length > 30 ? '…' : ''}
-                          </span>
+                    return (
+                      <button
+                        key={clientId}
+                        className={`${styles.userItem} ${selectedUser === clientId ? styles.userItemActive : ''}`}
+                        onClick={() => {
+                          setSelectedUser(clientId)
+                          setMobileShowChat(true)
+                        }}
+                        type="button"
+                      >
+                        <div className={styles.userAvatar}>
+                          <User size={20} />
+                          <span className={online ? styles.onlineDot : styles.offlineDot} />
+                        </div>
+                        <div className={styles.userInfo}>
+                          <span className={styles.userId}>{formatId(clientId)}</span>
+                          {lastMsg && (
+                            <span className={styles.lastMsg}>
+                              {lastMsg.author === 'club' ? '→ ' : ''}
+                              {lastMsg.text.slice(0, 30)}{lastMsg.text.length > 30 ? '…' : ''}
+                            </span>
+                          )}
+                        </div>
+                        {unread > 0 && (
+                          <span className={styles.unreadBadge}>{unread}</span>
                         )}
-                      </div>
-                      {unread > 0 && (
-                        <span className={styles.unreadBadge}>{unread}</span>
-                      )}
-                    </button>
-                  )
-                })
-              )}
+                      </button>
+                    )
+                  })
+                )}
+              </div>
             </aside>
 
             {/* ── Área derecha: Ventana de conversación ── */}
@@ -193,10 +199,19 @@ function AdminPanel({ onLogout }) {
                 <>
                   <div className={styles.chatHeader}>
                     <div className={styles.chatHeaderInfo}>
-                      <span>Conversación con: <strong>{formatId(selectedUser)}</strong></span>
-                      <span className={isUserOnline(selectedUser) ? styles.statusOnline : styles.statusOffline}>
-                        {isUserOnline(selectedUser) ? '● En línea' : '○ Desconectado'}
-                      </span>
+                      <button
+                        className={styles.mobileBackBtn}
+                        onClick={() => setMobileShowChat(false)}
+                        type="button"
+                      >
+                        <ArrowLeft size={16} /> Volver
+                      </button>
+                      <div className={styles.chatHeaderUserDetails}>
+                        <span>Conversación con: <strong>{formatId(selectedUser)}</strong></span>
+                        <span className={isUserOnline(selectedUser) ? styles.statusOnline : styles.statusOffline}>
+                          {isUserOnline(selectedUser) ? '● En línea' : '○ Desconectado'}
+                        </span>
+                      </div>
                     </div>
                     <span className={styles.msgCount}>
                       {selectedMessages.length} mensaje(s)

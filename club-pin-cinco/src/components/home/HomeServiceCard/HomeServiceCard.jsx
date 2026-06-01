@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useLanguage } from '../../../context/LanguageContext'
+import ImageWithSkeleton from '../../gallery/ImageWithSkeleton/ImageWithSkeleton'
 import styles from './HomeServiceCard.module.css'
 
 function HomeServiceCard({ title, description, image, imageAlt, reverse = false }) {
@@ -15,7 +16,7 @@ function HomeServiceCard({ title, description, image, imageAlt, reverse = false 
       transition={{ type: 'spring', stiffness: 70, damping: 16 }}
     >
 
-      <img className={styles.image} src={image} alt={imageAlt} />
+      <ImageWithSkeleton className={styles.image} src={image} alt={imageAlt} />
 
       <div className={styles.content}>
         <h3 className={styles.cardTitle}>{title}</h3>

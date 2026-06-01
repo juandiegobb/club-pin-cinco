@@ -304,6 +304,29 @@
   overflow: hidden;
 }
 
+.usersContainer {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px;
+}
+
+.usersContainer::-webkit-scrollbar {
+  width: 6px;
+}
+.usersContainer::-webkit-scrollbar-track {
+  background: transparent;
+}
+.usersContainer::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+}
+.usersContainer::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
 .usersHeader {
   align-items: center;
   border-bottom: 1px solid var(--border-color);
@@ -340,22 +363,26 @@
 .userItem {
   align-items: center;
   background: none;
-  border: none;
-  border-bottom: 1px solid var(--border-color);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
   cursor: pointer;
   display: flex;
   gap: 12px;
-  padding: 14px 16px;
+  padding: 12px 14px;
   text-align: left;
-  transition: background 0.15s;
+  transition: all 0.2s ease;
   width: 100%;
 }
 
-.userItem:hover { background: rgba(255,255,255,0.04); }
+.userItem:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.05);
+}
 
 .userItemActive {
-  background: rgba(62, 67, 223, 0.15) !important;
-  border-left: 3px solid var(--btn-bg);
+  background: rgba(62, 67, 223, 0.12) !important;
+  border-color: rgba(62, 67, 223, 0.25) !important;
+  box-shadow: 0 4px 12px rgba(62, 67, 223, 0.1);
 }
 
 .userAvatar {
@@ -445,10 +472,36 @@
 
 .chatHeaderInfo {
   display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.chatHeaderUserDetails {
+  display: flex;
   flex-direction: column;
   gap: 2px;
   font-size: 14px;
   color: var(--text-primary);
+}
+
+.mobileBackBtn {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mobileBackBtn:hover {
+  border-color: var(--btn-bg);
+  background: rgba(62, 67, 223, 0.08);
 }
 
 .statusOnline { color: #22c55e; font-size: 12px; font-weight: 600; }
@@ -743,21 +796,109 @@
 
 /* ── Responsive ──────────────────────────────────────────────── */
 @media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .headerActions {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .logoutBtn, .backBtn {
+    padding: 8px 12px;
+    font-size: 12px;
+    flex: 1;
+    justify-content: center;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .wsOnline, .wsOffline {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+
+  .tabs {
+    padding: 0 16px;
+    overflow-x: auto;
+    scrollbar-width: none; /* Hide scrollbar for standard browsers */
+    -ms-overflow-style: none; /* Hide scrollbar for IE/Edge */
+  }
+  .tabs::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome/Safari */
+  }
+
+  .content {
+    padding: 12px;
+  }
+
+  /* Master-Detail Layout Flow for Mobile */
   .chatLayout {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 190px);
     grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
-    height: auto;
+    grid-template-rows: 1fr;
+    gap: 0;
   }
 
-  .usersList {
-    max-height: 220px;
+  /* Show user list by default on mobile */
+  .chatLayout .usersList {
+    display: flex;
+    flex: 1;
+    height: 100%;
+    max-height: none;
+    border-radius: var(--radius-md);
   }
 
-  .chatArea {
-    height: 60vh;
+  /* Hide chat window by default on mobile */
+  .chatLayout .chatArea {
+    display: none;
+    height: 100%;
+    border-radius: var(--radius-md);
   }
 
-  .header { padding: 14px 16px; }
-  .tabs { padding: 0 16px; overflow-x: auto; }
-  .content { padding: 16px; }
+  /* When a chat is selected, show only the chat window */
+  .chatLayout.mobileShowChat .usersList {
+    display: none;
+  }
+
+  .chatLayout.mobileShowChat .chatArea {
+    display: flex;
+    flex: 1;
+  }
+
+  .mobileBackBtn {
+    display: inline-flex;
+  }
+
+  /* Gestión de Turnos styling for mobile */
+  .turnsSection {
+    gap: 16px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .turnCard {
+    flex-direction: column;
+    gap: 14px;
+    padding: 14px 16px;
+  }
+
+  .turnActions {
+    width: 100%;
+    justify-content: flex-end;
+    border-top: 1px solid var(--border-color);
+    padding-top: 12px;
+    gap: 8px;
+  }
 }

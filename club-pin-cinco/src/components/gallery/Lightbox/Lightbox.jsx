@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { X, ChevronLeft, ChevronRight } from 'lucide-react'
+import ImageWithSkeleton from '../ImageWithSkeleton/ImageWithSkeleton'
 import styles from './Lightbox.module.css'
 
 function Lightbox({ images, currentIndex, isOpen, onClose, onPrev, onNext }) {
@@ -68,7 +69,7 @@ function Lightbox({ images, currentIndex, isOpen, onClose, onPrev, onNext }) {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ type: 'spring', stiffness: 300, damping: 25 }}
         >
-          <img
+          <ImageWithSkeleton
             src={currentImage.src}
             alt={currentImage.alt}
             className={styles.expandedImage}

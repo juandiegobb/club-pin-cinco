@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useLanguage } from "../context/LanguageContext";
+import ImageWithSkeleton from "../components/gallery/ImageWithSkeleton/ImageWithSkeleton";
 import "./Services.css";
 import { useEffect } from 'react'
 
@@ -172,27 +173,36 @@ function Services() {
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
         >
-          <motion.img
-            src="/images/TorneoAguinaldo14.jpeg"
-            alt={language === 'es' ? 'Evento 1' : 'Event 1'}
+          <motion.div
             className="imagen-evento"
             variants={imageVariants}
             transition={springTransition}
-          />
-          <motion.img
-            src="/images/TorneoAguinaldo15.jpeg"
-            alt={language === 'es' ? 'Evento 2' : 'Event 2'}
+          >
+            <ImageWithSkeleton
+              src="/images/TorneoAguinaldo14.jpeg"
+              alt={language === 'es' ? 'Evento 1' : 'Event 1'}
+            />
+          </motion.div>
+          <motion.div
             className="imagen-evento"
             variants={imageVariants}
             transition={springTransition}
-          />
-          <motion.img
-            src="/images/TorneoAguinaldo16.jpeg"
-            alt={language === 'es' ? 'Evento 3' : 'Event 3'}
+          >
+            <ImageWithSkeleton
+              src="/images/TorneoAguinaldo15.jpeg"
+              alt={language === 'es' ? 'Evento 2' : 'Event 2'}
+            />
+          </motion.div>
+          <motion.div
             className="imagen-evento"
             variants={imageVariants}
             transition={springTransition}
-          />
+          >
+            <ImageWithSkeleton
+              src="/images/TorneoAguinaldo16.jpeg"
+              alt={language === 'es' ? 'Evento 3' : 'Event 3'}
+            />
+          </motion.div>
         </motion.div>
       </motion.div>
     </section>

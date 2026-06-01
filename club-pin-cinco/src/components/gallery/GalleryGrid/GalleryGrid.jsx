@@ -1,4 +1,5 @@
 // Grid de miniaturas "Otras Imágenes"
+import ImageWithSkeleton from '../ImageWithSkeleton/ImageWithSkeleton'
 import styles from './GalleryGrid.module.css'
 
 function GalleryGrid({ images, onImageClick }) {
@@ -11,7 +12,7 @@ function GalleryGrid({ images, onImageClick }) {
       {/* Grid de 4 columnas con todas las fotos */}
       <div className={styles.grid}>
         {images.map((image, i) => (
-          <img
+          <ImageWithSkeleton
             key={i}
             className={styles.photo}
             src={image.src}
