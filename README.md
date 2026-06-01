@@ -25,7 +25,7 @@ El repositorio se divide en dos secciones principales para asegurar la separaci�
 │   ├── server.js          # Lógica principal del servidor y FAQ automático
 │   └── package.json
 │
-└── docs/                  # DOCUMENTACIÓN ACADÉMICA (Wireframes y Reporte)
+└── entregables/                  # DOCUMENTACIÓN ACADÉMICA (Wireframes y Reporte)
     ├── wireframes.pdf     # Wireframes de baja, media y alta fidelidad
     └── informe_final.pdf  # Informe final formal del proyecto
 ```
