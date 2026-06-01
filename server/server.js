@@ -224,17 +224,6 @@ function broadcastTurnsList() {
 const app = express()
 app.use(cors())
 app.use(express.json())
-
-// REST: inicio de sesión seguro para el panel de administración
-app.post('/api/admin/login', (req, res) => {
-  const { username, password } = req.body
-  if (username === ADMIN_USER && password === ADMIN_PASSWORD) {
-    res.json({ success: true, message: 'Autenticación exitosa.' })
-  } else {
-    res.status(401).json({ success: false, message: 'Usuario o contraseña incorrectos.' })
-  }
-})
-
 // REST: obtener turnos (por si el admin recarga la página)
 app.get('/api/turns', (req, res) => {
   res.json(getAllTurns())
@@ -265,21 +254,11 @@ wss.on('connection', (ws) => {
     // ── REGISTRO ──────────────────────────────────────────────────────────────
     // Equivale al evento 'login' de TDM_Nebula_Gaming, pero sin verificación DB
     if (data.type === 'register') {
-      const { clientId, role = 'guest', password } = data
+      const { clientId, role = 'guest' } = data
 
       if (!clientId) {
         send(ws, { type: 'error', message: 'clientId requerido.' })
         return
-      }
-
-      // Validar credenciales de administrador en la conexión WebSocket
-      if (role === 'admin') {
-        if (password !== ADMIN_PASSWORD) {
-          console.warn(`[WS] 🔒 Intento de conexión admin bloqueado por credenciales inválidas para clientId: ${clientId}`)
-          send(ws, { type: 'error', message: 'Credenciales inválidas de administrador.' })
-          ws.close(4001, 'Unauthorized')
-          return
-        }
       }
 
       currentConn = { clientId, role, ws, connectedAt: new Date().toISOString() }

@@ -42,7 +42,7 @@ function getOrCreateClientId() {
 // ─── Context ──────────────────────────────────────────────────────────────────
 export const ChatContext = createContext(null)
 
-export function ChatProvider({ children, role = 'guest', adminPassword = null }) {
+export function ChatProvider({ children, role = 'guest' }) {
   const clientId = useRef(role === 'guest' ? getOrCreateClientId() : 'admin')
   const wsRef = useRef(null)
   const reconnectTimer = useRef(null)
@@ -89,7 +89,6 @@ export function ChatProvider({ children, role = 'guest', adminPassword = null })
         type: 'register',
         clientId: clientId.current,
         role,
-        password: role === 'admin' ? adminPassword : null
       }))
     }
 
