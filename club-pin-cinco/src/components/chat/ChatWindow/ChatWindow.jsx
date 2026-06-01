@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
-import { X } from 'lucide-react'
+import { X, SendHorizontal } from 'lucide-react'
 import ChatBubble from '../ChatBubble/ChatBubble'
 import { useLanguage } from '../../../context/LanguageContext'
 import { useChat } from '../../../hooks/useChat'
 import { getMessages, saveMessage } from '../../../utils/chatStorage'
+import logo from '../../../assets/home/logo-pincinco.jpeg'
 import styles from './ChatWindow.module.css'
 
 // ─── Respuestas FAQ (fallback cuando WS no está disponible) ──────────────────
@@ -178,7 +179,9 @@ function ChatWindow({ onClose }) {
     <aside className={styles.window} ref={windowRef} aria-label={tChat.ariaLabel}>
       <div className={styles.header}>
         <div className={styles.headerInfo}>
-          <span className={styles.avatar}>🎳</span>
+          <div className={styles.logoContainer}>
+            <img src={logo} alt="Logo Pin Cinco" className={styles.logoImg} />
+          </div>
           <div>
             <strong className={styles.title}>{tChat.title}</strong>
             <p className={styles.subtitle}>
@@ -239,7 +242,14 @@ function ChatWindow({ onClose }) {
             }
           }}
         />
-        <button className={styles.sendBtn} type="button" onClick={handleSubmit}>▶</button>
+        <button
+          className={styles.sendBtn}
+          type="button"
+          onClick={handleSubmit}
+          aria-label={language === 'es' ? 'Enviar mensaje' : 'Send message'}
+        >
+          <SendHorizontal size={18} />
+        </button>
       </div>
     </aside>
   )
