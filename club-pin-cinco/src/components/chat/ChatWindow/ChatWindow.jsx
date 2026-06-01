@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { X } from 'lucide-react'
 import ChatBubble from '../ChatBubble/ChatBubble'
 import { useLanguage } from '../../../context/LanguageContext'
 import { useChat } from '../../../hooks/useChat'
@@ -190,7 +191,14 @@ function ChatWindow({ onClose }) {
             </p>
           </div>
         </div>
-        <button className={styles.closeBtn} type="button" onClick={onClose}>×</button>
+        <button
+          className={styles.closeBtn}
+          type="button"
+          onClick={onClose}
+          aria-label={language === 'es' ? 'Cerrar chat' : 'Close chat'}
+        >
+          <X size={20} />
+        </button>
       </div>
 
       <div className={styles.suggestions}>
