@@ -253,7 +253,14 @@ function AdminPanel({ onLogout }) {
                       type="text"
                       placeholder={`Responder a ${formatId(selectedUser)}...`}
                       value={reply}
-                      onChange={e => setReply(e.target.value)}
+                      onChange={e => {
+                        const val = e.target.value
+                        // Filtrar caracteres de inyección de código (<, >, /, \)
+                        const sanitized = val.replace(/[<>\/\\]/g, '')
+                        if (sanitized.length <= 400) {
+                          setReply(sanitized)
+                        }
+                      }}
                       onKeyDown={e => {
                         if (e.key === 'Enter') { e.preventDefault(); handleSendReply() }
                       }}
@@ -452,7 +459,12 @@ function Admin() {
               className={styles.input}
               type="text"
               value={username}
-              onChange={e => setUsername(e.target.value)}
+              onChange={e => {
+                const val = e.target.value.replace(/[<>\/\\]/g, '')
+                if (val.length <= 30) {
+                  setUsername(val)
+                }
+              }}
             />
           </div>
 
@@ -463,7 +475,12 @@ function Admin() {
               className={styles.input}
               type="password"
               value={password}
-              onChange={e => setPassword(e.target.value)}
+              onChange={e => {
+                const val = e.target.value.replace(/[<>\/\\]/g, '')
+                if (val.length <= 30) {
+                  setPassword(val)
+                }
+              }}
             />
           </div>
 

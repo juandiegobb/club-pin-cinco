@@ -256,7 +256,16 @@ function ChatWindow({ onClose }) {
           type="text"
           placeholder={isConnected ? tChat.placeholderWs : tChat.placeholderFaq}
           value={message}
-          onChange={(e) => setMessage(e.target.value)}
+          onChange={(e) => {
+            const val = e.target.value
+            // Filtrar caracteres de inyección de código (<, >, /, \)
+            const sanitized = val.replace(/[<>\/\\]/g, '')
+            
+            // Limitar longitud del mensaje de chat
+            if (sanitized.length <= 300) {
+              setMessage(sanitized)
+            }
+          }}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
               e.preventDefault()

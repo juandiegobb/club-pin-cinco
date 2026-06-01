@@ -104,7 +104,17 @@ function ReservationForm({ service, date, schedule, name, phone, people, onChang
             type="text"
             placeholder={t('placeholderName')}
             value={name}
-            onChange={(e) => onChange('name', e.target.value)}
+            onChange={(e) => {
+              const val = e.target.value
+              // No permitir números ni caracteres comunes de inyección de código (<, >, /, \)
+              const sanitized = val
+                .replace(/[0-9]/g, '')
+                .replace(/[<>\/\\]/g, '')
+              
+              if (sanitized.length <= 50) {
+                onChange('name', sanitized)
+              }
+            }}
           />
         </label>
         <label className={styles.field}>
