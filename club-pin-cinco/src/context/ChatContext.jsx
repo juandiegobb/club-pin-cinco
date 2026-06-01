@@ -42,7 +42,7 @@ function getOrCreateClientId() {
 // ─── Context ──────────────────────────────────────────────────────────────────
 export const ChatContext = createContext(null)
 
-export function ChatProvider({ children, role = 'guest' }) {
+export function ChatProvider({ children, role = 'guest', adminPassword = null }) {
   const clientId = useRef(role === 'guest' ? getOrCreateClientId() : 'admin')
   const wsRef = useRef(null)
   const reconnectTimer = useRef(null)
@@ -85,7 +85,12 @@ export function ChatProvider({ children, role = 'guest' }) {
       console.log('[Chat] 🟢 Conectado al servidor WS')
 
       // Registro inmediato al conectar (equivale al 'login' de TDM_Nebula_Gaming)
-      ws.send(JSON.stringify({ type: 'register', clientId: clientId.current, role }))
+      ws.send(JSON.stringify({
+        type: 'register',
+        clientId: clientId.current,
+        role,
+        password: role === 'admin' ? adminPassword : null
+      }))
     }
 
     ws.onmessage = (event) => {

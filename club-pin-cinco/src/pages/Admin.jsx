@@ -5,9 +5,6 @@ import { useChatContext } from '../context/ChatContext'
 import styles from './Admin.module.css'
 import { MessageCircle, Settings, Phone, User, Bot, Trash2, Check, Star, LogOut, ArrowLeft, SendHorizontal, Lock, Users, CalendarDays, Clock } from 'lucide-react'
 
-const ADMIN_USER = 'admin'
-const ADMIN_PASSWORD = 'pincinco2024'
-
 // ─── Panel de Admin (usa el contexto WS con rol admin) ────────────────────────
 function AdminPanel({ onLogout }) {
   const navigate = useNavigate()
@@ -426,14 +423,42 @@ function Admin() {
   const [isAdmin, setIsAdmin] = useState(false)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [adminPassword, setAdminPassword] = useState('')
   const [error, setError] = useState('')
 
-  function handleLogin() {
+  const getApiUrl = () => {
+    const wsEnv = import.meta.env.VITE_WS_URL
+    if (wsEnv) {
+      return wsEnv.replace(/^ws/, 'http')
+    }
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      return 'http://localhost:3001'
+    }
+    return 'https://club-pin-cinco.onrender.com'
+  }
+
+  async function handleLogin() {
     setError('')
-    if (username === ADMIN_USER && password === ADMIN_PASSWORD) {
-      setIsAdmin(true)
-    } else {
-      setError('Usuario o contraseña incorrectos')
+    if (!username || !password) {
+      setError('Por favor, ingresa todos los campos.')
+      return
+    }
+    try {
+      const res = await fetch(`${getApiUrl()}/api/admin/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      })
+      const data = await res.json()
+      if (res.ok && data.success) {
+        setAdminPassword(password)
+        setIsAdmin(true)
+      } else {
+        setError(data.message || 'Usuario o contraseña incorrectos')
+      }
+    } catch (err) {
+      console.error('Error in admin login fetch:', err)
+      setError('Error de conexión con el servidor')
     }
   }
 
@@ -441,6 +466,7 @@ function Admin() {
     setIsAdmin(false)
     setUsername('')
     setPassword('')
+    setAdminPassword('')
     navigate('/')
   }
 
@@ -499,7 +525,7 @@ function Admin() {
   }
 
   return (
-    <ChatProvider role="admin">
+    <ChatProvider role="admin" adminPassword={adminPassword}>
       <AdminPanel onLogout={handleLogout} />
     </ChatProvider>
   )
