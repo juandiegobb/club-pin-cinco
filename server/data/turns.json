@@ -12,18 +12,6 @@
     "createdAt": "2026-05-30T04:00:20.514Z"
   },
   {
-    "id": "turn_1780113737361_tfkby",
-    "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
-    "service": "Bolos",
-    "date": "domingo, 31 de mayo de 2026",
-    "schedule": "2:00 p.m - 3:00 p.m",
-    "name": "JuanDiego",
-    "phone": "777777777777777",
-    "people": "7",
-    "status": "done",
-    "createdAt": "2026-05-30T04:02:17.361Z"
-  },
-  {
     "id": "turn_1780113996366_6j5kh",
     "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
     "service": "Bolos",
@@ -44,7 +32,7 @@
     "name": "Juan diego",
     "phone": "32000000",
     "people": "8",
-    "status": "approved",
+    "status": "done",
     "createdAt": "2026-05-30T04:12:34.630Z"
   },
   {
@@ -56,19 +44,19 @@
     "name": "juannn",
     "phone": "3204183090",
     "people": "6",
-    "status": "approved",
+    "status": "done",
     "createdAt": "2026-05-31T16:24:10.617Z"
   },
   {
-    "id": "turn_1780246520923_ox9ts",
-    "clientId": "cc664388-a61c-442d-8e3a-d8de08279348",
+    "id": "turn_1780287572590_yn4s8",
+    "clientId": "dc0c8a23-41ce-40d3-a011-c5c928b47521",
     "service": "Bolos",
     "date": "domingo, 31 de mayo de 2026",
-    "schedule": "3:00 p.m - 4:00 p.m",
-    "name": "juan",
-    "phone": "21021090",
-    "people": "9",
-    "status": "pending",
-    "createdAt": "2026-05-31T16:55:20.924Z"
+    "schedule": "9:00 p.m - 10:00 p.m",
+    "name": "Juan Diego",
+    "phone": "3333333333",
+    "people": "5",
+    "status": "approved",
+    "createdAt": "2026-06-01T04:19:32.591Z"
   }
 ]
