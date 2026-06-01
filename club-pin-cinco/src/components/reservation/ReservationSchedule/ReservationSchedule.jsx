@@ -1,6 +1,17 @@
 import { useState, useEffect } from 'react'
 import styles from './ReservationSchedule.module.css'
 
+const getApiUrl = () => {
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL
+  }
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    return 'http://localhost:3001'
+  }
+  return 'https://club-pin-cinco.onrender.com'
+}
+const API_URL = getApiUrl()
+
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // Horarios según el día de la semana
 // 0=Dom, 1=Lun, 2=Mar, 3=Mié, 4=Jue, 5=Vie, 6=Sáb
@@ -63,7 +74,7 @@ function ReservationSchedule({ selected, onChange, service, date }) {
     }
     async function fetchApprovedTurns() {
       try {
-        const res = await fetch('http://localhost:3001/api/turns')
+        const res = await fetch(`${API_URL}/api/turns`)
         if (!res.ok) return
         const turns = await res.json()
         const approved = turns.filter((turn) => {

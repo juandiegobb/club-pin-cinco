@@ -10,7 +10,16 @@
 
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 
-const WS_URL = 'ws://localhost:3001'
+const getWsUrl = () => {
+  if (import.meta.env.VITE_WS_URL) {
+    return import.meta.env.VITE_WS_URL
+  }
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    return 'ws://localhost:3001'
+  }
+  return 'wss://club-pin-cinco.onrender.com'
+}
+const WS_URL = getWsUrl()
 
 // Clave para el UUID del cliente en localStorage
 const CLIENT_ID_KEY = 'pincinco_client_id'

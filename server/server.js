@@ -16,7 +16,7 @@ const cors = require('cors')
 const path = require('path')
 const fs = require('fs')
 
-const PORT = process.env.WS_PORT || 3001
+const PORT = process.env.PORT || process.env.WS_PORT || 3001
 
 // ─── Rutas de persistencia ────────────────────────────────────────────────────
 const DATA_DIR = path.join(__dirname, 'data')
