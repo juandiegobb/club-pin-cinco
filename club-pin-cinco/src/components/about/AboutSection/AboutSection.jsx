@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion'
+import { useLightbox } from '../../../context/LightboxContext'
 import styles from './AboutSection.module.css'
 
 function AboutSection({ title, text, image, imageAlt, reverse = false }) {
+  const { openLightbox } = useLightbox()
   const springTransition = { type: 'spring', stiffness: 65, damping: 15 }
 
   return (
@@ -22,6 +24,8 @@ function AboutSection({ title, text, image, imageAlt, reverse = false }) {
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={springTransition}
+        onClick={() => openLightbox({ src: image, alt: imageAlt })}
+        style={{ cursor: 'pointer' }}
       />
 
       <motion.div 

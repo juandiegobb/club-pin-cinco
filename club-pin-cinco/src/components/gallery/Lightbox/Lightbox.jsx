@@ -1,10 +1,13 @@
 import { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { X, ChevronLeft, ChevronRight } from 'lucide-react'
+import { useLanguage } from '../../../context/LanguageContext'
 import ImageWithSkeleton from '../ImageWithSkeleton/ImageWithSkeleton'
 import styles from './Lightbox.module.css'
 
 function Lightbox({ images, currentIndex, isOpen, onClose, onPrev, onNext }) {
+  const { language } = useLanguage()
+
   // Manejar teclado para navegar y cerrar
   useEffect(() => {
     if (!isOpen) return
@@ -43,7 +46,7 @@ function Lightbox({ images, currentIndex, isOpen, onClose, onPrev, onNext }) {
       <button 
         className={styles.closeButton} 
         onClick={onClose}
-        aria-label="Cerrar visualizador"
+        aria-label={language === 'es' ? 'Cerrar visualizador' : 'Close viewer'}
       >
         <X size={28} />
       </button>
@@ -55,7 +58,7 @@ function Lightbox({ images, currentIndex, isOpen, onClose, onPrev, onNext }) {
           e.stopPropagation()
           onPrev()
         }}
-        aria-label="Imagen anterior"
+        aria-label={language === 'es' ? 'Imagen anterior' : 'Previous image'}
       >
         <ChevronLeft size={36} />
       </button>
@@ -92,7 +95,7 @@ function Lightbox({ images, currentIndex, isOpen, onClose, onPrev, onNext }) {
           e.stopPropagation()
           onNext()
         }}
-        aria-label="Siguiente imagen"
+        aria-label={language === 'es' ? 'Siguiente imagen' : 'Next image'}
       >
         <ChevronRight size={36} />
       </button>

@@ -1,5 +1,6 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import ImageWithSkeleton from "../ImageWithSkeleton/ImageWithSkeleton";
+import { useLanguage } from "../../../context/LanguageContext";
 import styles from "./GalleryCarousel.module.css";
 
 /**
@@ -10,6 +11,7 @@ import styles from "./GalleryCarousel.module.css";
  */
 function GalleryCarousel({ images, onImageClick }) {
   const [paused, setPaused] = useState(false);
+  const { language } = useLanguage()
 
   // Duplicamos para crear el loop sin saltos
   const doubled = [...images, ...images];
@@ -19,7 +21,7 @@ function GalleryCarousel({ images, onImageClick }) {
       className={styles.carousel}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
-      aria-label="Carrusel de galería"
+      aria-label={language === 'es' ? 'Carrusel de galería' : 'Gallery carousel'}
       role="region"
     >
       <div className={styles.trackWrapper} style={{ cursor: "pointer" }}>

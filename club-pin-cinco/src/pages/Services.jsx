@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { useLanguage } from "../context/LanguageContext";
+import { useLightbox } from "../context/LightboxContext";
 import ImageWithSkeleton from "../components/gallery/ImageWithSkeleton/ImageWithSkeleton";
 import "./Services.css";
-import { useEffect } from 'react'
 
 function Services() {
   useEffect(() => {
@@ -11,6 +11,7 @@ function Services() {
   }, [])
   
   const { t, language } = useLanguage()
+  const { openLightbox } = useLightbox()
   const springTransition = { type: 'spring', stiffness: 75, damping: 16 }
 
   const containerVariants = {
@@ -18,7 +19,7 @@ function Services() {
     visible: {
       transition: {
         staggerChildren: 0.12,
-        delayChildren: 0.1
+        delayChildren: 0.15
       }
     }
   }
@@ -41,6 +42,12 @@ function Services() {
     hidden: { opacity: 0, scale: 0.95 },
     visible: { opacity: 1, scale: 1 }
   }
+
+  const eventImages = [
+    { src: "/images/TorneoAguinaldo14.jpeg", alt: language === 'es' ? 'Evento 1' : 'Event 1' },
+    { src: "/images/TorneoAguinaldo15.jpeg", alt: language === 'es' ? 'Evento 2' : 'Event 2' },
+    { src: "/images/TorneoAguinaldo16.jpeg", alt: language === 'es' ? 'Evento 3' : 'Event 3' },
+  ]
 
   return (
     <section className="page servicios-contenedor">
@@ -173,36 +180,21 @@ function Services() {
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
         >
-          <motion.div
-            className="imagen-evento"
-            variants={imageVariants}
-            transition={springTransition}
-          >
-            <ImageWithSkeleton
-              src="/images/TorneoAguinaldo14.jpeg"
-              alt={language === 'es' ? 'Evento 1' : 'Event 1'}
-            />
-          </motion.div>
-          <motion.div
-            className="imagen-evento"
-            variants={imageVariants}
-            transition={springTransition}
-          >
-            <ImageWithSkeleton
-              src="/images/TorneoAguinaldo15.jpeg"
-              alt={language === 'es' ? 'Evento 2' : 'Event 2'}
-            />
-          </motion.div>
-          <motion.div
-            className="imagen-evento"
-            variants={imageVariants}
-            transition={springTransition}
-          >
-            <ImageWithSkeleton
-              src="/images/TorneoAguinaldo16.jpeg"
-              alt={language === 'es' ? 'Evento 3' : 'Event 3'}
-            />
-          </motion.div>
+          {eventImages.map((image, index) => (
+            <motion.div
+              key={image.src}
+              className="imagen-evento"
+              variants={imageVariants}
+              transition={springTransition}
+              onClick={() => openLightbox(eventImages, index)}
+              style={{ cursor: 'pointer' }}
+            >
+              <ImageWithSkeleton
+                src={image.src}
+                alt={image.alt}
+              />
+            </motion.div>
+          ))}
         </motion.div>
       </motion.div>
     </section>

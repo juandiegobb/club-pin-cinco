@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useLanguage } from '../../../context/LanguageContext'
+import { useLightbox } from '../../../context/LightboxContext'
 import ImageWithSkeleton from '../../gallery/ImageWithSkeleton/ImageWithSkeleton'
 import styles from './HomeServiceCard.module.css'
 
 function HomeServiceCard({ title, description, image, imageAlt, reverse = false }) {
   const { t } = useLanguage()
+  const { openLightbox } = useLightbox()
 
   return (
     <motion.article 
@@ -16,7 +18,12 @@ function HomeServiceCard({ title, description, image, imageAlt, reverse = false 
       transition={{ type: 'spring', stiffness: 70, damping: 16 }}
     >
 
-      <ImageWithSkeleton className={styles.image} src={image} alt={imageAlt} />
+      <ImageWithSkeleton 
+        className={styles.image} 
+        src={image} 
+        alt={imageAlt} 
+        onClick={() => openLightbox({ src: image, alt: imageAlt })}
+      />
 
       <div className={styles.content}>
         <h3 className={styles.cardTitle}>{title}</h3>

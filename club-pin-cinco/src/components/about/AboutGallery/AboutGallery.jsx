@@ -1,23 +1,30 @@
 import { motion } from 'framer-motion'
+import { useLanguage } from '../../../context/LanguageContext'
+import { useLightbox } from '../../../context/LightboxContext'
 import styles from './AboutGallery.module.css'
 
-// Lista de fotos con su texto alternativo
+// Lista de fotos con su texto alternativo en español e inglés
 const historyPhotos = [
   {
     src: new URL('../../../assets/about/about-historia-1.jpg', import.meta.url).href,
-    alt: 'Historia Pin Cinco — foto 1',
+    altEs: 'Historia Pin Cinco — foto 1',
+    altEn: 'Pin Cinco History — photo 1',
   },
   {
     src: new URL('../../../assets/about/about-historia-2.jpg', import.meta.url).href,
-    alt: 'Historia Pin Cinco — foto 2',
+    altEs: 'Historia Pin Cinco — foto 2',
+    altEn: 'Pin Cinco History — photo 2',
   },
   {
     src: new URL('../../../assets/about/about-historia-3.jpg', import.meta.url).href,
-    alt: 'Historia Pin Cinco — foto 3',
+    altEs: 'Historia Pin Cinco — foto 3',
+    altEn: 'Pin Cinco History — photo 3',
   },
 ]
 
 function AboutGallery() {
+  const { language } = useLanguage()
+  const { openLightbox } = useLightbox()
   const springTransition = { type: 'spring', stiffness: 60, damping: 15 }
 
   const containerVariants = {
@@ -38,20 +45,28 @@ function AboutGallery() {
     // Fila de imágenes de historia
     <motion.div 
       className={styles.gallery} 
-      aria-label="Fotos de historia"
+      aria-label={language === 'es' ? 'Fotos de historia' : 'History photos'}
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-60px" }}
     >
-      {historyPhotos.map((photo) => (
+      {historyPhotos.map((photo, index) => (
         <motion.img
-          key={photo.alt}
+          key={photo.altEs}
           className={styles.photo}
           src={photo.src}
-          alt={photo.alt}
+          alt={language === 'es' ? photo.altEs : photo.altEn}
           variants={photoVariants}
           transition={springTransition}
+          onClick={() => {
+            const mapped = historyPhotos.map(p => ({
+              src: p.src,
+              alt: language === 'es' ? p.altEs : p.altEn
+            }))
+            openLightbox(mapped, index)
+          }}
+          style={{ cursor: 'pointer' }}
         />
       ))}
     </motion.div>

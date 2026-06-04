@@ -9,7 +9,7 @@ function LanguageToggle() {
       className={styles.toggle}
       onClick={toggleLanguage}
       type="button"
-      aria-label={`Cambiar idioma a ${language === 'es' ? 'inglés' : 'español'}`}
+      aria-label={language === 'es' ? 'Cambiar idioma a inglés' : 'Change language to Spanish'}
     >
       <span className={`${styles.label} ${language === 'es' ? styles.active : ''}`}>
         ES

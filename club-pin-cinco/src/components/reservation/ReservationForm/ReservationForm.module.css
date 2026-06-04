@@ -97,6 +97,47 @@
   box-shadow: 0 16px 32px rgba(62, 67, 223, 0.4);
 }
 
+.button:focus-visible {
+  outline: 3px solid var(--text-accent, #f4ff58);
+  outline-offset: 3px;
+}
+
+.buttonLoading {
+  opacity: 0.7;
+  cursor: not-allowed !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.inputError {
+  border-color: #dc493f !important;
+  box-shadow: 0 0 10px rgba(220, 73, 63, 0.25) !important;
+}
+
+.errorContainer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(220, 73, 63, 0.08);
+  border: 1px solid rgba(220, 73, 63, 0.25);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+  box-shadow: 0 4px 15px rgba(220, 73, 63, 0.06);
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.errorIcon {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.errorText {
+  color: #dc493f;
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0;
+}
+
 .hint {
   color: var(--text-muted);
   font-size: 13px;
@@ -109,5 +150,16 @@
 @media (max-width: 860px) {
   .fields {
     grid-template-columns: 1fr;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

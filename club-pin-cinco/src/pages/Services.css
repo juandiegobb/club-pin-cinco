@@ -1,6 +1,6 @@
 /* Color de fondo general de la página */
 .page.servicios-contenedor {
-  background-color: var(--bg-primary);
+  background-color: transparent;
   color: var(--text-primary);
   font-family: sans-serif;
   min-height: 100vh;

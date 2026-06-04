@@ -23,6 +23,8 @@ body {
 .site-main {
   flex: 1;
   padding-top: 86px;
+  position: relative;
+  z-index: 2;
 }
 
 /* Páginas genéricas (About, Servicios, etc.) */

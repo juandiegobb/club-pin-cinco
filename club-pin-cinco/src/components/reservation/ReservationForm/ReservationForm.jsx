@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useLanguage } from '../../../context/LanguageContext'
 import styles from './ReservationForm.module.css'
 import { useChat } from '../../../hooks/useChat'
@@ -25,6 +26,9 @@ function blockSlot(service, date, slot) {
 function ReservationForm({ service, date, schedule, name, phone, people, onChange }) {
   const { t, language } = useLanguage()
   const { sendTurnRequest, isConnected } = useChat()
+  const [validationError, setValidationError] = useState('')
+  const [submittedWithErrors, setSubmittedWithErrors] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   function buildWhatsAppMessage() {
     const dateStr = date
@@ -56,18 +60,26 @@ function ReservationForm({ service, date, schedule, name, phone, people, onChang
   }
 
   function handleSubmit() {
+    setValidationError('')
+    setSubmittedWithErrors(false)
+
     if (!name || !phone || !people) {
-      alert(t('alertCompleteFields'))
-      return
-    }
-    if (!schedule) {
-      alert(t('alertSelectSchedule'))
+      setValidationError(t('alertCompleteFields'))
+      setSubmittedWithErrors(true)
       return
     }
     if (!date) {
-      alert(t('alertSelectDate'))
+      setValidationError(t('alertSelectDate'))
+      setSubmittedWithErrors(true)
       return
     }
+    if (!schedule) {
+      setValidationError(t('alertSelectSchedule'))
+      setSubmittedWithErrors(true)
+      return
+    }
+
+    setIsLoading(true)
 
     // 1. Bloquear horario por servicio y fecha al enviar
     blockSlot(service, date, schedule)
@@ -92,6 +104,11 @@ function ReservationForm({ service, date, schedule, name, phone, people, onChang
         people,
       })
     }
+
+    // Simula procesamiento y previene doble click veloz deshabilitando el botón por 1.5s
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 1500)
   }
 
   return (
@@ -100,7 +117,7 @@ function ReservationForm({ service, date, schedule, name, phone, people, onChang
         <label className={styles.field}>
           <span className={styles.fieldLabel}>{t('step4')}</span>
           <input
-            className={styles.input}
+            className={`${styles.input} ${submittedWithErrors && !name ? styles.inputError : ''}`}
             type="text"
             placeholder={t('placeholderName')}
             value={name}
@@ -114,13 +131,17 @@ function ReservationForm({ service, date, schedule, name, phone, people, onChang
               if (sanitized.length <= 50) {
                 onChange('name', sanitized)
               }
+              // Quitar error si el usuario empieza a escribir de nuevo
+              if (validationError && sanitized) {
+                setValidationError('')
+              }
             }}
           />
         </label>
         <label className={styles.field}>
           <span className={styles.fieldLabel}>{t('step5')}</span>
           <input
-            className={styles.input}
+            className={`${styles.input} ${submittedWithErrors && !phone ? styles.inputError : ''}`}
             type="tel"
             placeholder={t('placeholderPhone')}
             value={phone}
@@ -131,19 +152,29 @@ function ReservationForm({ service, date, schedule, name, phone, people, onChang
               if (onlyNums.length <= 10) {
                 onChange('phone', onlyNums)
               }
+              // Quitar error si el usuario empieza a escribir de nuevo
+              if (validationError && onlyNums) {
+                setValidationError('')
+              }
             }}
           />
         </label>
         <label className={styles.field}>
           <span className={styles.fieldLabel}>{t('step6')}</span>
           <input
-            className={styles.input}
+            className={`${styles.input} ${submittedWithErrors && !people ? styles.inputError : ''}`}
             type="number"
             placeholder={t('placeholderPeople')}
             min={1}
             max={20}
             value={people}
-            onChange={(e) => onChange('people', e.target.value)}
+            onChange={(e) => {
+              onChange('people', e.target.value)
+              // Quitar error al cambiar
+              if (validationError && e.target.value) {
+                setValidationError('')
+              }
+            }}
           />
         </label>
       </div>
@@ -155,8 +186,20 @@ function ReservationForm({ service, date, schedule, name, phone, people, onChang
         </p>
       </div>
 
-      <button className={styles.button} onClick={handleSubmit} type="button">
-        {t('reserveBtn')}
+      {validationError && (
+        <div className={styles.errorContainer} role="alert">
+          <span className={styles.errorIcon}>❌</span>
+          <p className={styles.errorText}>{validationError}</p>
+        </div>
+      )}
+
+      <button
+        className={`${styles.button} ${isLoading ? styles.buttonLoading : ''}`}
+        onClick={handleSubmit}
+        type="button"
+        disabled={isLoading}
+      >
+        {isLoading ? (language === 'es' ? 'Procesando...' : 'Processing...') : t('reserveBtn')}
       </button>
 
       <p className={styles.hint}>

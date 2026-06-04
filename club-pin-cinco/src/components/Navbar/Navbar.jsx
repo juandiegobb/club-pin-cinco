@@ -10,7 +10,7 @@ import styles from "./Navbar.module.css";
 function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   function closeMenu() {
     setOpen(false);
@@ -43,7 +43,7 @@ function Navbar() {
       {/* Línea neon inferior animada con máscara central para el logo */}
       <div className={styles.neonLine} aria-hidden="true" />
 
-      <nav className={styles.inner} aria-label="Principal">
+      <nav className={styles.inner} aria-label={language === 'es' ? 'Principal' : 'Main'}>
         {/* Links izquierda */}
         <div className={`${styles.links} ${styles.linksLeft}`}>
           {navItems.slice(0, 2).map((item) => (
@@ -63,7 +63,7 @@ function Navbar() {
         </div>
 
         {/* Logo central */}
-        <NavLink className={styles.logo} to="/" aria-label="Ir al inicio" onClick={closeMenu}>
+        <NavLink className={styles.logo} to="/" aria-label={language === 'es' ? 'Ir al inicio' : 'Go to start'} onClick={closeMenu}>
           <div className={styles.logoRing}>
             <img src={logo} alt="Logo Pin Cinco" className={styles.logoImg} />
           </div>

@@ -6,6 +6,7 @@ import FloatingChat from '../components/chat/FloatingChat/FloatingChat'
 import TurnToast from '../components/chat/TurnToast/TurnToast'
 import CustomCursor from '../components/CustomCursor/CustomCursor'
 import BowlingBallCanvas from '../components/3d/BowlingBallCanvas'
+import { LightboxProvider } from '../context/LightboxContext'
 
 const Background = lazy(() => import('../components/Background/Background'))
 
@@ -19,24 +20,26 @@ function MainLayout() {
     location.pathname !== '/reserva'
 
   return (
-    <div className="site-shell">
-      <CustomCursor />
-      <Suspense fallback={null}>
-        <Background />
-      </Suspense>
-      {show3DBackground && (
-        <div style={{ pointerEvents: 'none', position: 'fixed', inset: 0, zIndex: 0 }}>
-          <BowlingBallCanvas />
-        </div>
-      )}
-      <Navbar />
-      <main className="site-main">
-        <Outlet />
-      </main>
-      <Footer />
-      <FloatingChat />
-      <TurnToast />
-    </div>
+    <LightboxProvider>
+      <div className="site-shell">
+        <CustomCursor />
+        <Suspense fallback={null}>
+          <Background />
+        </Suspense>
+        {show3DBackground && (
+          <div style={{ pointerEvents: 'none', position: 'fixed', inset: 0, zIndex: 0 }}>
+            <BowlingBallCanvas />
+          </div>
+        )}
+        <Navbar />
+        <main className="site-main">
+          <Outlet />
+        </main>
+        <Footer />
+        <FloatingChat />
+        <TurnToast />
+      </div>
+    </LightboxProvider>
   )
 }
 
